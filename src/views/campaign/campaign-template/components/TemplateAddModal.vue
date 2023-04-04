@@ -1,11 +1,14 @@
 <template>
   <BasicModal
     @register="register"
-    title="Add Category"
+    title="Add Template"
     :draggable="false"
     okText="Confirm"
+    :min-height="0"
     cancelText="Delete"
     :canFullscreen="false"
+    width="1000px"
+    :labelCol="{ span: 30, offset: 12 }"
     centered
     @ok="
       () => {
@@ -34,8 +37,35 @@
     },
     {
       field: 'field2',
-      component: 'Input',
+      component: 'Select',
       label: 'Category：',
+      required: true,
+      colProps: {
+        span: 24,
+      },
+    },
+    {
+      field: 'field3',
+      component: 'Input',
+      label: 'Template name：',
+      required: true,
+      colProps: {
+        span: 24,
+      },
+    },
+    {
+      field: 'field4',
+      component: 'Input',
+      label: 'Short description：',
+      required: true,
+      colProps: {
+        span: 24,
+      },
+    },
+    {
+      field: 'field4',
+      component: 'InputTextArea',
+      label: 'Template content：',
       required: true,
       colProps: {
         span: 24,

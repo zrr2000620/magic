@@ -1,4 +1,8 @@
 export default {
+  feedback: {
+    feedbackList: '反馈列表',
+    merchantFeedbackRecord: '商家反馈记录',
+  },
   menus: {
     merchant: '商家管理',
     merchantList: '商家列表',
