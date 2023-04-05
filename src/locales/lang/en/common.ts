@@ -1,6 +1,6 @@
 export default {
-  okText: 'OK',
-  closeText: 'Close',
+  okText: 'Save',
+  closeText: 'Cancel',
   cancelText: 'Cancel',
   loadingText: 'Loading...',
   saveText: 'Save',
@@ -8,6 +8,9 @@ export default {
   resetText: 'Reset',
   searchText: 'Search',
   queryText: 'Search',
+  editText: 'Edit',
+  operateText: 'Operate',
+  indexText: 'No.',
 
   inputText: 'Please enter',
   chooseText: 'Please choose',

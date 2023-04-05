@@ -48,7 +48,7 @@ export default {
   },
   modal: {
     cancelText: 'Close',
-    okText: 'Confirm',
+    okText: 'Save',
     close: 'Close',
     maximize: 'Maximize',
     restore: 'Restore',
@@ -125,5 +125,9 @@ export default {
     redoTip: 'Click the picture to refresh',
     dragText: 'Hold down the slider and drag',
     successText: 'Verified',
+  },
+  fieldInput: {
+    placeholder: 'enter keywords',
+    fieldSelectPlaceholder: 'Choose a type',
   },
 };
