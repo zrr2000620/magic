@@ -99,7 +99,10 @@ const transform: AxiosTransform = {
 
   // 请求之前处理config
   beforeRequestHook: (config, options) => {
+    console.log(globSetting);
+
     const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options;
+    console.log(config.url);
 
     if (joinPrefix) {
       config.url = `${urlPrefix}${config.url}`;

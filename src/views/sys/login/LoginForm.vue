@@ -119,8 +119,8 @@
   const rememberMe = ref(false);
 
   const formData = reactive({
-    account: 'vben',
-    password: '123456',
+    account: '',
+    password: '',
   });
 
   const { validForm } = useFormValid(formRef);
@@ -135,8 +135,8 @@
     try {
       loading.value = true;
       const userInfo = await userStore.login({
-        password: data.password,
-        username: data.account,
+        pwd: data.password,
+        account: data.account,
         mode: 'none', //不要默认的错误提示
       });
       if (userInfo) {
