@@ -2,9 +2,9 @@
   <BasicModal
     @register="register"
     :draggable="false"
-    title="Reminder"
-    okText="Confirm"
-    cancelText="Cancel"
+    :title="t('feedback.Reminder')"
+    :okText="t('feedback.confirm')"
+    :cancelText="t('feedback.cancel')"
     :min-height="0"
     :canFullscreen="false"
     centered
@@ -24,15 +24,18 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import { useI18n } from 'vue-i18n';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   export default defineComponent({
     name: '',
     components: { BasicModal },
     setup() {
+      const { t } = useI18n();
       const [register, { closeModal, setModalProps }] = useModalInner();
       return {
         register,
         closeModal,
+        t,
         setModalProps: () => {
           setModalProps({ title: 'Modal New Title' });
         },

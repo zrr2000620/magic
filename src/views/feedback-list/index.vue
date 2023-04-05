@@ -11,12 +11,12 @@
       <template #form-custom>
         <div style="display: flex">
           <a-select ref="select" value="choose a type" style="width: 120px">
-            <a-select-option value="choose a type">Jack</a-select-option>
-            <a-select-option value="Merchant ID">Lucy</a-select-option>
-            <a-select-option value="Merchant name">Lucy</a-select-option>
-            <a-select-option value="Owner">Lucy</a-select-option>
-            <a-select-option value="Phone number">Lucy</a-select-option>
-            <a-select-option value="E-mail">Lucy</a-select-option>
+            <a-select-option :value="t('feedback.chooseAType')">Jack</a-select-option>
+            <a-select-option :value="t('feedback.MerchantID')">Lucy</a-select-option>
+            <a-select-option :value="t('feedback.MerchantName')">Lucy</a-select-option>
+            <a-select-option :value="t('feedback.Owner')">Lucy</a-select-option>
+            <a-select-option :value="t('feedback.phoneNumber')">Lucy</a-select-option>
+            <a-select-option :value="t('feedback.EMail')">Lucy</a-select-option>
           </a-select>
           <a-input />
         </div>
@@ -30,16 +30,16 @@
           <TableAction
             :actions="[
               {
-                label: 'handle',
+                label: t('feedback.handle'),
                 onClick: handle.bind(null, record),
                 ifShow: record.FeedbackID === 'FK643261',
               },
               {
-                label: 'remark',
+                label: t('feedback.remark'),
                 onClick: remark.bind(null, record),
               },
               {
-                label: 'delete',
+                label: t('feedback.delete'),
                 onClick: del.bind(null, record),
               },
             ]"
@@ -65,6 +65,8 @@
   import { useModal } from '/@/components/Modal';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { Select, SelectOption, Input } from 'ant-design-vue';
+  import { useI18n } from '/@/hooks/web/useI18n';
+  const { t } = useI18n();
   const columns: BasicColumn[] = [
     {
       title: 'id',
@@ -72,49 +74,48 @@
       auth: 'test', // 根据权限控制是否显示: 无权限，不显示
     },
     {
-      title: 'Feedback ID',
+      title: t('feedback.feedbackID'),
       dataIndex: 'FeedbackID',
-      auth: 'super', // 同时根据权限控制是否显示
     },
     {
-      title: 'Merchant name',
+      title: t('feedback.merchantName'),
       dataIndex: 'MerchantName',
       auth: 'super', // 同时根据权限控制是否显示
     },
     {
-      title: 'Name',
+      title: t('feedback.Name'),
       dataIndex: 'Name',
       auth: 'super', // 同时根据权限控制是否显示
     },
     {
-      title: 'Phone number',
+      title: t('feedback.PhoneNumber'),
       dataIndex: 'PhoneNumber',
       auth: 'super', // 同时根据权限控制是否显示
     },
     {
-      title: 'Feedback content',
+      title: t('feedback.FeedbackContent'),
       dataIndex: 'FeedbackContent',
       auth: 'super', // 同时根据权限控制是否显示
     },
     {
-      title: 'Feedback time',
+      title: t('feedback.FeedbackTime'),
       dataIndex: 'FeedbackTime',
       auth: 'super', // 同时根据权限控制是否显示
     },
     {
-      title: 'Feedback status',
+      title: t('feedback.FeedbackStatus'),
       dataIndex: 'FeedbackStatus',
       auth: 'super', // 同时根据权限控制是否显示
       type: 'radio',
       enmu: [{ 1: '123123' }, { 2: 'alsdhal' }],
     },
     {
-      title: 'Process employees',
+      title: t('feedback.ProcessEmployees'),
       dataIndex: 'ProcessEmployees',
       auth: 'super', // 同时根据权限控制是否显示
     },
     {
-      title: 'Note',
+      title: t('feedback.Note'),
       dataIndex: 'Note',
       auth: 'super', // 同时根据权限控制是否显示
     },
@@ -152,7 +153,7 @@
       function del() {
         createConfirm({
           iconType: 'error',
-          content: '你确定要删除这行内容吗？',
+          content: t('feedback.content'),
         });
       }
       return {
@@ -164,6 +165,7 @@
         handle,
         register,
         register2,
+        t,
         // register3,
         data: [
           {

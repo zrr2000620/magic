@@ -3,8 +3,8 @@
     <template #headerContent
       ><div class="lg:flex">
         <div class="md:ml-6 flex flex-col justify-center md:mt-0 mt-2">
-          <h1> SMS Template </h1>
-          <span>Text templates that can be preset for merchants to use in their Inbox</span>
+          <h1>{{ t('campaign.SMSTemplate') }} </h1>
+          <span>{{ t('campaign.SMSText') }}</span>
         </div>
       </div>
       <CollapseContainer :canExpan="false">
@@ -14,8 +14,8 @@
             ><div class="list_1" style="flex: 1">
               <a-list class="list" :bordered="false">
                 <div class="listheader">
-                  <span>Category</span>
-                  <a-button type="link" @click="CategoryAdd">Add</a-button>
+                  <span>{{ t('campaign.Category') }}</span>
+                  <a-button type="link" @click="CategoryAdd">{{ t('campaign.Add') }}</a-button>
                 </div>
                 <a-list-item class="list-item" v-for="item in list" :key="item.id">
                   <span>{{ item.title }}{{ item.id == 0 ? '' : item.id }}</span>
@@ -29,8 +29,8 @@
             <div class="list_2" style="flex: 2">
               <a-list>
                 <div class="listheader">
-                  <span>Category</span>
-                  <a-button type="link" @click="TemplateAdd">Add</a-button>
+                  <span>{{ t('campaign.Template') }}</span>
+                  <a-button type="link" @click="TemplateAdd">{{ t('campaign.Add') }}</a-button>
                 </div>
                 <a-list-item class="list-item" v-for="item in list2" :key="item.id">
                   <span>{{ item.title }}{{ item.id == 0 ? '' : item.id }}</span>
@@ -64,6 +64,8 @@
   import CategoryAddModal from './CategoryAddModal.vue';
   import TemplateAddModal from './TemplateAddModal.vue';
   import { useModal } from '/@/components/Modal';
+  import { useI18n } from '/@/hooks/web/useI18n';
+
   export default defineComponent({
     components: {
       CollapseContainer,
@@ -76,10 +78,11 @@
       // AListItemMeta: List.Item.Meta,
     },
     setup() {
+      const { t } = useI18n();
       const [register, { openModal: CategoryAdd }] = useModal();
       const [register2, { openModal: TemplateAdd }] = useModal();
 
-      return { list: cardList, list2: cardList2, TemplateAdd, CategoryAdd, register, register2 };
+      return { t, list: cardList, list2: cardList2, TemplateAdd, CategoryAdd, register, register2 };
     },
   });
 </script>

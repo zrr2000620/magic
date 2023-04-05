@@ -3,8 +3,8 @@
     @register="register"
     title="Add Template"
     :draggable="false"
-    :min-height="0"
     okText="Confirm"
+    :min-height="0"
     cancelText="Delete"
     :canFullscreen="false"
     width="1000px"
@@ -24,11 +24,13 @@
   import { defineComponent, ref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+  import { useI18n } from '/@/hooks/web/useI18n';
+  const { t } = useI18n();
   const schemas: FormSchema[] = [
     {
       field: 'field1',
       component: 'Input',
-      label: 'sequence：',
+      label: t('campaign.sequenceM'),
       required: true,
       colProps: {
         span: 24,
@@ -38,7 +40,7 @@
     {
       field: 'field2',
       component: 'Select',
-      label: 'Category：',
+      label: t('campaign.categoryM'),
       required: true,
       colProps: {
         span: 24,
@@ -47,7 +49,7 @@
     {
       field: 'field3',
       component: 'Input',
-      label: 'Template name：',
+      label: t('campaign.TemplateName'),
       required: true,
       colProps: {
         span: 24,
@@ -56,7 +58,7 @@
     {
       field: 'field4',
       component: 'Input',
-      label: 'Short description：',
+      label: t('campaign.ShortDescription'),
       required: true,
       colProps: {
         span: 24,
@@ -65,7 +67,7 @@
     {
       field: 'field4',
       component: 'InputTextArea',
-      label: 'Template content：',
+      label: t('campaign.TemplateContent'),
       required: true,
       colProps: {
         span: 24,
@@ -93,6 +95,7 @@
       });
       const [register, { closeModal, setModalProps }] = useModalInner();
       return {
+        t,
         register,
         closeModal,
         model: modelRef,
