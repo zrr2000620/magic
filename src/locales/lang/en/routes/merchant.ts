@@ -1,4 +1,8 @@
 export default {
+  feedback: {
+    feedbackList: 'Feedback List',
+    merchantFeedbackRecord: 'Merchant Feedback Record',
+  },
   menus: {
     merchant: 'Merchant Management',
     merchantList: 'Merchant List',

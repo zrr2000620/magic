@@ -12,7 +12,7 @@ export default {
   operateText: 'Operate',
   indexText: 'No.',
 
-  inputText: 'Please enter',
+  inputText: 'Please enter the sequence number',
   chooseText: 'Please choose',
 
   redo: 'Refresh',
