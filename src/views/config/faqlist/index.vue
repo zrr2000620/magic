@@ -139,13 +139,13 @@
   };
   const addFAQ = () => {
     console.log('123123');
-    go();
+    // go();
     go('faq/faq/addFAQ');
   };
   const FAQCategory = () => {
     console.log('FAQCategory');
-    go();
-    go('faq/faq/list');
+    // go();
+    go('faq/category/list');
   };
 </script>
 <style scoped lang="less">
