@@ -30,7 +30,7 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { List, ListItem, Card } from 'ant-design-vue';
   import { useModal } from '/@/components/Modal';
-  import FAQlistModalForm from './FAQlistModalForm.vue';
+  import FAQlistModalForm from './components/FAQlistModalForm.vue';
   import { ref } from 'vue';
   const { t } = useI18n();
   const [register, { openModal, setModalProps }] = useModal();
