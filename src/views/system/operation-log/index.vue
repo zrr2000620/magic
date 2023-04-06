@@ -1,14 +1,12 @@
 <script setup lang="ts">
   import { reactive } from 'vue';
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
+  import { BasicTable, useTable } from '/@/components/Table';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { PageWrapper } from '/@/components/Page';
-  import { useGo } from '/@/hooks/web/usePage';
 
-  const go = useGo();
   const { t } = useI18n();
   const searchInfo = reactive<Recordable>({});
-  const [registerTable, { reload, updateTableDataRecord }] = useTable({
+  const [registerTable] = useTable({
     rowKey: 'id',
     columns: [
       {

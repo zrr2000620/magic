@@ -26,7 +26,7 @@ const dashboard: AppRouteModule = {
     {
       path: 'trial',
       name: 'Trial',
-      component: () => import('/@/views/system/admin-list/index.vue'),
+      component: () => import('/@/views/config/trial/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.config.trail'),
@@ -53,7 +53,7 @@ const dashboard: AppRouteModule = {
     {
       path: 'merchant/tag',
       name: 'MerchantTag',
-      component: () => import('/@/views/system/admin-list/index.vue'),
+      component: () => import('/@/views/config/tag/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.config.tag'),
