@@ -26,7 +26,7 @@ const dashboard: AppRouteModule = {
     {
       path: 'trial',
       name: 'Trial',
-      component: () => import('/@/views/system/admin-list/index.vue'),
+      component: () => import('/@/views/config/trial/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.config.trail'),
@@ -53,7 +53,7 @@ const dashboard: AppRouteModule = {
     {
       path: 'merchant/tag',
       name: 'MerchantTag',
-      component: () => import('/@/views/system/admin-list/index.vue'),
+      component: () => import('/@/views/config/tag/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.config.tag'),
@@ -62,11 +62,25 @@ const dashboard: AppRouteModule = {
     {
       path: 'faq',
       name: 'FAQ',
-      component: () => import('/@/views/system/admin-list/index.vue'),
+      component: () => import('/@/views/config/faqlist/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.config.faq'),
       },
+      children: [
+        {
+          path: 'faq/list',
+          name: 'list',
+          component: () => import('/@/views/config/faqlist/components/FAQlistModal.vue'),
+          meta: { title: 'list', hideMenu: true },
+        },
+        {
+          path: 'faq/addFAQ',
+          name: 'addFAQ',
+          component: () => import('/@/views/config/faqlist/components/AddFAQ.vue'),
+          meta: { title: 'add', hideMenu: true },
+        },
+      ],
     },
     {
       path: 'protocol',

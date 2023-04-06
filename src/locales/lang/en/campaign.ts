@@ -20,4 +20,5 @@ export default {
 
   sequenceM: 'sequence：',
   categoryM: 'Category：',
+  displayORnot: 'display or not：',
 };
