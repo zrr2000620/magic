@@ -1,90 +1,131 @@
 <script setup lang="ts">
-  import { reactive } from 'vue';
+  import { ref } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { PageWrapper } from '/@/components/Page';
   import { useGo } from '/@/hooks/web/usePage';
-  import { getAccountList } from '../../../api/demo/system';
+  import { changeStatus, delAdmin, getAdminList } from '/@/api/system/admin';
+  import { searchDateTimeRangeCover, searchFieldInputCover } from '/@/utils/table';
+  import { getRoleList } from '/@/api/system/role';
 
   const { t } = useI18n();
   const go = useGo();
-  const searchInfo = reactive<Recordable>({});
-  const [registerTable, { reload, updateTableDataRecord }] = useTable({
-    api: getAccountList,
+  const type = ref();
+  const [registerTable, { deleteSelectRowByKey, reload }] = useTable({
+    api: getAdminList,
     rowKey: 'id',
     columns: [
-      {
-        title: t('common.indexText'),
-        width: 100,
-      },
       {
         title: t('system.admin.account'),
         width: 150,
         ellipsis: true,
+        dataIndex: 'account',
       },
       {
         title: t('system.admin.adminName'),
         width: 150,
         ellipsis: true,
+        dataIndex: 'adminName',
       },
       {
         title: t('system.admin.mobile'),
         width: 200,
+        dataIndex: 'phone',
       },
       {
         title: t('system.admin.email'),
         width: 200,
+        dataIndex: 'mail',
       },
       {
         title: t('system.admin.role'),
         width: 150,
         ellipsis: true,
+        dataIndex: 'roleName',
       },
       {
         title: t('system.admin.createTime'),
         width: 150,
+        dataIndex: 'createTime',
       },
       {
         title: t('system.admin.lastLoginTime'),
         width: 150,
+        dataIndex: 'lastLoginTime',
       },
       {
         title: t('system.admin.status'),
-        width: 150,
+        width: 200,
         edit: true,
-        dataIndex: 'createTime',
+        dataIndex: 'bizState',
         editComponent: 'Select',
         editComponentProps: {
           options: [
             {
-              label: 'available',
-              value: 'available',
+              label: t('system.admin.availableOption'),
+              value: 1,
+            },
+            {
+              label: t('system.admin.invalidOption'),
+              value: 0,
             },
           ],
         },
+        editValueMap: (v) =>
+          v === 1 ? t('system.admin.availableOption') : t('system.admin.invalidOption'),
       },
     ],
-    showIndexColumn: false,
+    indexColumnProps: {
+      title: t('common.indexText'),
+      width: 100,
+    },
     formConfig: {
       labelWidth: 120,
       schemas: [
         {
-          field: 'account',
-          component: 'FieldInput',
+          field: 'keywords',
           colProps: { span: '8' },
           label: '',
+          component: 'FieldInput',
+          componentProps: {
+            options: [
+              {
+                label: t('system.admin.adminName'),
+                value: 'adminName',
+              },
+              {
+                label: t('system.admin.mobile'),
+                value: 'phone',
+              },
+              {
+                label: t('system.admin.email'),
+                value: 'mail',
+              },
+            ],
+            onTypeChange: (e) => {
+              type.value = e;
+            },
+          },
         },
         {
           label: t('system.admin.roleSearchLabel'),
           component: 'ApiSelect',
-          field: 'role',
+          field: 'roleId',
           colProps: { span: '8' },
+          componentProps: {
+            api: getRoleList,
+            labelField: 'roleName',
+            valueField: 'id',
+          },
         },
         {
           label: t('system.admin.createTimeSearchLabel'),
           field: 'range',
           component: 'RangePicker',
           colProps: { span: '8' },
+          componentProps: {
+            format: 'YYYY-MM-DD',
+          },
         },
       ],
       autoSubmitOnEnter: true,
@@ -92,10 +133,8 @@
     useSearchForm: true,
     showTableSetting: true,
     bordered: true,
-    handleSearchInfoFn(info) {
-      console.log('handleSearchInfoFn', info);
-      return info;
-    },
+    beforeFetch: (params) =>
+      searchDateTimeRangeCover(searchFieldInputCover(params, type.value, 'keywords'), 'range'),
     actionColumn: {
       width: 220,
       title: t('common.operateText'),
@@ -104,7 +143,7 @@
       // slots: { customRender: 'action' },
     },
     scroll: {
-      x: 1650,
+      x: 1700,
     },
   });
 
@@ -114,15 +153,32 @@
 
   function handleEdit(record: Recordable) {
     console.log(record);
+    go({
+      name: 'AdminForm',
+      params: {
+        id: record.id,
+      },
+    });
   }
 
-  function handleDelete(record: Recordable) {
+  async function handleDelete(record: Recordable) {
     console.log(record);
+    await delAdmin({ id: record.id });
+    deleteSelectRowByKey(record.id);
   }
 
-  function handleResetPassword() {}
+  // async function handleResetPassword() {}
 
-  function handlerEditEnd() {}
+  async function handlerEditEnd({ record, key, value }) {
+    try {
+      await changeStatus({
+        id: record.id,
+        [key]: value,
+      });
+    } catch {
+      reload();
+    }
+  }
 </script>
 
 <script lang="ts">
@@ -133,7 +189,7 @@
 
 <template>
   <PageWrapper dense contentFullHeight>
-    <BasicTable @edit-end="handlerEditEnd" @register="registerTable" :searchInfo="searchInfo">
+    <BasicTable @edit-end="handlerEditEnd" @register="registerTable">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate" preIcon="material-symbols:add-rounded">{{
           t('system.admin.addUser')
@@ -154,7 +210,7 @@
               },
               {
                 popConfirm: {
-                  title: '是否确认删除',
+                  title: t('system.admin.confirmDelAdmin'),
                   placement: 'left',
                   confirm: handleDelete.bind(null, record),
                 },

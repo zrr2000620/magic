@@ -4,11 +4,11 @@ import { ref, computed, unref, Ref } from 'vue';
 import { useI18n } from '/@/hooks/web/useI18n';
 
 export enum LoginStateEnum {
-  LOGIN,
-  REGISTER,
-  RESET_PASSWORD,
-  MOBILE,
-  QR_CODE,
+  LOGIN = '0',
+  REGISTER = '1',
+  RESET_PASSWORD = '2',
+  MOBILE = '3',
+  QR_CODE = '4',
 }
 
 const currentState = ref(LoginStateEnum.LOGIN);

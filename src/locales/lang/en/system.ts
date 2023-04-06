@@ -27,6 +27,18 @@ export default {
     adminName: 'Admin name',
     addAdminTitle: 'Add admin',
     editAdminTitle: 'Edit admin',
+
+    namePlaceholder: 'Please enter the admin name',
+    rolePlaceholder: 'Please choose the role',
+    mobilePlaceholder: 'Please enter the phone number',
+    emailPlaceholder: 'Please enter the email',
+    accountPlaceholder: 'Please enter the account',
+    passwordPlaceholder: 'Please enter the password',
+
+    availableOption: 'available',
+    invalidOption: 'invalid',
+
+    confirmDelAdmin: 'Are you sure to delete this item',
   },
   role: {
     roleName: 'Role Name',
