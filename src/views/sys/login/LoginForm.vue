@@ -135,10 +135,13 @@
     try {
       loading.value = true;
       const userInfo = await userStore.login({
-        pwd: data.password,
         account: data.account,
+        pwd: data.password,
         mode: 'none', //不要默认的错误提示
       });
+      console.log('123123121231');
+
+      console.log(userInfo);
       if (userInfo) {
         notification.success({
           message: t('sys.login.loginSuccessTitle'),

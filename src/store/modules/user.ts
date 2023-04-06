@@ -90,7 +90,10 @@ export const useUserStore = defineStore({
     ): Promise<GetUserInfoModel | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;
+        console.log(loginApi(loginParams, mode));
+
         const data = await loginApi(loginParams, mode);
+
         const { token } = data;
 
         // save token
