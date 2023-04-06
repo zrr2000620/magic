@@ -1,5 +1,11 @@
 <template>
-  <h2 class="mb-3 text-2xl font-bold text-center xl:text-3xl enter-x xl:text-left">
+  <h2 class="mb-5 text-2xl font-bold text-center xl:text-3xl enter-x xl:text-left">
+    <img
+      src="../../../assets/images/login-back.svg"
+      class="inline-block cursor-pointer"
+      @click="handleBackLogin"
+      v-if="getLoginState !== LoginStateEnum.LOGIN"
+    />
     {{ getFormTitle }}
   </h2>
 </template>
@@ -10,7 +16,7 @@
 
   const { t } = useI18n();
 
-  const { getLoginState } = useLoginState();
+  const { getLoginState, handleBackLogin } = useLoginState();
 
   const getFormTitle = computed(() => {
     const titleObj = {

@@ -42,6 +42,18 @@ export function doLogout() {
   return defHttp.get({ url: Api.Logout });
 }
 
+export function forgetPassword(data: any) {
+  return defHttp.post(
+    {
+      url: '/account/forgetPassword',
+      data,
+    },
+    {
+      successMessageMode: 'message',
+    },
+  );
+}
+
 export function testRetry() {
   return defHttp.get(
     { url: Api.TestRetry },

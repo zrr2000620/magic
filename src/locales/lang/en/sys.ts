@@ -69,7 +69,7 @@ export default {
     backSignIn: 'Back sign in',
     mobileSignInFormTitle: 'Mobile sign in',
     qrSignInFormTitle: 'Qr code sign in',
-    signInFormTitle: 'Sign in',
+    signInFormTitle: 'Welcome',
     signUpFormTitle: 'Sign up',
     forgetFormTitle: 'Reset password',
 
@@ -78,9 +78,10 @@ export default {
     policy: 'I agree to the xxx Privacy Policy',
     scanSign: `scanning the code to complete the login`,
 
-    loginButton: 'Sign in',
+    loginButton: 'Login in',
+    resetButton: 'Send code',
     registerButton: 'Sign up',
-    rememberMe: 'Remember me',
+    rememberMe: 'Auto login',
     forgetPassword: 'Forget Password?',
     otherSignIn: 'Sign in with',
 
@@ -88,19 +89,27 @@ export default {
     loginSuccessTitle: 'Login successful',
     loginSuccessDesc: 'Welcome back',
 
+    resetDesc1: 'If it fails to pass the email verification',
+    resetDesc2: 'Please send an email to xxx@xx.xx ask for help',
+
     // placeholder
     accountPlaceholder: 'Please input username',
     passwordPlaceholder: 'Please input password',
     smsPlaceholder: 'Please input sms code',
     mobilePlaceholder: 'Please input mobile',
     policyPlaceholder: 'Register after checking',
+    emailPlaceholder: 'Please input email',
     diffPwd: 'The two passwords are inconsistent',
 
-    userName: 'Username',
-    password: 'Password',
+    userName: 'Enter your username',
+    password: 'Enter password',
     confirmPassword: 'Confirm Password',
-    email: 'Email',
+    email: 'Enter your email',
     smsCode: 'SMS code',
     mobile: 'Mobile',
+
+    resetSuccessAlert: 'Password reset email has been sent. Please open the email to view',
+    gotoEmail: 'Go to the email',
+    resendEmail: 'Resend password reset email',
   },
 };
