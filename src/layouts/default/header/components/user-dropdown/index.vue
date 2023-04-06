@@ -4,7 +4,7 @@
       <img :class="`${prefixCls}__header`" :src="getUserInfo.avatar" />
       <span :class="`${prefixCls}__info hidden md:block`">
         <span :class="`${prefixCls}__name  `" class="truncate">
-          {{ getUserInfo.realName }}
+          {{ getUserInfo.adminName }}
         </span>
       </span>
     </span>
@@ -61,6 +61,7 @@
     name: 'UserDropdown',
     components: {
       Dropdown,
+      // eslint-disable-next-line vue/no-reserved-component-names
       Menu,
       MenuItem: createAsyncComponent(() => import('./DropMenuItem.vue')),
       MenuDivider: Menu.Divider,
@@ -76,8 +77,8 @@
       const userStore = useUserStore();
 
       const getUserInfo = computed(() => {
-        const { realName = '', avatar, desc } = userStore.getUserInfo || {};
-        return { realName, avatar: avatar || headerImg, desc };
+        const { adminName = '' } = userStore.getUserInfo || {};
+        return { adminName, avatar: headerImg };
       });
 
       const [register, { openModal }] = useModal();
