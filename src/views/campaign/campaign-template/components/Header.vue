@@ -1,11 +1,8 @@
 <template>
-  <pageWrapper>
+  <pageWrapper dense :title="t($route.meta.title)">
     <template #headerContent
-      ><div class="lg:flex">
-        <div class="md:ml-6 flex flex-col justify-center md:mt-0 mt-2">
-          <h1>{{ t('campaign.CampaignTemplate') }} </h1>
-          <span>{{ t('campaign.CampaognText') }}</span>
-        </div>
+      ><div>
+        <span>{{ t('campaign.CampaognText') }}</span>
       </div>
       <CollapseContainer :canExpan="false">
         <!-- <template #title> </template> -->

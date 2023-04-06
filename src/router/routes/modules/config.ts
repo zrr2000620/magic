@@ -17,7 +17,7 @@ const dashboard: AppRouteModule = {
     {
       path: 'channel',
       name: 'Channel',
-      component: () => import('/@/views/system/admin-list/index.vue'),
+      component: () => import('/@/views/config/channel/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.config.channel'),
