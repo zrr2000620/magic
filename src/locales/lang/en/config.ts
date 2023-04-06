@@ -91,4 +91,11 @@ export default {
     enable: 'enable',
     addFAQCategory: 'Add FAQ category',
   },
+  protocol: {
+    headerContent:
+      'Configure the basic agreement configuration of the platform, merchants can view the agreement on the platform',
+    save: 'Save',
+    serviceAgreement: 'Service agreement：',
+    privacyPolicy: 'Privacy Policy：',
+  },
 };

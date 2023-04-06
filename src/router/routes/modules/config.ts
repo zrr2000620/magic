@@ -84,8 +84,8 @@ const dashboard: AppRouteModule = {
     },
     {
       path: 'protocol',
-      name: 'Protocol',
-      component: () => import('/@/views/system/admin-list/index.vue'),
+      name: 'Protocol configuration',
+      component: () => import('/@/views/config/protocol/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.config.protocol'),
