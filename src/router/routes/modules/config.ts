@@ -69,16 +69,16 @@ const dashboard: AppRouteModule = {
       },
       children: [
         {
-          path: 'faq/list',
-          name: 'list',
-          component: () => import('/@/views/config/faqlist/components/FAQlistModal.vue'),
-          meta: { title: 'list', hideMenu: true },
+          path: 'category/list',
+          name: 'FQACategoryList',
+          component: () => import('/@/views/config/faqlist/CategoryList.vue'),
+          meta: { title: 'list', hideMenu: true, currentActiveMenu: '/faq' },
         },
         {
           path: 'faq/addFAQ',
           name: 'addFAQ',
           component: () => import('/@/views/config/faqlist/components/AddFAQ.vue'),
-          meta: { title: 'add', hideMenu: true },
+          meta: { title: 'add', hideMenu: true, currentActiveMenu: '/faq' },
         },
       ],
     },

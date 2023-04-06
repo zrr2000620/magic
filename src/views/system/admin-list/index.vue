@@ -11,7 +11,7 @@
   const { t } = useI18n();
   const go = useGo();
   const type = ref();
-  const [registerTable, { deleteSelectRowByKey, reload }] = useTable({
+  const [registerTable, { reload }] = useTable({
     api: getAdminList,
     rowKey: 'id',
     columns: [
@@ -129,6 +129,10 @@
         },
       ],
       autoSubmitOnEnter: true,
+      showAdvancedButton: false,
+      actionColOptions: {
+        span: 24,
+      },
     },
     useSearchForm: true,
     showTableSetting: true,
@@ -164,7 +168,7 @@
   async function handleDelete(record: Recordable) {
     console.log(record);
     await delAdmin({ id: record.id });
-    deleteSelectRowByKey(record.id);
+    reload();
   }
 
   // async function handleResetPassword() {}

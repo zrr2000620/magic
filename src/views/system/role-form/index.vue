@@ -7,6 +7,7 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useGlobSetting } from '/@/hooks/setting';
   import { useTitle } from '@vueuse/core';
+  import { getMenuList } from '/@/api/system/menu';
 
   const route = useRoute();
   const adminId = computed(() => route.params.id);
@@ -15,7 +16,7 @@
   const { t } = useI18n();
   const schemas: FormSchema[] = [
     {
-      field: 'field',
+      field: 'roleName',
       component: 'Input',
       label: t('system.role.roleNameLabel'),
       colProps: {
@@ -25,10 +26,17 @@
         style: {
           width: '50%',
         },
+        placeholder: t('system.role.namePlaceholder'),
       },
+      rules: [
+        {
+          required: true,
+          message: t('system.role.namePlaceholder'),
+        },
+      ],
     },
     {
-      field: 'role',
+      field: 'roleDesc',
       component: 'InputTextArea',
       label: t('system.role.roleDescLabel'),
       colProps: {
@@ -38,7 +46,14 @@
         style: {
           width: '50%',
         },
+        placeholder: t('system.role.roleDescPlaceholder'),
       },
+      rules: [
+        {
+          required: true,
+          message: t('system.role.roleDescPlaceholder'),
+        },
+      ],
     },
     {
       field: 'auth',
@@ -51,15 +66,16 @@
         style: {
           width: '50%',
         },
-        treeData: [
-          {
-            title: 'Home page',
-            key: 'home',
-          },
-        ],
+        api: getMenuList(),
         checkable: true,
         selectable: false,
       },
+      rules: [
+        {
+          required: true,
+          message: t('system.role.authPlaceholder'),
+        },
+      ],
     },
   ];
 
