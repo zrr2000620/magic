@@ -22,6 +22,7 @@ import axios from 'axios';
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;
+
 const { createMessage, createErrorModal, createSuccessModal } = useMessage();
 
 /**
@@ -34,6 +35,8 @@ const transform: AxiosTransform = {
   transformResponseHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     const { t } = useI18n();
     const { isTransformResponse, isReturnNativeResponse } = options;
+    console.log('1231_+_+_+_+1231');
+
     // 是否返回原生响应头 比如：需要获取响应头时使用该属性
     if (isReturnNativeResponse) {
       return res;
@@ -99,10 +102,8 @@ const transform: AxiosTransform = {
 
   // 请求之前处理config
   beforeRequestHook: (config, options) => {
-    console.log(globSetting);
-
+    console.log(options);
     const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, joinTime = true, urlPrefix } = options;
-    console.log(config.url);
 
     if (joinPrefix) {
       config.url = `${urlPrefix}${config.url}`;
@@ -159,6 +160,7 @@ const transform: AxiosTransform = {
   requestInterceptors: (config) => {
     // 请求之前处理config
     const token = getToken();
+
     if (token && (config as Recordable)?.requestOptions?.withToken !== false) {
       // jwt token
       // (config as Recordable).headers.Authorization = options.authenticationScheme
