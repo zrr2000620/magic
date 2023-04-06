@@ -4,37 +4,43 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { PageWrapper } from '/@/components/Page';
   import { useGo } from '/@/hooks/web/usePage';
+  import { delRole, getRoleList } from '/@/api/system/role';
+  import { searchDateTimeRangeCover } from '/@/utils/table';
 
   const go = useGo();
   const { t } = useI18n();
   const searchInfo = reactive<Recordable>({});
-  const [registerTable, { reload, updateTableDataRecord }] = useTable({
+  const [registerTable, { reload }] = useTable({
+    api: getRoleList,
     rowKey: 'id',
     columns: [
-      {
-        title: t('common.indexText'),
-        width: 100,
-      },
       {
         title: t('system.role.roleName'),
         width: 150,
         ellipsis: true,
+        dataIndex: 'roleName',
       },
       {
         title: t('system.role.roleDesc'),
         width: 300,
         ellipsis: true,
+        dataIndex: 'roleDesc',
       },
       {
         title: t('system.role.owner'),
         width: 200,
+        dataIndex: 'creater',
       },
       {
         title: t('system.role.createTime'),
         width: 150,
+        dataIndex: 'createTime',
       },
     ],
-    showIndexColumn: false,
+    indexColumnProps: {
+      title: t('common.indexText'),
+      width: 100,
+    },
     formConfig: {
       labelWidth: 120,
       schemas: [
@@ -52,18 +58,21 @@
         },
       ],
       autoSubmitOnEnter: true,
+      showAdvancedButton: false,
+      actionColOptions: {
+        span: 8,
+      },
     },
     useSearchForm: true,
     showTableSetting: true,
     bordered: true,
-    handleSearchInfoFn(info) {
-      console.log('handleSearchInfoFn', info);
-      return info;
-    },
+    beforeFetch: (params) => searchDateTimeRangeCover(params, 'range'),
     actionColumn: {
       width: 200,
       title: t('common.operateText'),
+      dataIndex: 'action',
     },
+    pagination: false,
   });
 
   function handleCreate() {
@@ -72,15 +81,19 @@
 
   function handleEdit(record: Recordable) {
     console.log(record);
+    go({
+      name: 'RoleForm',
+      params: {
+        id: record.id,
+      },
+    });
   }
 
-  function handleDelete(record: Recordable) {
+  async function handleDelete(record: Recordable) {
     console.log(record);
+    await delRole({ id: record.id });
+    reload();
   }
-
-  function handleResetPassword() {}
-
-  function handlerEditEnd() {}
 </script>
 
 <script lang="ts">
@@ -91,7 +104,7 @@
 
 <template>
   <PageWrapper dense contentFullHeight>
-    <BasicTable @edit-end="handlerEditEnd" @register="registerTable" :searchInfo="searchInfo">
+    <BasicTable @register="registerTable" :searchInfo="searchInfo">
       <template #toolbar>
         <a-button type="primary" @click="handleCreate" preIcon="material-symbols:add-rounded">{{
           t('system.role.addRole')
@@ -109,7 +122,7 @@
               },
               {
                 popConfirm: {
-                  title: '是否确认删除',
+                  title: t('system.role.confirmDelRole'),
                   placement: 'left',
                   confirm: handleDelete.bind(null, record),
                 },

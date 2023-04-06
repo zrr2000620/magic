@@ -1,0 +1,87 @@
+[
+{
+  path: '/dashboard',
+  name: 'Dashboard',
+  component: 'LAYOUT',
+  meta: {
+    orderNo: 1,
+    icon: 'ion:grid-outline',
+    title: 'routes.dashboard.dashboard',
+  },
+  redirect: '/dashboard/index',
+  children: [
+    {
+      path: 'index',
+      name: 'DashboardPage',
+      component: '/@/views/dashboard/index.vue',
+      meta: {
+        title:'routes.dashboard.dashboard',
+        hideMenu: true,
+        currentActiveMenu: '/dashboard',
+        hideBreadcrumb: true,
+      },
+    },
+  ],
+},
+
+{
+  path: '/system',
+  name: 'System',
+  component: 'LAYOUT',
+  redirect: '/system/admin/list',
+  meta: {
+    icon: 'ion:grid-outline',
+    title: 'routes.system.systemManager',
+    orderNo: 2,
+  },
+  children: [
+    {
+      path: 'admin/list',
+      name: 'AdminList',
+      component: '/@/views/system/admin-list/index.vue',
+      meta: {
+        // affix: true,
+        title: 'routes.system.userList',
+      },
+    },
+    {
+      path: 'admin/:id(\\d+)?',
+      name: 'AdminForm',
+      component: '/@/views/system/admin-form/index.vue',
+      meta: {
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        currentActiveMenu: '/system/admin/list',
+        title:'system.admin.addAdminTitle',
+      },
+    },
+    {
+      path: 'role/list',
+      name: 'RoleList',
+      component: '/@/views/system/role-list/index.vue',
+      meta: {
+        title: 'routes.system.roleList',
+      },
+    },
+    {
+      path: 'role/:id(\\d+)?',
+      name: 'RoleForm',
+      component:'/@/views/system/role-form/index.vue',
+      meta: {
+        ignoreKeepAlive: true,
+        hideMenu: true,
+        currentActiveMenu: '/system/role/list',
+        title: 'system.role.addRoleTitle',
+      },
+    },
+    {
+      path: 'operation/log/list',
+      name: 'OperationLog',
+      component: '/@/views/system/operation-log/index.vue',
+      meta: {
+        title: 'routes.system.operateLog',
+      },
+    },
+  ],
+}
+]

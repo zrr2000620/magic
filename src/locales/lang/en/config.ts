@@ -5,6 +5,12 @@ export default {
     add: 'Add Country',
     addCountryModalTitle: 'Add Country',
     editCountryModalTitle: 'Edit Country',
+
+    sequence: 'Sequence:',
+    country: 'Country',
+
+    sequencePlaceholder: 'Please enter the serial number, the higher the front',
+    countryPlaceholder: 'Please enter Country name',
   },
   channel: {
     headerContent: 'You can manage linking channels here',

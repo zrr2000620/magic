@@ -15,8 +15,10 @@ const currentState = ref(LoginStateEnum.LOGIN);
 
 // 这里也可以优化
 // import { createGlobalState } from '@vueuse/core'
+import { useRoute } from 'vue-router';
 
 export function useLoginState() {
+  const initialMode = useRoute().query.mode;
   function setLoginState(state: LoginStateEnum) {
     currentState.value = state;
   }
@@ -25,6 +27,10 @@ export function useLoginState() {
 
   function handleBackLogin() {
     setLoginState(LoginStateEnum.LOGIN);
+  }
+
+  if (initialMode && initialMode === LoginStateEnum.RESET_PASSWORD) {
+    setLoginState(initialMode);
   }
 
   return { setLoginState, getLoginState, handleBackLogin };

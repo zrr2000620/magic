@@ -1,14 +1,14 @@
 import { defHttp } from '/@/utils/http/axios';
 
-export const getRoleList = () =>
-  defHttp.get({
-    url: '/role/getRoleList',
+export const getCountryList = () =>
+  defHttp.post({
+    url: '/country/list',
   });
 
-export const addRole = (data: any) =>
+export const addCountry = (data: any) =>
   defHttp.post(
     {
-      url: '/role/add',
+      url: '/country/add',
       data,
     },
     {
@@ -16,10 +16,10 @@ export const addRole = (data: any) =>
     },
   );
 
-export const editRole = (data: any) =>
+export const editCountry = (data: any) =>
   defHttp.post(
     {
-      url: '/role/update',
+      url: '/country/edit',
       data,
     },
     {
@@ -27,10 +27,10 @@ export const editRole = (data: any) =>
     },
   );
 
-export const delRole = (data: any) =>
+export const delCountry = (data: any) =>
   defHttp.post(
     {
-      url: '/role/delete',
+      url: '/country/delete',
       data,
     },
     {

@@ -38,12 +38,12 @@ export default {
     availableOption: 'available',
     invalidOption: 'invalid',
 
-    confirmDelAdmin: 'Are you sure to delete this item',
+    confirmDelAdmin: 'Are you sure to delete this admin?',
   },
   role: {
     roleName: 'Role Name',
     roleDesc: 'Role description',
-    owner: 'Creater',
+    owner: 'Creator',
     createTime: 'Creation date',
     addRole: 'add new role',
     createTimeSearchLabel: 'Creation date:',
@@ -54,6 +54,12 @@ export default {
     roleNameLabel: 'Role Name:',
     roleDescLabel: 'Role description:',
     permissionsLabel: 'Functional permissions:',
+
+    confirmDelRole: 'Are you sure to delete this role?',
+
+    namePlaceholder: 'Please enter the role name',
+    roleDescPlaceholder: 'Please enter the role description',
+    authPlaceholder: 'Please choose the role permissions',
   },
   log: {
     account: 'User account',
