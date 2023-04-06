@@ -126,7 +126,17 @@ export const useUserStore = defineStore({
     },
     async getUserInfoAction(): Promise<UserInfo | null> {
       if (!this.getToken) return null;
-      const userInfo = await getUserInfo();
+      try {
+        const userInfo = await getUserInfo();
+        this.setRoleList([]);
+        this.setUserInfo(userInfo);
+        return userInfo;
+      } catch (err) {
+        this.setToken(undefined);
+        this.setSessionTimeout(false);
+        this.setUserInfo(null);
+        throw err;
+      }
       // if (isArray(roles)) {
       //   const roleList = roles.map((item) => item.value) as RoleEnum[];
       //   this.setRoleList(roleList);
@@ -134,9 +144,6 @@ export const useUserStore = defineStore({
       //   userInfo.roles = [];
       //   this.setRoleList([]);
       // }
-      this.setRoleList([]);
-      this.setUserInfo(userInfo);
-      return userInfo;
     },
     /**
      * @description: logout

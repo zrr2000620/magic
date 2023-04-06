@@ -1,5 +1,5 @@
 export default {
-  okText: 'Save',
+  okText: 'Ok',
   closeText: 'Cancel',
   cancelText: 'Cancel',
   loadingText: 'Loading...',

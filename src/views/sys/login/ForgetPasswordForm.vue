@@ -78,6 +78,7 @@
   const { validForm } = useFormValid(formRef);
 
   const getShow = computed(() => unref(getLoginState) === LoginStateEnum.RESET_PASSWORD);
+
   const gotoEmailLink = computed(() => 'https://' + gotoEmail(formData.mail));
 
   async function handleReset() {
