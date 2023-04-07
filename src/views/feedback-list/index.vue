@@ -1,29 +1,8 @@
 <template>
   <div class="p-4">
-    <BasicTable
-      @register="registerTable"
-      :columns="columns"
-      :dataSource="data"
-      useSearchForm
-      getForm=""
-      :pagination="{ pageSize: 20 }"
-    >
-      <template #form-custom>
-        <div style="display: flex">
-          <a-select ref="select" value="choose a type" style="width: 120px">
-            <a-select-option :value="t('feedback.chooseAType')">Jack</a-select-option>
-            <a-select-option :value="t('feedback.MerchantID')">Lucy</a-select-option>
-            <a-select-option :value="t('feedback.MerchantName')">Lucy</a-select-option>
-            <a-select-option :value="t('feedback.Owner')">Lucy</a-select-option>
-            <a-select-option :value="t('feedback.phoneNumber')">Lucy</a-select-option>
-            <a-select-option :value="t('feedback.EMail')">Lucy</a-select-option>
-          </a-select>
-          <a-input />
-        </div>
-      </template>
-
+    <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary"> Export CSV </a-button>
+        <a-button type="primary"> {{ t('common.exportExcel') }}</a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -31,200 +10,198 @@
             :actions="[
               {
                 label: t('feedback.handle'),
-                onClick: handle.bind(null, record),
-                ifShow: record.FeedbackID === 'FK643261',
+                onClick: handleFeedback.bind(null, record),
+                ifShow: record.processingStatus === 0,
               },
               {
                 label: t('feedback.remark'),
-                onClick: remark.bind(null, record),
+                onClick: handleRemark.bind(null, record),
               },
               {
                 label: t('feedback.delete'),
-                onClick: del.bind(null, record),
+                popConfirm: {
+                  title: t('system.admin.confirmDelAdmin'),
+                  placement: 'left',
+                  confirm: handleDelete.bind(null, record),
+                },
               },
             ]"
           />
         </template>
-        <template v-if="column.key === 'FeedbackStatus'"
-          ><span v-if="record.FeedbackStatus == 'Pending'" style="color: red">{{
-            record.FeedbackStatus
-          }}</span>
+        <template v-if="column.key === 'processingStatus'">
+          {{ record.processingStatus ? t('feedback.processed') : t('feedback.noProcess') }}
         </template>
       </template>
     </BasicTable>
-    <HandleModal @register="register" />
-    <RemarkModal @register="register2" />
+    <HandleModal @register="register" @success="() => reload()" />
+    <RemarkModal @register="register2" @success="() => reload()" />
   </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { BasicColumn, BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getFormConfig } from './tableData';
   import HandleModal from './HandleModal.vue';
   import RemarkModal from './RemarkModal.vue';
   import { useModal } from '/@/components/Modal';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { Select, SelectOption, Input } from 'ant-design-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
+  import { delFeedback, getFeedbackList } from '/@/api/feedback';
+  import { ref } from 'vue';
+  import { searchDateTimeRangeCover } from '/@/utils/table';
   const { t } = useI18n();
+  const searchInfo = ref<Recordable>({});
   const columns: BasicColumn[] = [
     {
-      title: 'id',
-      dataIndex: 'name',
-      auth: 'test', // 根据权限控制是否显示: 无权限，不显示
-    },
-    {
       title: t('feedback.feedbackID'),
-      dataIndex: 'FeedbackID',
+      dataIndex: 'id',
+      width: 120,
     },
     {
       title: t('feedback.merchantName'),
-      dataIndex: 'MerchantName',
-      auth: 'super', // 同时根据权限控制是否显示
+      dataIndex: 'merchantName',
+      width: 200,
     },
     {
       title: t('feedback.Name'),
-      dataIndex: 'Name',
-      auth: 'super', // 同时根据权限控制是否显示
+      dataIndex: 'messageName',
+      width: 200,
     },
     {
       title: t('feedback.PhoneNumber'),
-      dataIndex: 'PhoneNumber',
-      auth: 'super', // 同时根据权限控制是否显示
+      dataIndex: 'messagePhoneNumber',
+      width: 200,
     },
     {
       title: t('feedback.FeedbackContent'),
-      dataIndex: 'FeedbackContent',
-      auth: 'super', // 同时根据权限控制是否显示
+      dataIndex: 'feedbackContent',
+      width: 300,
+      ellipsis: true,
     },
     {
       title: t('feedback.FeedbackTime'),
-      dataIndex: 'FeedbackTime',
-      auth: 'super', // 同时根据权限控制是否显示
+      dataIndex: 'feedbackTime',
+      width: 150,
     },
     {
       title: t('feedback.FeedbackStatus'),
-      dataIndex: 'FeedbackStatus',
-      auth: 'super', // 同时根据权限控制是否显示
-      type: 'radio',
-      enmu: [{ 1: '123123' }, { 2: 'alsdhal' }],
+      dataIndex: 'processingStatus',
+      width: 150,
     },
     {
       title: t('feedback.ProcessEmployees'),
-      dataIndex: 'ProcessEmployees',
-      auth: 'super', // 同时根据权限控制是否显示
+      dataIndex: 'processedBy',
+      width: 200,
     },
     {
       title: t('feedback.Note'),
-      dataIndex: 'Note',
-      auth: 'super', // 同时根据权限控制是否显示
+      dataIndex: 'remarks',
+      width: 300,
+      ellipsis: true,
     },
   ];
-  export default defineComponent({
-    components: {
-      BasicTable,
-      [Select.name]: Select,
-      // eslint-disable-next-line vue/no-unused-components
-      SelectOption,
-      [Input.name]: Input,
-      TableAction,
-      HandleModal,
-      RemarkModal,
-    },
-    setup() {
-      const [registerTable] = useTable({
-        // api: demoListApi,
-        columns: columns,
-        useSearchForm: true,
-        formConfig: getFormConfig(),
-        columns: columns,
-        showIndexColumn: false,
-        actionColumn: {
-          width: 250,
-          title: 'operate',
-          dataIndex: 'action',
-          // slots: { customRender: 'action' },
+  const [registerTable, { reload }] = useTable({
+    api: getFeedbackList,
+    rowKey: 'id',
+    columns: columns,
+    searchInfo,
+    useSearchForm: true,
+    formConfig: {
+      labelWidth: 120,
+      schemas: [
+        {
+          field: 'keywords',
+          colProps: { span: '8' },
+          label: '',
+          component: 'FieldInput',
+          componentProps: {
+            options: [
+              {
+                label: t('feedback.MerchantID'),
+                value: 1,
+              },
+              {
+                label: t('feedback.merchantName'),
+                value: 2,
+              },
+              {
+                label: t('feedback.Owner'),
+                value: 3,
+              },
+              {
+                label: t('feedback.phoneNumber'),
+                value: 4,
+              },
+              {
+                label: t('feedback.EMail'),
+                value: 5,
+              },
+            ],
+            onTypeChange: (e) => {
+              searchInfo.value.type = e;
+            },
+          },
         },
-      });
-      const [register, { openModal: handle }] = useModal();
-      const [register2, { openModal: remark }] = useModal();
-      const { createConfirm } = useMessage();
-      // const [register3, { openModal: del }] = useModal();
-      function del() {
-        createConfirm({
-          iconType: 'error',
-          content: t('feedback.content'),
-        });
-      }
-      return {
-        registerTable,
-        // getFormValues,
-        columns: columns,
-        del,
-        remark,
-        handle,
-        register,
-        register2,
-        t,
-        // register3,
-        data: [
-          {
-            FeedbackID: 'FK643261',
-            Name: 'Joel',
-            MerchantName: 'Tencent',
-            PhoneNumber: '(086)13412341234',
-            FeedbackContent: '个人觉得很适合这个项目',
-            FeedbackTime: '2022/10/10 18:00:00',
-            FeedbackStatus: 'Pending',
-            ProcessEmployees: '无',
-            Note: '',
+        {
+          label: t('feedback.FeedbackStatus'),
+          component: 'Select',
+          field: 'processingStatus',
+          colProps: { span: '8' },
+          componentProps: {
+            options: [
+              {
+                label: t('feedback.processed'),
+                value: 1,
+              },
+              {
+                label: t('feedback.noProcess'),
+                value: 0,
+              },
+            ],
           },
-          {
-            FeedbackID: 'FK643262',
-            Name: 'Joel',
-            MerchantName: 'Apple',
-            PhoneNumber: '(086)13412341234',
-            FeedbackContent: '个人觉得很适合这个项目',
-            FeedbackTime: '2022/10/10 18:00:00',
-            FeedbackStatus: 'Processed',
-            ProcessEmployees: 'admin',
-            Note: '你好，已收到您的通知，我们将尽快处理',
+        },
+        {
+          label: t('feedback.FeedbackTime'),
+          field: 'range',
+          component: 'RangePicker',
+          colProps: { span: '8' },
+          componentProps: {
+            format: 'YYYY-MM-DD',
           },
-          {
-            FeedbackID: 'FK643263',
-            Name: 'Joel',
-            MerchantName: 'Amazon',
-            PhoneNumber: '(086)13412341234',
-            FeedbackContent: '个人觉得很适合这个项目',
-            FeedbackTime: '2022/10/10 18:00:00',
-            FeedbackStatus: 'Processed',
-            ProcessEmployees: 'admin',
-            Note: '你好，已收到您的通知，我们将尽快处理',
-          },
-          {
-            FeedbackID: 'FK643264',
-            Name: 'Joel',
-            MerchantName: 'Tesla',
-            PhoneNumber: '(086)13412341234',
-            FeedbackContent: '个人觉得很适合这个项目',
-            FeedbackTime: '2022/10/10 18:00:00',
-            FeedbackStatus: 'Processed',
-            ProcessEmployees: 'admin',
-            Note: '你好，已收到您的通知，我们将尽快处理',
-          },
-          {
-            FeedbackID: 'FK643265',
-            Name: 'Joel',
-            MerchantName: 'eBay',
-            PhoneNumber: '(086)13412341234',
-            FeedbackContent: '个人觉得很适合这个项目',
-            FeedbackTime: '2022/10/10 18:00:00',
-            FeedbackStatus: 'Processed',
-            ProcessEmployees: 'admin',
-            Note: '你好，已收到您的通知，我们将尽快处理',
-          },
-        ],
-      };
+        },
+      ],
+      autoSubmitOnEnter: true,
+      showAdvancedButton: false,
+      actionColOptions: {
+        span: 24,
+      },
     },
+    showIndexColumn: false,
+    actionColumn: {
+      width: 250,
+      title: 'operate',
+      dataIndex: 'action',
+    },
+    scroll: {
+      x: 1600,
+    },
+    beforeFetch: (params) => searchDateTimeRangeCover(params, 'range'),
+    bordered: true,
   });
+  const [register, { openModal: openHandle }] = useModal();
+  const [register2, { openModal: openRemark, setModalProps: setRemarkProps }] = useModal();
+  // const [register3, { openModal: del }] = useModal();
+  async function handleDelete(record: Recordable) {
+    console.log(record);
+    await delFeedback({ id: record.id });
+    reload();
+  }
+
+  async function handleRemark(record) {
+    setRemarkProps({
+      title: t('feedback.Note'),
+    });
+    openRemark(true, record);
+  }
+
+  function handleFeedback(record) {
+    openHandle(true, record);
+  }
 </script>

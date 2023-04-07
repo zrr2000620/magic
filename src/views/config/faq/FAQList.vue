@@ -49,7 +49,7 @@
   import { useTable, BasicTable, TableAction } from '/@/components/Table';
   import { Button } from 'ant-design-vue';
   import { useGo } from '/@/hooks/web/usePage';
-  import { getFAQList, getFAQCategoryList, delFAQ } from '/@/api/config/faq';
+  import { getFAQList, getFAQCategoryList, delFAQ, editFAQ } from '/@/api/config/faq';
   import { searchDateTimeRangeCover } from '/@/utils/table';
   const { t } = useI18n();
   const go = useGo();
@@ -171,14 +171,20 @@
 
   function handleEdit(record) {
     go({
-      name: '',
+      name: 'FAQForm',
       params: {
         id: record.id,
       },
     });
   }
 
-  async function handlerChangeStatus() {}
+  async function handlerChangeStatus(record) {
+    await editFAQ({
+      id: record.id,
+      isShow: record.isShow ? 0 : 1,
+    });
+    reload();
+  }
 
   const addFAQ = () => {
     // go();

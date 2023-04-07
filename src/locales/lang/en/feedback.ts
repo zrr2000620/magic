@@ -28,4 +28,13 @@ export default {
   Owner: 'Owner',
   phoneNumber: 'Phone number',
   EMail: 'E-mail',
+
+  noProcess: 'unprocessed',
+  processed: 'processed',
+
+  handleConfirmHeader: 'Reminder',
+  handleConfirmTitle: 'Are you sure you want to mark it as processed?',
+  handleConfirmContent:
+    'After marking, it means that you have finished processing the feedback of this customer',
+  handleConfirm: 'Confirm',
 };

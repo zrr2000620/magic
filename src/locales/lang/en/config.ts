@@ -88,6 +88,7 @@ export default {
     delMsg: 'Are you sure you want to delete this line?',
     changeStatusMsg: 'Are you sure you want to {status} this article?',
     addFaq: 'Add FAQ',
+    editFaq: 'Edit FAQ',
     FAQCategory: 'FAQ Category',
     FAQlistDesc: 'Can manage FAQ classification',
     catList: 'Category List',
@@ -108,6 +109,17 @@ export default {
 
     disableOption: 'disable',
     enableOption: 'enable',
+
+    FAQFormTitle: 'Information',
+    sequenceLabel: 'Sequence',
+    categoryLabel: 'Category',
+    displayLabel: 'display or not',
+    FAQContentTitle: 'Content',
+    displayLabelPlaceholder: 'After opening, the FAQ will be displayed on the front end',
+    titleLabel: 'Title',
+    videoLabel: 'Video',
+    videoPlaceholder: 'Please choose video file',
+    detailLabel: 'Detail',
   },
   protocol: {
     headerContent:
@@ -115,5 +127,6 @@ export default {
     save: 'Save',
     serviceAgreement: 'Service agreement：',
     privacyPolicy: 'Privacy Policy：',
+    subscribePolicy: 'Subscribe:',
   },
 };
