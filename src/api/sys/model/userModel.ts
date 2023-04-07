@@ -1,3 +1,5 @@
+import { UserMenu } from '/#/store';
+
 /**
  * @description: Login interface parameters
  */
@@ -18,14 +20,6 @@ export interface LoginResultModel {
   userId: string | number;
   token: string;
   role: RoleInfo;
-}
-
-export interface UserMenu {
-  id: number;
-  menuName: string;
-  pid: number;
-  frontId: string;
-  apiUrl: string;
 }
 
 /**

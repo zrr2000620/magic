@@ -8,4 +8,7 @@ export default {
   faq: 'Article Management',
   protocol: 'Protocol configuration',
   country: 'Country configuration',
+  faqCategory: 'FAQ Category',
+  addFAQ: 'Add FAQ',
+  editFAQ: 'Edit FAQ',
 };

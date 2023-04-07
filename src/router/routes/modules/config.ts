@@ -60,27 +60,33 @@ const dashboard: AppRouteModule = {
       },
     },
     {
-      path: 'faq',
-      name: 'FAQ',
-      component: () => import('/@/views/config/faqlist/index.vue'),
+      path: 'faq/list',
+      name: 'FAQList',
+      component: () => import('/@/views/config/faq/FAQList.vue'),
       meta: {
         // affix: true,
         title: t('routes.config.faq'),
       },
-      children: [
-        {
-          path: 'category/list',
-          name: 'FQACategoryList',
-          component: () => import('/@/views/config/faqlist/CategoryList.vue'),
-          meta: { title: 'list', hideMenu: true, currentActiveMenu: '/faq' },
-        },
-        {
-          path: 'faq/addFAQ',
-          name: 'addFAQ',
-          component: () => import('/@/views/config/faqlist/components/AddFAQ.vue'),
-          meta: { title: 'add', hideMenu: true, currentActiveMenu: '/faq' },
-        },
-      ],
+    },
+    {
+      path: 'faq/category/list',
+      name: 'FAQCategoryList',
+      component: () => import('/@/views/config/faq/CategoryList.vue'),
+      meta: {
+        title: t('routes.config.faqCategory'),
+        hideMenu: true,
+        currentActiveMenu: '/config/faq/list',
+      },
+    },
+    {
+      path: 'faq/:id(\\d+)?',
+      name: 'FAQForm',
+      component: () => import('/@/views/config/faq/FAQForm.vue'),
+      meta: {
+        title: t('routes.config.addFAQ'),
+        hideMenu: true,
+        currentActiveMenu: '/config/faq/list',
+      },
     },
     {
       path: 'protocol',

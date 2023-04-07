@@ -1,5 +1,6 @@
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
 import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 // Lock screen information
 export interface LockInfo {
@@ -27,6 +28,11 @@ export interface ErrorLogInfo {
   url: string;
   // Error time
   time?: string;
+}
+
+export interface UserMenu {
+  id: number;
+  frontId: RoleEnum;
 }
 
 export interface UserInfo {

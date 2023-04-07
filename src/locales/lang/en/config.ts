@@ -86,16 +86,28 @@ export default {
     edit: 'edit',
     delete: 'Delete',
     delMsg: 'Are you sure you want to delete this line?',
-    disMsg: 'Are you sure you want to hide/show this article?',
+    changeStatusMsg: 'Are you sure you want to {status} this article?',
     addFaq: 'Add FAQ',
     FAQCategory: 'FAQ Category',
     FAQlistDesc: 'Can manage FAQ classification',
     catList: 'Category List',
     add: 'add',
     disabled: 'disabled',
+    enabled: 'enabled',
     Edit: 'Edit',
     enable: 'enable',
+    hide: 'hide',
+    show: 'show',
+
     addFAQCategory: 'Add FAQ category',
+    editFAQCategory: 'Edit FAQ category',
+
+    sequence: 'Sequence:',
+    sequencePlaceholder: 'Please enter the serial number, the higher the front',
+    categoryPlaceholder: 'Please enter a category name',
+
+    disableOption: 'disable',
+    enableOption: 'enable',
   },
   protocol: {
     headerContent:

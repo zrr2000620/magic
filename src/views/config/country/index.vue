@@ -17,7 +17,7 @@
     setModalProps({
       title: t('config.country.addCountryModalTitle'),
     });
-    openModal(true, {});
+    openModal(true);
   }
 
   function handlerEdit(record) {
@@ -66,14 +66,14 @@
             class="hover:bg-blue-200 hover:bg-opacity-25 transition duration-300 ease-in-out"
           >
             <template #actions>
-              <a @click="handlerEdit.bind(null, item)">
+              <a @click="() => handlerEdit(item)">
                 {{ t('common.editText') }}
               </a>
-              <a @click="handlerDel.bind(null, item)">
+              <a @click="() => handlerDel(item)">
                 {{ t('common.delText') }}
               </a>
             </template>
-            <div class="px-2"> 123 </div>
+            <div class="px-2"> {{ item.countryName }} </div>
           </ListItem>
         </template>
       </List>

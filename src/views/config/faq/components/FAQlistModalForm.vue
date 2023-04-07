@@ -6,58 +6,57 @@
   </BasicModal>
 </template>
 <script setup lang="ts">
-  import { ref } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
+  import { ref } from 'vue';
+  import { addFAQCategory, editFAQCategory } from '/@/api/config/faq';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { addCountry, editCountry } from '/@/api/config/country';
   const emit = defineEmits(['success']);
+  const editId = ref();
   const { t } = useI18n();
   const schemas: FormSchema[] = [
     {
       field: 'orderNumber',
       component: 'InputNumber',
-      label: t('config.country.sequence'),
+      label: t('config.faq.sequence'),
       colProps: {
         span: 24,
       },
       componentProps: {
-        placeholder: t('config.country.sequencePlaceholder'),
+        placeholder: t('config.faq.sequencePlaceholder'),
       },
       rules: [
         {
           required: true,
-          message: t('config.country.sequencePlaceholder'),
+          message: t('config.faq.sequencePlaceholder'),
         },
       ],
     },
     {
-      field: 'countryName',
+      field: 'classifyName',
       component: 'Input',
-      label: t('config.country.country'),
+      label: t('config.faq.category'),
       colProps: {
         span: 24,
       },
       componentProps: {
-        placeholder: t('config.country.countryPlaceholder'),
+        placeholder: t('config.faq.categoryPlaceholder'),
       },
       rules: [
         {
           required: true,
-          message: t('config.country.countryPlaceholder'),
+          message: t('config.faq.categoryPlaceholder'),
         },
       ],
     },
   ];
-  const editId = ref<number>();
   const [
     registerForm,
     {
       // setFieldsValue,
       // setProps
-      validate,
-      resetFields,
       setFieldsValue,
+      validate,
     },
   ] = useForm({
     labelWidth: 120,
@@ -69,21 +68,18 @@
   });
 
   const [register, { closeModal }] = useModalInner((data) => {
-    resetFields();
     if (data) {
       editId.value = data.id;
-      setFieldsValue({
-        ...data,
-      });
+      setFieldsValue({ ...data });
     }
   });
 
   async function handerSave() {
     const formValue = await validate();
     if (editId.value) {
-      await editCountry({ ...formValue, id: editId.value });
+      await editFAQCategory({ ...formValue, id: editId.value });
     } else {
-      await addCountry(formValue);
+      await addFAQCategory({ ...formValue });
     }
     emit('success');
     closeModal();

@@ -2,6 +2,7 @@ import type { AppRouteModule } from '/@/router/types';
 
 import { LAYOUT } from '/@/router/constant';
 import { t } from '/@/hooks/web/useI18n';
+import { RoleEnum } from '/@/enums/roleEnum';
 
 const dashboard: AppRouteModule = {
   path: '/system',
@@ -12,6 +13,7 @@ const dashboard: AppRouteModule = {
     icon: 'ion:grid-outline',
     title: t('routes.system.systemManager'),
     orderNo: 2,
+    roles: [RoleEnum.SYSTEM],
   },
   children: [
     {
@@ -21,6 +23,7 @@ const dashboard: AppRouteModule = {
       meta: {
         // affix: true,
         title: t('routes.system.userList'),
+        roles: [RoleEnum.ADMIN_LIST],
       },
     },
     {
@@ -32,6 +35,7 @@ const dashboard: AppRouteModule = {
         hideMenu: true,
         currentActiveMenu: '/system/admin/list',
         title: t('system.admin.addAdminTitle'),
+        roles: [RoleEnum.ADMIN_ADD, RoleEnum.ADMIN_EDIT],
       },
     },
     {
@@ -40,6 +44,7 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/system/role-list/index.vue'),
       meta: {
         title: t('routes.system.roleList'),
+        roles: [RoleEnum.ROLE_LIST],
       },
     },
     {
@@ -51,6 +56,7 @@ const dashboard: AppRouteModule = {
         hideMenu: true,
         currentActiveMenu: '/system/role/list',
         title: t('system.role.addRoleTitle'),
+        roles: [RoleEnum.ROLE_ADD, RoleEnum.ROLE_EDIT],
       },
     },
     {
@@ -59,6 +65,7 @@ const dashboard: AppRouteModule = {
       component: () => import('/@/views/system/operation-log/index.vue'),
       meta: {
         title: t('routes.system.operateLog'),
+        roles: [RoleEnum.LOG_LIST],
       },
     },
   ],
