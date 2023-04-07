@@ -105,6 +105,7 @@ export function useFormRules(formData?: Recordable) {
       case LoginStateEnum.RESET_PASSWORD:
         return {
           mail: emailFormRule,
+          newPassword: passwordFormRule,
         };
 
       // mobile form rules
