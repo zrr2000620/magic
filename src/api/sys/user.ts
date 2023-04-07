@@ -55,15 +55,10 @@ export function forgetPassword(data: any) {
 }
 
 export function resetPassword(data: any) {
-  return defHttp.post(
-    {
-      url: '/resetPassword',
-      data,
-    },
-    {
-      successMessageMode: 'message',
-    },
-  );
+  return defHttp.post({
+    url: '/resetPassword',
+    data,
+  });
 }
 
 export function testRetry() {

@@ -39,6 +39,8 @@ export default {
     invalidOption: 'invalid',
 
     confirmDelAdmin: 'Are you sure to delete this admin?',
+
+    sendResetEmailTip: 'Operate success, Please check email',
   },
   role: {
     roleName: 'Role Name',
