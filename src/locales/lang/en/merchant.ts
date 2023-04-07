@@ -19,6 +19,7 @@ export default {
     modifyExpirationTime: 'Change expire date',
   },
   texts: {
+    payment: 'Payment',
     merchantID: 'Merchant ID',
     merchantName: 'Merchant name',
     holder: 'Owner',
