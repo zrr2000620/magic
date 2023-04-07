@@ -137,6 +137,7 @@
     ],
     formConfig: {
       labelWidth: 100,
+      colon: true,
       schemas: [
         {
           field: `question`,
@@ -176,7 +177,7 @@
         },
         {
           field: `range`,
-          label: t('config.faq.creatieTime'),
+          label: t('routes.merchant.texts.registrationTime'),
           component: 'RangePicker',
           colProps: {
             span: 6,
@@ -184,7 +185,7 @@
         },
         {
           field: `question`,
-          label: t('config.faq.keyWord'),
+          label: t('routes.merchant.texts.payment'),
           component: 'Input',
           colProps: {
             span: 6,
