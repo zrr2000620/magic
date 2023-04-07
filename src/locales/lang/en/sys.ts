@@ -69,7 +69,7 @@ export default {
     backSignIn: 'Back sign in',
     mobileSignInFormTitle: 'Mobile sign in',
     qrSignInFormTitle: 'Qr code sign in',
-    signInFormTitle: 'Welcome',
+    signInFormTitle: 'Magic',
     signUpFormTitle: 'Sign up',
     forgetFormTitle: 'Reset password',
 

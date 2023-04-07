@@ -11,7 +11,7 @@ const about: AppRouteModule = {
   meta: {
     // hideChildrenInMenu: true,
     icon: 'simple-icons:about-dot-me',
-    title: t('routes.merchant.feedback.merchantFeedbackRecord'),
+    title: t('merchant.feedback.merchantFeedbackRecord'),
     orderNo: 500,
   },
   children: [
@@ -20,7 +20,7 @@ const about: AppRouteModule = {
       name: 'AboutPage',
       component: () => import('/@/views/feedback-list/index.vue'),
       meta: {
-        title: t('routes.merchant.feedback.feedbackList'),
+        title: t('merchant.feedback.feedbackList'),
         icon: 'simple-icons:about-dot-me',
         // hideMenu: true,
       },

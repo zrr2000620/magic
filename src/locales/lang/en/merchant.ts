@@ -19,6 +19,7 @@ export default {
     modifyExpirationTime: 'Change expire date',
   },
   texts: {
+    chooseTotal: 'Total {total} records choose {num} record',
     payment: 'Payment',
     merchantID: 'Merchant ID',
     merchantName: 'Merchant name',
