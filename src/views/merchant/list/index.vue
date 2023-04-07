@@ -35,6 +35,7 @@
   const { t } = useI18n();
   const [registerTable] = useTable({
     useSearchForm: true,
+    showIndexColumn: false,
     rowKey: 'id',
     columns: [
       {
