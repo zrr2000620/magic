@@ -8,8 +8,16 @@
       ref="formRef"
       v-if="!sendSuccess"
     >
-      <FormItem name="mail" class="enter-x">
+      <FormItem name="mail" class="enter-x" v-if="!secret">
         <Input size="large" v-model:value="formData.mail" :placeholder="t('sys.login.email')" />
+      </FormItem>
+
+      <FormItem name="newPassword" class="enter-x" v-esle>
+        <Input
+          size="large"
+          v-model:value="formData.newPassword"
+          :placeholder="t('sys.login.newPasswordPlaceholder')"
+        />
       </FormItem>
 
       <!-- <FormItem name="mobile" class="enter-x">
@@ -25,19 +33,22 @@
 
       <FormItem class="enter-x">
         <Button type="primary" size="large" block @click="handleReset" :loading="loading">
-          {{ t('sys.login.resetButton') }}
+          {{ btnText }}
         </Button>
         <!-- <Button size="large" block class="mt-4" @click="handleBackLogin">
           {{ t('sys.login.backSignIn') }}
         </Button> -->
       </FormItem>
       <div class="text-center">
-        <TypographyParagraph type="secondary">
-          {{ t('sys.login.resetDesc1') }}
-        </TypographyParagraph>
-        <TypographyParagraph type="secondary">
-          {{ t('sys.login.resetDesc2') }}
-        </TypographyParagraph>
+        <template v-if="!secret">
+          <TypographyParagraph type="secondary">
+            {{ t('sys.login.resetDesc1') }}
+          </TypographyParagraph>
+          <TypographyParagraph type="secondary">
+            {{ t('sys.login.resetDesc2') }}
+          </TypographyParagraph>
+        </template>
+        <a v-else @click="handleGotoLogin">{{ t('sys.login.gotoLogin') }}</a>
       </div>
     </Form>
 
@@ -59,20 +70,24 @@
   import { Form, Input, Button, TypographyParagraph, Alert } from 'ant-design-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useLoginState, useFormRules, LoginStateEnum, useFormValid } from './useLogin';
-  import { forgetPassword } from '/@/api/sys/user';
+  import { forgetPassword, resetPassword } from '/@/api/sys/user';
   import { gotoEmail } from '/@/utils/email';
+  import { useRoute } from 'vue-router';
+  import { useGo } from '/@/hooks/web/usePage';
 
   const FormItem = Form.Item;
   const { t } = useI18n();
-  const { getLoginState } = useLoginState();
+  const { getLoginState, setLoginState } = useLoginState();
   const { getFormRules } = useFormRules();
-
+  const go = useGo();
   const formRef = ref();
   const loading = ref(false);
   const sendSuccess = ref(false);
+  const secret = useRoute().query.secret;
 
   const formData = reactive({
     mail: '',
+    newPassword: '',
   });
 
   const { validForm } = useFormValid(formRef);
@@ -81,6 +96,10 @@
 
   const gotoEmailLink = computed(() => 'https://' + gotoEmail(formData.mail));
 
+  const btnText = computed(() =>
+    secret ? t('sys.login.resetPasswordBtn') : t('sys.login.resetButton'),
+  );
+
   async function handleReset() {
     const form = unref(formRef);
     if (!form) return;
@@ -88,8 +107,15 @@
     if (!data) return;
     try {
       loading.value = true;
-      await forgetPassword(data);
-      sendSuccess.value = true;
+      if (secret) {
+        await resetPassword({
+          secret,
+          newPassword: data.newPassword,
+        });
+      } else {
+        await forgetPassword(data);
+        sendSuccess.value = true;
+      }
     } finally {
       loading.value = false;
     }
@@ -102,5 +128,12 @@
     } finally {
       loading.value = false;
     }
+  }
+
+  function handleGotoLogin() {
+    go({
+      name: 'Login',
+    });
+    setLoginState(LoginStateEnum.LOGIN);
   }
 </script>

@@ -111,5 +111,9 @@ export default {
     resetSuccessAlert: 'Password reset email has been sent. Please open the email to view',
     gotoEmail: 'Go to the email',
     resendEmail: 'Resend password reset email',
+
+    newPasswordPlaceholder: 'Enter a new password',
+    resetPasswordBtn: 'Reset password',
+    gotoLogin: 'user another account',
   },
 };

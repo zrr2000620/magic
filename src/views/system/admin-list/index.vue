@@ -7,10 +7,13 @@
   import { changeStatus, delAdmin, getAdminList } from '/@/api/system/admin';
   import { searchDateTimeRangeCover, searchFieldInputCover } from '/@/utils/table';
   import { getRoleList } from '/@/api/system/role';
+  import { resetPassword } from '/@/api/sys/user';
+  import { useMessage } from '/@/hooks/web/useMessage';
 
   const { t } = useI18n();
   const go = useGo();
   const type = ref();
+  const { createMessage } = useMessage();
   const [registerTable, { reload }] = useTable({
     api: getAdminList,
     rowKey: 'id',
@@ -183,6 +186,11 @@
       reload();
     }
   }
+
+  async function handlerResetPassword(record) {
+    await resetPassword({ mail: record.mail });
+    createMessage.success(t('system.admin.sendResetEmailTip'));
+  }
 </script>
 
 <script lang="ts">
@@ -207,6 +215,7 @@
             :actions="[
               {
                 label: t('system.admin.resetPassword'),
+                onClick: handlerResetPassword.bind(null, record),
               },
               {
                 onClick: handleEdit.bind(null, record),
