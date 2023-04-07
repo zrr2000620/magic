@@ -20,4 +20,5 @@ export default {
 
   light: 'Light',
   dark: 'Dark',
+  exportExcel: 'Export CSV',
 };

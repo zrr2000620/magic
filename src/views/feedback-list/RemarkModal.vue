@@ -1,47 +1,57 @@
 <template>
-  <BasicModal
-    @register="register"
-    :title="t('feedback.Note')"
-    :draggable="false"
-    :okText="t('feedback.confirm')"
-    :cancelText="t('feedback.cancel')"
-    :canFullscreen="false"
-    centered
-    @ok="
-      () => {
-        closeModal();
-      }
-    "
-  >
-    <a-textarea
-      v-model:value="value1"
-      placeholder="please enter"
-      :auto-size="{ minRows: 10, maxRows: 50 }"
-    />
+  <BasicModal v-bind="$attrs" @register="register" @ok="handleOk">
+    <div class="pt-3px pr-3px">
+      <BasicForm @register="registerForm" />
+    </div>
   </BasicModal>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script lang="ts" setup>
   import { useI18n } from 'vue-i18n';
   import { BasicModal, useModalInner } from '/@/components/Modal';
-  export default defineComponent({
-    name: '',
-    components: { BasicModal },
-    setup() {
-      const { t } = useI18n();
-      const [register, { closeModal, setModalProps }] = useModalInner();
-      const value1 = '';
-      return {
-        register,
-        closeModal,
-        t,
-        value1,
-        setModalProps: () => {
-          setModalProps({ title: 'Modal New Title' });
-        },
-      };
+  import { BasicForm, FormSchema, useForm } from '/@/components/Form';
+  import { handleFeedback } from '/@/api/feedback';
+  import { ref } from 'vue';
+  const emit = defineEmits(['success']);
+  const id = ref();
+  const { t } = useI18n();
+  const schemas: FormSchema[] = [
+    {
+      label: t('feedback.remark'),
+      field: 'remarks',
+      component: 'InputTextArea',
+    },
+  ];
+
+  const [registerForm, { setFieldsValue, getFieldsValue }] = useForm({
+    labelWidth: 120,
+    schemas,
+    showActionButtonGroup: false,
+    actionColOptions: {
+      span: 24,
     },
   });
+
+  const [register, { closeModal, setModalProps }] = useModalInner((data) => {
+    if (data) {
+      id.value = data.id;
+      setFieldsValue({ ...data });
+    }
+  });
+
+  async function handleOk() {
+    setModalProps({
+      loading: true,
+    });
+    try {
+      await handleFeedback({ ...getFieldsValue() });
+      emit('success');
+      closeModal();
+    } finally {
+      setModalProps({
+        loading: false,
+      });
+    }
+  }
 </script>
 <style scoped></style>

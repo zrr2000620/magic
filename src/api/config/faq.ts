@@ -65,3 +65,11 @@ export const delFAQ = (data: any) =>
       successMessageMode: 'message',
     },
   );
+
+export const getFAQ = (id: number) =>
+  defHttp.get({
+    url: '/faq/info',
+    params: {
+      id,
+    },
+  });

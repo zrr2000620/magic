@@ -1,46 +1,51 @@
 <template>
   <BasicModal
     @register="register"
-    :draggable="false"
-    :title="t('feedback.Reminder')"
-    :okText="t('feedback.confirm')"
-    :cancelText="t('feedback.cancel')"
-    :min-height="0"
-    :canFullscreen="false"
-    centered
-    :height="200"
-    @ok="
-      () => {
-        closeModal();
-      }
-    "
+    v-bind="$attrs"
+    @ok="handleOk"
+    :ok-text="t('feedback.handleConfirm')"
   >
-    <h1>Are you sure you want to mark it as "processed"? </h1>
-    <span
-      >After marking, it means that you have finished processing the feedback of this customer
-    </span>
+    <TypographyTitle :level="4">{{ t('feedback.handleConfirmHeader') }}</TypographyTitle>
+    <TypographyParagraph>
+      {{ t('feedback.handleConfirmTitle') }}
+    </TypographyParagraph>
+    <TypographyParagraph>
+      {{ t('feedback.handleConfirmContent') }}
+    </TypographyParagraph>
   </BasicModal>
 </template>
 
-<script lang="ts">
-  import { defineComponent } from 'vue';
+<script setup lang="ts">
   import { useI18n } from 'vue-i18n';
   import { BasicModal, useModalInner } from '/@/components/Modal';
-  export default defineComponent({
-    name: '',
-    components: { BasicModal },
-    setup() {
-      const { t } = useI18n();
-      const [register, { closeModal, setModalProps }] = useModalInner();
-      return {
-        register,
-        closeModal,
-        t,
-        setModalProps: () => {
-          setModalProps({ title: 'Modal New Title' });
-        },
-      };
-    },
+  import { TypographyTitle, TypographyParagraph } from 'ant-design-vue';
+  import { handleFeedback } from '/@/api/feedback';
+  import { ref } from 'vue';
+  const emit = defineEmits(['success']);
+  const id = ref();
+  const { t } = useI18n();
+  const [register, { closeModal, setModalProps }] = useModalInner((data) => {
+    if (data) {
+      id.value = data.id;
+    }
   });
+
+  async function handleOk() {
+    setModalProps({
+      loading: true,
+    });
+    try {
+      await handleFeedback({
+        id: id.value,
+        processingStatus: 1,
+      });
+      emit('success');
+      closeModal();
+    } finally {
+      setModalProps({
+        loading: false,
+      });
+    }
+  }
 </script>
 <style scoped></style>

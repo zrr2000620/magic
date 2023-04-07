@@ -128,7 +128,7 @@ export const useUserStore = defineStore({
       if (!this.getToken) return null;
       try {
         const userInfo = await getUserInfo();
-        this.setRoleList(userInfo.menus.map((i) => i.frontId));
+        this.setRoleList(userInfo.menus.map((i) => i.frontId).concat(['']));
         this.setUserInfo(userInfo);
         return userInfo;
       } catch (err) {
