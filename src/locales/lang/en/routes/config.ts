@@ -11,4 +11,5 @@ export default {
   faqCategory: 'FAQ Category',
   addFAQ: 'Add FAQ',
   editFAQ: 'Edit FAQ',
+  financial: 'Financial Management',
 };

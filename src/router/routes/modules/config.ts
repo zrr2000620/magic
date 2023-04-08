@@ -44,11 +44,23 @@ const dashboard: AppRouteModule = {
     {
       path: 'subscribe',
       name: 'Subscribe',
-      component: () => import('/@/views/system/admin-list/index.vue'),
+      component: () => import('/@/views/config/subscribe/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.config.subscribe'),
       },
+      children: [
+        {
+          path: 'edit',
+          name: 'edit',
+          component: () => import('/@/views/config/subscribe/SubscribeAdd.vue'),
+          meta: {
+            title: t('system.role.roleFormCardTitle'),
+            hideMenu: true,
+            currentActiveMenu: '/subscribe/edit',
+          },
+        },
+      ],
     },
     {
       path: 'merchant/tag',
