@@ -5,8 +5,6 @@
   import { BasicForm, FormSchema, useForm } from '/@/components/Form';
   import { computed, ref, watch } from 'vue';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { useGlobSetting } from '/@/hooks/setting';
-  import { useTitle } from '@vueuse/core';
   import { editAdmin, getAdmin, addAdmin } from '/@/api/system/admin';
   import { getRoleList } from '/@/api/system/role';
   import { useGo } from '/@/hooks/web/usePage';
@@ -17,8 +15,6 @@
   const adminId = computed(() =>
     route.params.id && !isNaN(Number(route.params.id)) ? Number(route.params.id) : null,
   );
-  const { title } = useGlobSetting();
-  const pageTitle = useTitle();
   const { t } = useI18n();
 
   const userFormSchemas: FormSchema[] = [
@@ -166,13 +162,8 @@
     adminId,
     (newId) => {
       if (newId) {
-        route.meta.title = t('system.admin.editAdminTitle');
         loadFormValues(newId);
-      } else {
-        route.meta.title = t('system.admin.addAdminTitle');
       }
-
-      pageTitle.value = `${route.meta.title}-${title}`;
     },
     {
       immediate: true,

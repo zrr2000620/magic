@@ -7,6 +7,7 @@ export default {
     merchant: 'Merchant Management',
     merchantList: 'Merchant List',
     merchatStats: 'Merchant Statistic',
+    merchantDetail: 'Merchant details',
   },
   actions: {
     batchTag: 'batch tag',
@@ -19,8 +20,11 @@ export default {
     modifyExpirationTime: 'Change expire date',
   },
   texts: {
+    tagFilter: 'Tag filter',
     chooseTotal: 'Total {total} records choose {num} record',
     payment: 'Payment',
+    subscribePayment: 'Subscription payment',
+    campaignPayment: 'Campaign payment',
     merchantID: 'Merchant ID',
     merchantName: 'Merchant name',
     holder: 'Owner',

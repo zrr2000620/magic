@@ -2,44 +2,103 @@
   <PageWrapper dense contentFullHeight>
     <BasicTable @register="registerTable" @fetch-success="(e) => (total = e.toal)">
       <template #toolbar>
-        <Button type="primary">+ {{ t('config.faq.addFaq') }}</Button>
-        <Button>{{ t('config.faq.FAQCategory') }}</Button>
+        <Button type="primary" @click="openTagModal()">{{ t('merchant.actions.batchTag') }}</Button>
+        <Button>{{ t('merchant.actions.excelExport') }}</Button>
       </template>
-      <template #bodyCell="{ column, record }">
+      <template #bodyCell="{ column }">
+        <template v-if="column.key === 'isShow'">
+          <Switch checked-children="normal" un-checked-children="banned" />
+        </template>
         <template v-if="column.key === 'action'">
           <TableAction
             :actions="[
               {
-                label: record.isShow ? t('config.faq.disable') : t('config.faq.enable'),
+                label: t('merchant.actions.platformRemark'),
+                onClick: () => openRemarkModal(),
                 // ifShow: record.FeedbackID === 'FK643261',
                 // placement: 'left',
                 // confirm: handlerChangeStatus.bind(null, record),
               },
+            ]"
+            :dropDownActions="[
               {
-                label: t('config.faq.edit'),
-                // onClick: handleEdit.bind(null, record),
+                label: t('merchant.actions.detail'),
+                onClick: () =>
+                  go({
+                    name: 'MerchantDetail',
+                    params: {
+                      id: 1,
+                    },
+                  }),
+              },
+              {
+                label: t('merchant.actions.modifySubscribe'),
+                onClick: () => openChangeSubscribeModal(),
+              },
+              {
+                label: t('merchant.actions.giveAppendMessage'),
+                onClick: () => openAddonsModal(),
+              },
+              {
+                label: t('merchant.actions.modifyExpirationTime'),
+                onClick: () => openChangeExpireDateModal(),
               },
             ]"
-          />
+          >
+            <template #more>
+              <Button type="link">
+                <span class="mr-2">{{ t('merchant.actions.action') }}</span>
+                <CaretDownOutlined />
+              </Button>
+            </template>
+          </TableAction>
+        </template>
+
+        <template v-if="column.key === 'tags'">
+          <TableTags />
         </template>
       </template>
-      <template #title>123</template>
     </BasicTable>
+
+    <TagsModal @register="registerTagModal" />
+    <RemarkModal @register="registerRemarkModal" />
+    <AddonsMessageModal @register="registerAddonsMessageModal" />
+    <ChangeExpireDateModal @register="registerChangeExpireDateModal" />
+    <ChangeSubscribeModal @register="registerChangeSubscribeModal" />
   </PageWrapper>
 </template>
 
 <script lang="ts" setup>
   import { PageWrapper } from '/@/components/Page';
   import { useTable, BasicTable, TableAction } from '/@/components/Table';
-  import { Button } from 'ant-design-vue';
+  import { Button, Input, Switch } from 'ant-design-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { ref, computed } from 'vue';
+  import {
+    RangeSelect,
+    TagsModal,
+    RemarkModal,
+    AddonsMessageModal,
+    ChangeExpireDateModal,
+    ChangeSubscribeModal,
+  } from './components';
+  import { ref, computed, h } from 'vue';
+  import { useModal } from '/@/components/Modal';
+  import { DownOutlined, CaretDownOutlined } from '@ant-design/icons-vue';
+  import TableTags from '/@/components/TableTags/index.vue';
+  import { useGo } from '/@/hooks/web/usePage';
+  const go = useGo();
   const { t } = useI18n();
   const total = ref(0);
   const selectedRowKeys = ref<number[]>([]);
   const chooseTotalText = computed(() =>
     t('merchant.texts.chooseTotal', { total: total.value, num: selectedRowKeys.value.length }),
   );
+
+  const [registerTagModal, { openModal: openTagModal }] = useModal();
+  const [registerRemarkModal, { openModal: openRemarkModal }] = useModal();
+  const [registerAddonsMessageModal, { openModal: openAddonsModal }] = useModal();
+  const [registerChangeExpireDateModal, { openModal: openChangeExpireDateModal }] = useModal();
+  const [registerChangeSubscribeModal, { openModal: openChangeSubscribeModal }] = useModal();
   const [registerTable] = useTable({
     dataSource: [{}, {}, {}],
     useSearchForm: true,
@@ -78,7 +137,7 @@
       },
       {
         title: t('merchant.texts.merchantTag'),
-        dataIndex: 'isShow',
+        dataIndex: 'tags',
         width: 200,
       },
       {
@@ -151,24 +210,56 @@
       },
     ],
     formConfig: {
-      labelWidth: 100,
+      labelWidth: 150,
       colon: true,
       schemas: [
         {
           field: `question`,
-          label: t('config.faq.keyWord'),
-          component: 'Input',
+          label: 'keywords',
+          component: 'FieldInput',
           colProps: {
-            span: 6,
+            span: 8,
+          },
+          componentProps: {
+            options: [
+              {
+                label: t('merchant.texts.merchantID'),
+                value: '1',
+              },
+              {
+                label: t('merchant.texts.merchantName'),
+                value: '1',
+              },
+              {
+                label: t('merchant.texts.holder'),
+                value: '1',
+              },
+              {
+                label: t('merchant.texts.mobile'),
+                value: '1',
+              },
+              {
+                label: t('merchant.texts.email'),
+                value: '1',
+              },
+            ],
           },
         },
         {
-          field: `range`,
-          label: t('config.faq.creatieTime'),
-          component: 'RangePicker',
+          field: `Input`,
+          label: t('merchant.texts.tagFilter'),
+          component: 'Input',
           colProps: {
-            span: 6,
+            span: 8,
           },
+          render: () =>
+            h(Input, {
+              readonly: true,
+              suffix: h(DownOutlined),
+              onClick: () => {
+                openTagModal();
+              },
+            }),
         },
         {
           field: `industry`,
@@ -187,7 +278,7 @@
             ],
           },
           colProps: {
-            span: 6,
+            span: 8,
           },
         },
         {
@@ -195,7 +286,12 @@
           label: t('merchant.texts.registrationTime'),
           component: 'RangePicker',
           colProps: {
-            span: 6,
+            span: 8,
+          },
+          componentProps: {
+            style: {
+              width: '100%',
+            },
           },
         },
         {
@@ -203,55 +299,86 @@
           label: t('merchant.texts.payment'),
           component: 'Input',
           colProps: {
-            span: 6,
+            span: 8,
           },
+          render: ({ model, field }) =>
+            h(RangeSelect, {
+              value: model[field],
+              onChange: (e) => {
+                model[field] = e;
+              },
+            }),
         },
         {
           field: `range`,
-          label: t('config.faq.creatieTime'),
+          label: t('merchant.texts.contactNum'),
           component: 'RangePicker',
           colProps: {
-            span: 6,
+            span: 8,
           },
+          render: ({ model, field }) =>
+            h(RangeSelect, {
+              value: model[field],
+              onChange: (e) => {
+                model[field] = e;
+              },
+            }),
         },
         {
           field: `question`,
-          label: t('config.faq.keyWord'),
+          label: t('merchant.texts.subscribePlan'),
           component: 'Input',
           colProps: {
-            span: 6,
+            span: 8,
           },
         },
         {
           field: `range`,
-          label: t('config.faq.creatieTime'),
+          label: t('merchant.texts.subscribePayment'),
           component: 'RangePicker',
           colProps: {
-            span: 6,
+            span: 8,
           },
+          render: ({ model, field }) =>
+            h(RangeSelect, {
+              value: model[field],
+              onChange: (e) => {
+                model[field] = e;
+              },
+            }),
         },
         {
           field: `question`,
-          label: t('config.faq.keyWord'),
+          label: t('merchant.texts.campaignPayment'),
           component: 'Input',
           colProps: {
-            span: 6,
+            span: 8,
           },
+          render: ({ model, field }) =>
+            h(RangeSelect, {
+              value: model[field],
+              onChange: (e) => {
+                model[field] = e;
+              },
+            }),
         },
         {
           field: `range`,
-          label: t('config.faq.creatieTime'),
-          component: 'RangePicker',
+          label: t('merchant.texts.status'),
+          component: 'Select',
           colProps: {
-            span: 6,
+            span: 8,
           },
         },
       ],
       showAdvancedButton: false,
+      actionColOptions: {
+        span: 16,
+      },
     },
     actionColumn: {
       dataIndex: 'action',
-      width: 200,
+      width: 250,
       fixed: 'right',
       title: t('common.operateText'),
     },

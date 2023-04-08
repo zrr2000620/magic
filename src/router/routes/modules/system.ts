@@ -37,6 +37,12 @@ const dashboard: AppRouteModule = {
         title: t('system.admin.addAdminTitle'),
         roles: [RoleEnum.ADMIN_ADD, RoleEnum.ADMIN_EDIT],
       },
+      beforeEnter: (to, _, next) => {
+        if (to.params.id) {
+          to.meta.title = t('system.admin.editAdminTitle');
+        }
+        next();
+      },
     },
     {
       path: 'role/list',
@@ -57,6 +63,12 @@ const dashboard: AppRouteModule = {
         currentActiveMenu: '/system/role/list',
         title: t('system.role.addRoleTitle'),
         roles: [RoleEnum.ROLE_ADD, RoleEnum.ROLE_EDIT],
+      },
+      beforeEnter: (to, _, next) => {
+        if (to.params.id) {
+          to.meta.title = t('system.role.editRoleTitle');
+        }
+        next();
       },
     },
     {

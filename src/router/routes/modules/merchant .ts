@@ -13,12 +13,23 @@ const merchant: AppRouteModule = {
   },
   children: [
     {
-      path: 'merchant/list',
+      path: 'list',
       name: 'List',
       component: () => import('/@/views/merchant/list/index.vue'),
       meta: {
         // affix: true,
         title: t('merchant.menus.merchantList'),
+      },
+    },
+    {
+      path: ':id',
+      name: 'MerchantDetail',
+      component: () => import('/@/views/merchant/detail/index.vue'),
+      meta: {
+        // affix: true,
+        title: t('merchant.menus.merchantDetail'),
+        hideMenu: true,
+        currentActiveMenu: '/merchant/list',
       },
     },
     {
