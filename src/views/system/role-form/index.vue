@@ -5,14 +5,10 @@
   import { BasicForm, FormSchema, useForm } from '/@/components/Form';
   import { computed, watch } from 'vue';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { useGlobSetting } from '/@/hooks/setting';
-  import { useTitle } from '@vueuse/core';
   import { getMenuList } from '/@/api/system/menu';
 
   const route = useRoute();
   const adminId = computed(() => route.params.id);
-  const { title } = useGlobSetting();
-  const pageTitle = useTitle();
   const { t } = useI18n();
   const schemas: FormSchema[] = [
     {
@@ -90,11 +86,7 @@
     (newId) => {
       if (newId) {
         route.meta.title = t('system.role.editRoleTitle');
-      } else {
-        route.meta.title = t('system.role.addRoleTitle');
       }
-
-      pageTitle.value = `${route.meta.title}-${title}`;
     },
     {
       immediate: true,

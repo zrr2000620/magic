@@ -8,26 +8,37 @@ const merchant: AppRouteModule = {
   redirect: '/merchant-list',
   meta: {
     icon: 'ion:grid-outline',
-    title: t('routes.merchant.menus.merchant'),
+    title: t('merchant.menus.merchant'),
     orderNo: 3,
   },
   children: [
     {
-      path: 'merchant-list',
+      path: 'list',
       name: 'List',
       component: () => import('/@/views/merchant/list/index.vue'),
       meta: {
         // affix: true,
-        title: t('routes.merchant.menus.merchantList'),
+        title: t('merchant.menus.merchantList'),
       },
     },
     {
-      path: 'merchant-stats',
+      path: ':id',
+      name: 'MerchantDetail',
+      component: () => import('/@/views/merchant/detail/index.vue'),
+      meta: {
+        // affix: true,
+        title: t('merchant.menus.merchantDetail'),
+        hideMenu: true,
+        currentActiveMenu: '/merchant/list',
+      },
+    },
+    {
+      path: 'merchant/stats',
       name: 'Stats',
       component: () => import('/@/views/merchant/stats/index.vue'),
       meta: {
         // affix: true,
-        title: t('routes.merchant.menus.merchatStats'),
+        title: t('merchant.menus.merchatStats'),
       },
     },
   ],
