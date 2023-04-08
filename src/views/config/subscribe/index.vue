@@ -3,7 +3,7 @@
     <template #headerContent>{{ t('config.subscribe.headerContent') }}</template>
     <Card>
       <Row :gutter="[20, 20]">
-        <Col span="5" v-for="(item, index) in [{}, {}, {}, {}, {}, {}, {}]" :key="index">
+        <Col span="5" v-for="(item, index) in [{}]" :key="index">
           <Card>
             <template #title>
               <div class="cardHeader">
