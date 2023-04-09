@@ -7,9 +7,8 @@
   onMounted(() => {
     setOptions({
       title: {
-        text: 'Referer of a Website',
+        text: 'Proportion of paid items',
         bottom: 'bottom',
-        left: 'middle',
       },
       legend: {
         orient: 'vertical',
@@ -20,7 +19,6 @@
         {
           name: 'Access From',
           type: 'pie',
-          radius: '100%',
           data: [
             { value: 1048, name: 'Search Engine' },
             { value: 735, name: 'Direct' },
@@ -42,5 +40,5 @@
 </script>
 
 <template>
-  <div ref="chartRef" class="w-full h-[300px]"></div>
+  <div ref="chartRef" class="w-[500px] h-[300px]"></div>
 </template>

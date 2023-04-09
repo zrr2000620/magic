@@ -19,13 +19,13 @@
           type: 'line',
         },
       ],
-      title: {
-        text: 'Rating',
-      },
     });
   });
 </script>
 
 <template>
-  <div ref="chartRef" class="w-full h-[300px]"></div>
+  <div>
+    <div class="text-[20px]"> Google </div>
+    <div ref="chartRef" class="w-full h-[300px]"></div>
+  </div>
 </template>

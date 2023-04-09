@@ -2,8 +2,22 @@
   import { Card, Row, Col, Avatar, Divider, Statistic } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
   import { Description, DescItem, useDescription } from '/@/components/Description';
-  import PaidItemChart from './components/PaidItemChart.vue';
-  import RatingChart from './components/RatingChart.vue';
+  import {
+    PaidItemChart,
+    RatingChart,
+    SubscribeTable,
+    AddonTable,
+    ConcatTable,
+    EmployeeTable,
+    LocationTable,
+    RolePermissiomTable,
+  } from './components';
+  import { ref } from 'vue';
+  import { useI18n } from '/@/hooks/web/useI18n';
+
+  const { t } = useI18n();
+  t('');
+  const currentKey = ref('1');
 
   const descSchemas: DescItem[] = [
     {
@@ -81,12 +95,32 @@
 
   const tabs = [
     {
-      key: 'as',
+      key: '1',
       tab: 'Review rating',
     },
     {
-      key: 'Subscription record',
+      key: '2',
       tab: 'Subscription record',
+    },
+    {
+      key: '3',
+      tab: 'Add-on purchase record',
+    },
+    {
+      key: '4',
+      tab: 'Concat',
+    },
+    {
+      key: '5',
+      tab: 'Employee list',
+    },
+    {
+      key: '6',
+      tab: 'Locations',
+    },
+    {
+      key: '7',
+      tab: 'Roles and Perimissions',
     },
   ];
 
@@ -145,21 +179,51 @@
       </Row>
     </Card>
 
-    <Card :tabList="tabs">
-      <Row :gutter="[20, 20]">
-        <Col span="12">
-          <RatingChart />
-        </Col>
-        <Col span="12">
-          <RatingChart />
-        </Col>
-        <Col span="12">
-          <RatingChart />
-        </Col>
-        <Col span="12">
-          <RatingChart />
-        </Col>
-      </Row>
+    <Card :tabList="tabs" @tab-change="(e) => (currentKey = e)">
+      <template v-if="currentKey === '1'">
+        <Row :gutter="[20, 20]">
+          <Col span="12">
+            <RatingChart />
+          </Col>
+          <Col span="12">
+            <RatingChart />
+          </Col>
+          <Col span="12">
+            <RatingChart />
+          </Col>
+          <Col span="12">
+            <RatingChart />
+          </Col>
+        </Row>
+      </template>
+
+      <template v-if="currentKey === '2'">
+        <SubscribeTable />
+      </template>
+
+      <template v-if="currentKey === '3'">
+        <AddonTable />
+      </template>
+
+      <template v-if="currentKey === '4'">
+        <ConcatTable />
+      </template>
+
+      <template v-if="currentKey === '5'">
+        <EmployeeTable />
+      </template>
+
+      <template v-if="currentKey === '6'">
+        <LocationTable />
+      </template>
+
+      <template v-if="currentKey === '7'">
+        <RolePermissiomTable />
+      </template>
+
+      <template #extra v-if="currentKey === '7'">
+        <AButton type="primary">Save</AButton>
+      </template>
     </Card>
   </PageWrapper>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <BasicModal v-bind="$attrs" @register="register" @ok="handleOk">
+  <BasicModal v-bind="$attrs" @register="register" @ok="handleOk" title="Note" ok-text="Confirm">
     <div class="pt-3px pr-3px">
       <BasicForm @register="registerForm" />
     </div>
@@ -15,11 +15,20 @@
   const emit = defineEmits(['success']);
   const id = ref();
   const { t } = useI18n();
+  t('');
   const schemas: FormSchema[] = [
     {
-      label: t('feedback.remark'),
+      label: '',
       field: 'remarks',
       component: 'InputTextArea',
+      colProps: {
+        span: 24,
+      },
+      componentProps: {
+        autoSize: {
+          minRows: 8,
+        },
+      },
     },
   ];
 
@@ -30,6 +39,7 @@
     actionColOptions: {
       span: 24,
     },
+    colon: true,
   });
 
   const [register, { closeModal, setModalProps }] = useModalInner((data) => {
