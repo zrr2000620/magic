@@ -21,7 +21,6 @@
   import { PickerMode } from 'ant-design-vue/es/vc-picker/interface';
   import Trend from './components/Trend.vue';
   import Chart from './components/Chart.vue';
-  import { getAccountList } from '/@/api/demo/system';
 
   interface SearchInfo {
     picker: PickerMode;
@@ -42,7 +41,6 @@
     currency: 'USD',
   });
   const [registerTable] = useTable({
-    api: getAccountList,
     rowKey: 'id',
     columns: [
       {
@@ -168,8 +166,8 @@
       </template>
 
       <Row :gutter="20">
-        <Col flex="1 0 0" class="w-0">
-          <div class="text-right mb-2">
+        <Col flex="1 0 0" class="w-0 border-r-1 border-slate-200">
+          <div class="text-right mb-2 text-base">
             <span
               class="cursor-pointer hover:text-blue-400"
               :class="{ 'text-blue-400': currentKey === 'chart' }"
