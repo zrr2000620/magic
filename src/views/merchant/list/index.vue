@@ -94,7 +94,7 @@
     t('merchant.texts.chooseTotal', { total: total.value, num: selectedRowKeys.value.length }),
   );
 
-  const [registerTagModal, { openModal: openTagModal }] = useModal();
+  const [registerTagModal, { openModal: openTagModal, setModalProps: setTagModal }] = useModal();
   const [registerRemarkModal, { openModal: openRemarkModal }] = useModal();
   const [registerAddonsMessageModal, { openModal: openAddonsModal }] = useModal();
   const [registerChangeExpireDateModal, { openModal: openChangeExpireDateModal }] = useModal();
@@ -257,8 +257,12 @@
               readonly: true,
               suffix: h(DownOutlined),
               onClick: () => {
+                setTagModal({
+                  title: 'Select tag',
+                });
                 openTagModal();
               },
+              placeholder: 'Please choose tags',
             }),
         },
         {
@@ -307,6 +311,7 @@
               onChange: (e) => {
                 model[field] = e;
               },
+              placeholder: 'Please enter the amount range',
             }),
         },
         {
@@ -322,6 +327,7 @@
               onChange: (e) => {
                 model[field] = e;
               },
+              placeholder: 'Please enter the number of contacts',
             }),
         },
         {
@@ -345,6 +351,7 @@
               onChange: (e) => {
                 model[field] = e;
               },
+              placeholder: 'Please enter the amount range',
             }),
         },
         {
@@ -360,6 +367,7 @@
               onChange: (e) => {
                 model[field] = e;
               },
+              placeholder: 'Please enter the amount range',
             }),
         },
         {

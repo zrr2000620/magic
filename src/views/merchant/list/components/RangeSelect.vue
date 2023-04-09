@@ -38,7 +38,7 @@
         </div>
       </div>
     </template>
-    <Input readonly :class="prefixCls">
+    <Input v-bind="$attrs" readonly :class="prefixCls">
       <template #suffix>
         <DownOutlined />
       </template>

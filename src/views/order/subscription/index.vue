@@ -24,98 +24,95 @@
 <script lang="ts" setup>
   import { useI18n } from '/@/hooks/web/useI18n';
   import { PageWrapper } from '/@/components/Page';
-  import { useTable, BasicTable, TableAction, FormSchema } from '/@/components/Table';
+  import { useTable, BasicTable, TableAction, FormSchema, BasicColumn } from '/@/components/Table';
   import RemakeModal from './components/RemakeModal.vue';
   import { useModal } from '/@/components/Modal';
   import { useGo } from '/@/hooks/web/usePage';
   const { t } = useI18n();
   const go = useGo();
   const [register2, { openModal: remake }] = useModal();
-  const columns = [
+  const columns: BasicColumn[] = [
     {
       title: t('routes.order.table.orderNum'),
       dataIndex: 'orderNum',
-      width: 120,
+      width: 150,
     },
     {
       title: t('routes.order.table.subTime'),
       dataIndex: 'subTime',
-      width: 120,
+      width: 150,
     },
     {
       title: t('routes.order.table.merchantName'),
       dataIndex: 'account',
-      width: 120,
+      width: 150,
+      ellipsis: true,
     },
     {
       title: t('routes.order.table.phone'),
       dataIndex: 'account',
-      width: 120,
+      width: 200,
     },
     {
       title: t('routes.order.table.location'),
       dataIndex: 'account',
-      width: 120,
+      width: 200,
+      ellipsis: true,
     },
     {
       title: t('routes.order.table.subPlan'),
       dataIndex: 'account',
-      width: 120,
+      width: 200,
+      ellipsis: true,
     },
     {
       title: t('routes.order.table.subType'),
       dataIndex: 'account',
-      width: 120,
-    },
-    {
-      title: t('routes.order.table.orderNum'),
-      dataIndex: 'account',
-      width: 120,
-    },
-    {
-      title: t('routes.order.table.amount'),
-      dataIndex: 'account',
-      width: 120,
+      width: 200,
+      ellipsis: true,
     },
     {
       title: t('routes.order.table.balance'),
       dataIndex: 'account',
-      width: 120,
+      width: 200,
     },
     {
       title: t('routes.order.table.refund'),
       dataIndex: 'account',
-      width: 120,
+      width: 200,
+      ellipsis: true,
     },
     {
       title: t('routes.order.table.payStatus'),
       dataIndex: 'account',
-      width: 120,
+      width: 150,
     },
     {
       title: t('routes.order.table.subStatus'),
       dataIndex: 'account',
-      width: 120,
+      width: 150,
     },
     {
       title: t('routes.order.table.subWay'),
       dataIndex: 'account',
-      width: 120,
+      width: 200,
+      ellipsis: true,
     },
     {
       title: t('routes.order.table.expireDate'),
       dataIndex: 'account',
-      width: 120,
+      width: 200,
     },
     {
       title: t('routes.order.table.payMethod'),
       dataIndex: 'account',
-      width: 120,
+      width: 150,
     },
     {
       title: t('routes.order.table.subNote'),
       dataIndex: 'account',
-      width: 120,
+      width: 300,
+      ellipsis: true,
     },
   ];
   const searchForm: FormSchema[] = [
@@ -156,6 +153,11 @@
       label: t('routes.order.orderDes.payTime'),
       component: 'DatePicker',
       colProps: { span: 8 },
+      componentProps: {
+        style: {
+          width: '100%',
+        },
+      },
     },
     {
       field: 'time1',
@@ -242,8 +244,12 @@
     columns: columns,
     formConfig: {
       colon: true,
-      labelWidth: 120,
+      labelWidth: 140,
       schemas: searchForm,
+      showAdvancedButton: false,
+      actionColOptions: {
+        span: 16,
+      },
     },
     showIndexColumn: false,
     bordered: true,
