@@ -52,7 +52,7 @@
                   @blur="handleInputConfirm"
                 />
                 <Tag v-else @click="showInput" style="background: #fff; border-style: dashed">
-                  Add</Tag
+                  {{ t('config.tag.add') }}</Tag
                 >
               </template>
               <ListItem>

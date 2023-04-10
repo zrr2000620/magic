@@ -4,13 +4,13 @@
       <template #title>{{ t($route.meta.title) }}</template>
       <BasicForm :labelWidth="100" :showActionButtonGroup="false" @register="registerForm">
         <template #priceSlot>
-          <Row :gutter="[20, 20]">
-            <Col :span="20" class="priceInput">
-              <Checkbox>Monthly</Checkbox>
+          <Row :gutter="[0, 10]">
+            <Col :span="15" class="priceInput">
+              <Checkbox style="width: 200px">{{ t('config.subscribe.monthly') }}</Checkbox>
               <Input addon-after="USD/mouth" value=""
             /></Col>
-            <Col :span="20" class="priceInput">
-              <Checkbox>Annualy</Checkbox>
+            <Col :span="15" class="priceInput">
+              <Checkbox style="width: 200px">{{ t('config.subscribe.annualy') }}</Checkbox>
               <Input addon-after="USD/mouth" value=""
             /></Col>
           </Row>
@@ -65,7 +65,7 @@
           <menu-item key="8" @click="vvl = 8">{{ t('config.trial.reporting') }}</menu-item>
         </Menu>
         <div class="lg:flex" style="flex: 1; flex-direction: column; gap: 10px">
-          <div>Function permissions：</div>
+          <div>{{ t('config.trial.permissions') }}</div>
           <div v-if="vvl === 1">
             <BasicTree checkable :treeData="treeData" />
           </div>
@@ -185,7 +185,7 @@
         label: t('config.subscribe.specification'),
         component: 'Input',
         field: 'i6',
-        slot: 'teamSlot',
+        slot: 'priceSlot',
         colProps: {
           span: 12,
         },

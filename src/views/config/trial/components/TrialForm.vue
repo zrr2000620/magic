@@ -11,7 +11,7 @@
       >
         <template #trialSlot>
           <div class="teamSlot">
-            <Input style="width: 200px" addon-after="Day" />
+            <Input style="width: 200px" :addon-after="t('config.trial.day')" />
           </div>
         </template>
         <template #teamSlot>
@@ -21,7 +21,11 @@
                 item.label
               }}</Radio></RadioGroup
             >
-            <Input v-show="val === 1" style="width: 200px" addon-after="person" />
+            <Input
+              v-show="val === 1"
+              style="width: 200px"
+              :addon-after="t('config.trial.person')"
+            />
           </div>
         </template>
         <template #sendSlost>
@@ -31,7 +35,11 @@
                 item.label
               }}</Radio></RadioGroup
             >
-            <Input v-show="val2 === 1" style="width: 200px" addon-after="times" />
+            <Input
+              v-show="val2 === 1"
+              style="width: 200px"
+              :addon-after="t('config.trial.times')"
+            />
           </div>
         </template>
       </BasicForm>
@@ -49,7 +57,7 @@
           <menu-item key="8" @click="vvl = 8">{{ t('config.trial.reporting') }}</menu-item>
         </Menu>
         <div class="lg:flex" style="flex: 1; flex-direction: column; gap: 10px">
-          <div>Function permissions：</div>
+          <div>{{ t('config.trial.permissions') }}</div>
           <div v-if="vvl === 1">
             <BasicTree checkable :treeData="treeData" />
           </div>
@@ -137,7 +145,7 @@
     {
       field: 'field5',
       component: 'RadioGroup',
-      label: t('config.trial.teamSize.title'),
+      label: t('config.trial.messagesSent'),
       colProps: {
         span: 12,
       },

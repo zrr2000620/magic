@@ -40,9 +40,7 @@
               </div>
               <div class="cardHeader-content">
                 <h1 style="font-weight: 700; font-size: 30px"> Basic Plan</h1>
-                <span style="white-space: normal"
-                  >Subscription package description (for front-end display view)</span
-                >
+                <span style="white-space: normal">{{ t('config.subscribe.subContent') }}</span>
               </div>
             </template>
 

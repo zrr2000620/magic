@@ -2,9 +2,9 @@
   <PageWrapper dense :title="t($route.meta.title)">
     <template #headerContent>
       <div class="lg:flex" style="justify-content: flex-end; gap: 20px">
-        <Button type="primary">Day</Button>
-        <Button>Week</Button>
-        <Button>Month</Button>
+        <Button type="primary">{{ t('financial.day') }}</Button>
+        <Button>{{ t('financial.week') }}</Button>
+        <Button>{{ t('financial.month') }}</Button>
         <DatePicker />
       </div>
     </template>

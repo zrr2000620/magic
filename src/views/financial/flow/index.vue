@@ -62,9 +62,9 @@
         </template>
         <template #toolbar>
           <div class="lg:flex" style="gap: 10px">
-            <Button type="primary">Day</Button>
-            <Button>Week</Button>
-            <Button>Month</Button>
+            <Button type="primary">{{ t('financial.day') }}</Button>
+            <Button>{{ t('financial.week') }}</Button>
+            <Button>{{ t('financial.month') }}</Button>
             <DatePicker />
           </div>
         </template>
@@ -172,7 +172,7 @@
     ],
     actionColumn: {
       width: 250,
-      title: 'operate',
+      title: t('financial.operate'),
       dataIndex: 'action',
     },
   });

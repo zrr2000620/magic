@@ -13,6 +13,8 @@ export default {
     countryPlaceholder: 'Please enter Country name',
   },
   channel: {
+    on: 'On',
+    off: 'off',
     headerContent: 'You can manage linking channels here',
     channelList: {
       InboxChannel: 'Inbox channel',
@@ -38,6 +40,7 @@ export default {
     },
   },
   trial: {
+    permissions: 'Function permissions：',
     home: 'Home',
     inbox: 'Inbox',
     reviews: 'Reviews',
@@ -45,6 +48,9 @@ export default {
     campaigns: 'Campaigns',
     webWidget: 'Web Widget',
     reporting: 'Reporting',
+    day: 'Day',
+    person: 'person',
+    times: 'times',
     header: 'Trial Settings',
     headerContent: 'You can manage the restrictions and use permissions of the trial account',
     save: 'Save',
@@ -75,6 +81,7 @@ export default {
       save: 'Save',
       cancel: 'Cancel',
     },
+    add: 'Add',
   },
   faq: {
     keyWord: 'Keyword：',
@@ -150,5 +157,8 @@ export default {
     numberMsg: 'Number of messages sent',
     count: 'Send campaign count',
     scopeReport: 'Report viewing scope',
+    subContent: 'Subscription package description (for front-end display view)',
+    monthly: 'Monthly',
+    annualy: 'Annualy',
   },
 };

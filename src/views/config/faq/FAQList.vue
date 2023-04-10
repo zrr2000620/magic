@@ -56,6 +56,7 @@
   const [registerTable, { reload }] = useTable({
     api: getFAQList,
     rowKey: 'id',
+    showIndexColumn: false,
     columns: [
       {
         title: t('config.faq.title'),
