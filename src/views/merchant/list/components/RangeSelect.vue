@@ -10,7 +10,9 @@
   } from 'ant-design-vue';
   import { DownOutlined } from '@ant-design/icons-vue';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { useI18n } from '/@/hooks/web/useI18n';
   const { prefixCls } = useDesign('range-select');
+  const { t } = useI18n();
 </script>
 
 <template>
@@ -18,7 +20,7 @@
     <template #content>
       <div class="w-[300px]">
         <TypographyTitle :level="5" type="secondary">
-          Please enter the amount range
+          {{ $attrs.placeholder }}
         </TypographyTitle>
 
         <InputGroup>
@@ -34,7 +36,7 @@
         </InputGroup>
 
         <div class="text-right mt-5">
-          <AButton type="primary">Confirm</AButton>
+          <AButton type="primary">{{ t('common.confirmText') }}</AButton>
         </div>
       </div>
     </template>

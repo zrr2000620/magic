@@ -7,7 +7,10 @@
       </template>
       <template #bodyCell="{ column }">
         <template v-if="column.key === 'isShow'">
-          <Switch checked-children="normal" un-checked-children="banned" />
+          <Switch
+            :checked-children="t('merchant.texts.statusNormal')"
+            :un-checked-children="t('merchant.texts.statusBanned')"
+          />
         </template>
         <template v-if="column.key === 'action'">
           <TableAction
@@ -215,7 +218,7 @@
       schemas: [
         {
           field: `question`,
-          label: 'keywords',
+          label: t('merchant.texts.keywords'),
           component: 'FieldInput',
           colProps: {
             span: 8,
@@ -258,11 +261,11 @@
               suffix: h(DownOutlined),
               onClick: () => {
                 setTagModal({
-                  title: 'Select tag',
+                  title: t('merchant.texts.tagsSelectTitgle'),
                 });
                 openTagModal();
               },
-              placeholder: 'Please choose tags',
+              placeholder: t('merchant.texts.tagFilterPlaceholder'),
             }),
         },
         {
@@ -311,7 +314,7 @@
               onChange: (e) => {
                 model[field] = e;
               },
-              placeholder: 'Please enter the amount range',
+              placeholder: t('merchant.texts.rangeAmount'),
             }),
         },
         {
@@ -327,7 +330,7 @@
               onChange: (e) => {
                 model[field] = e;
               },
-              placeholder: 'Please enter the number of contacts',
+              placeholder: t('merchant.texts.rangeConcatNum'),
             }),
         },
         {
@@ -351,7 +354,7 @@
               onChange: (e) => {
                 model[field] = e;
               },
-              placeholder: 'Please enter the amount range',
+              placeholder: t('merchant.texts.rangeAmount'),
             }),
         },
         {
@@ -367,7 +370,7 @@
               onChange: (e) => {
                 model[field] = e;
               },
-              placeholder: 'Please enter the amount range',
+              placeholder: t('merchant.texts.rangeAmount'),
             }),
         },
         {

@@ -12,10 +12,13 @@ export default {
   exportExcel: '导出Excel',
   inputText: '请输入',
   chooseText: '请选择',
+  editText: '编辑',
 
   redo: '刷新',
   back: '返回',
 
   light: '亮色主题',
   dark: '黑暗主题',
+
+  confirmText: '确认',
 };

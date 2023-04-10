@@ -132,6 +132,7 @@ export default {
     successText: '验证通过',
   },
   fieldInput: {
+    placeholder: '输入关键词搜索',
     fieldSelectPlaceholder: '选择类型',
   },
 };

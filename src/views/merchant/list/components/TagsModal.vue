@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { SearchOutlined } from '@ant-design/icons-vue';
+  import { useI18n } from '/@/hooks/web/useI18n';
   import {
     Input,
     List,
@@ -12,9 +13,10 @@
   } from 'ant-design-vue';
 
   const [register] = useModalInner(() => {});
+  const { t } = useI18n();
 </script>
 <template>
-  <BasicModal v-bind="$attrs" @register="register" :ok-text="'Confirm'" :width="560">
+  <BasicModal v-bind="$attrs" @register="register" :ok-text="t('common.confirmText')" :width="560">
     <div class="pt-3px pr-3px">
       <Input class="mb-5">
         <template #prefix>
@@ -23,9 +25,9 @@
       </Input>
 
       <RadioGroup>
-        <Radio> Matches any tag </Radio>
-        <Radio> Matches all tags at the same time </Radio>
-        <Radio> Untagged user </Radio>
+        <Radio> {{ t('merchant.texts.tagRadioByAny') }} </Radio>
+        <Radio> {{ t('merchant.texts.tagRadioByAll') }} </Radio>
+        <Radio> {{ t('merchant.texts.tagRadioBynotTag') }} </Radio>
       </RadioGroup>
 
       <List>
@@ -42,8 +44,8 @@
 
     <template #insertFooter>
       <div class="w-[65%] text-left">
-        1 tab selected
-        <AButton type="link"> clean </AButton>
+        {{ t('merchant.texts.tagSelected', { total: 0 }) }}
+        <AButton type="link"> {{ t('merchant.actions.clean') }} </AButton>
       </div>
     </template>
   </BasicModal>

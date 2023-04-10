@@ -134,6 +134,7 @@
                 value: 5,
               },
             ],
+            placeholder: t('feedback.searchPlaceholder'),
             onTypeChange: (e) => {
               searchInfo.value.type = e;
             },
