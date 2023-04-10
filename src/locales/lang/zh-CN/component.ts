@@ -131,4 +131,7 @@ export default {
     dragText: '请按住滑块拖动',
     successText: '验证通过',
   },
+  fieldInput: {
+    fieldSelectPlaceholder: '选择类型',
+  },
 };

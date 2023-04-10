@@ -4,8 +4,8 @@
       <div class="lg:flex" style="align-items: center; justify-content: space-between">
         <span style="font-size: 30px; font-weight: 500">{{ t($route.meta.title) }}</span>
         <div class="lg:flex" style="gap: 10px">
-          <Button>{{ t('routes.order.back') }}</Button>
-          <Button type="primary">{{ t('routes.order.remarks') }}</Button>
+          <Button @click="$router.go(-1)">{{ t('routes.order.back') }}</Button>
+          <Button type="primary" @click="platformClick">{{ t('routes.order.remarks') }}</Button>
         </div>
       </div>
       <div class="lg:flex" style="flex-direction: row">
@@ -22,11 +22,14 @@
           <DescriptionsItem :label="t('routes.order.orderDes.subNote')">123</DescriptionsItem>
         </Descriptions>
         <div class="lg:flex" style="flex: 1; flex-direction: column; align-items: end">
-          <span>status</span>
-          <span style="font-size: 30px; font-weight: 500">Available/Expired</span>
+          <span>{{ t('routes.order.table.payStatus') }}</span>
+          <span style="font-size: 30px; font-weight: 500"
+            ><span>{{ t('routes.order.available') }}</span
+            >/<span style="color: red">{{ t('routes.order.expired') }}</span></span
+          >
         </div>
         <div class="lg:flex" style="flex: 1; flex-direction: column; align-items: end">
-          <span>Payment amount</span>
+          <span>{{ t('routes.order.table.amount') }}</span>
           <span style="font-size: 30px; font-weight: 500">$ 179.00</span>
         </div>
       </div>
@@ -63,12 +66,16 @@
         <DescriptionsItem :label="t('routes.order.table.balance')">123</DescriptionsItem>
       </Descriptions>
     </Card>
+    <PlatformModal @register="register2" />
   </PageWrapper>
 </template>
 <script lang="ts" setup>
   import { useI18n } from '/@/hooks/web/useI18n';
   import { PageWrapper } from '/@/components/Page';
   import { Button, Descriptions, DescriptionsItem, Card } from 'ant-design-vue';
+  import { useModal } from '/@/components/Modal';
+  import PlatformModal from './components/PlatformModal.vue';
+  const [register2, { openModal: platformClick }] = useModal();
   const { t } = useI18n();
 </script>
 <style scoped></style>

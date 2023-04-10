@@ -27,7 +27,7 @@ const order: AppRouteModule = {
           name: 'SubscriptionDetails',
           component: () => import('/@/views/order/subscription/SubscriptionDetails.vue'),
           meta: {
-            title: 'Order number',
+            title: t('routes.order.orderDes.orderDetialName'),
             hideMenu: true,
           },
         },
@@ -47,7 +47,7 @@ const order: AppRouteModule = {
           name: 'CampaignDetails',
           component: () => import('/@/views/order/campaign/CamponentsDetails.vue'),
           meta: {
-            title: 'Order number',
+            title: t('routes.order.orderDes.orderDetialName'),
             hideMenu: true,
           },
         },

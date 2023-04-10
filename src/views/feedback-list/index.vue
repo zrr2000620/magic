@@ -176,7 +176,7 @@
     showIndexColumn: false,
     actionColumn: {
       width: 250,
-      title: 'operate',
+      title: t('feedback.operate'),
       dataIndex: 'action',
     },
     scroll: {

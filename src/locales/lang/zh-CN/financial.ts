@@ -2,7 +2,6 @@ export default {
   financialStatement: '  Financial statement',
   dataOverview: 'Data overview',
   income: 'All income($)  ',
-  operate: 'operate',
   incomeName: 'Income',
   revenue: 'Subscription revenue($)',
   addRevenue: 'Add-on revenue($)',
@@ -28,6 +27,6 @@ export default {
     cardNumber: 'Card number',
     notes: 'Notes',
     remake: 'Remake',
-    note: 'Note',
+    note: '备注',
   },
 };

@@ -4,8 +4,8 @@
       <div class="lg:flex" style="align-items: center; justify-content: space-between">
         <span style="font-size: 30px; font-weight: 500">{{ t($route.meta.title) }}</span>
         <div class="lg:flex" style="gap: 10px">
-          <Button>{{ t('routes.order.back') }}</Button>
-          <Button type="primary">{{ t('routes.order.remarks') }}</Button>
+          <Button @click="$router.go(-1)">{{ t('routes.order.back') }}</Button>
+          <Button type="primary" @click="platformClick">{{ t('routes.order.remarks') }}</Button>
         </div>
       </div>
       <div class="lg:flex" style="flex-direction: row">
@@ -23,7 +23,7 @@
         </Descriptions>
         <div class="lg:flex" style="flex: 1; flex-direction: column; align-items: end">
           <span>{{ t('routes.order.table.payStatus') }}</span>
-          <span style="font-size: 30px; font-weight: 500">Paid</span>
+          <span style="font-size: 30px; font-weight: 500">{{ t('routes.order.paid') }}</span>
         </div>
         <div class="lg:flex" style="flex: 1; flex-direction: column; align-items: end">
           <span>{{ t('routes.order.table.amount') }}</span>
@@ -52,7 +52,7 @@
         <DescriptionsItem>
           <div style="width: 50%">
             <div class="lg:flex" style="justify-content: space-between">
-              <span>1000 text message credits </span>
+              <span>{{ t('routes.order.progressName') }} </span>
               <span>50 / 1000 </span>
             </div>
             <Progress :percent="20" status="active" />
@@ -60,12 +60,16 @@
         </DescriptionsItem>
       </Descriptions>
     </Card>
+    <PlatformModal @register="register2" />
   </PageWrapper>
 </template>
 <script lang="ts" setup>
   import { useI18n } from '/@/hooks/web/useI18n';
   import { PageWrapper } from '/@/components/Page';
   import { Button, Descriptions, DescriptionsItem, Card, Progress } from 'ant-design-vue';
+  import PlatformModal from './components/PlatformModal.vue';
+  import { useModal } from '/@/components/Modal';
+  const [register2, { openModal: platformClick }] = useModal();
   const { t } = useI18n();
 </script>
 <style scoped></style>

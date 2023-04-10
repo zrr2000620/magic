@@ -4,6 +4,10 @@ export default {
   campaign: 'Campaign Payment Record',
   back: 'Back',
   remarks: 'Platform Remarks',
+  available: 'Available',
+  expired: 'Expired',
+  paid: 'Paid',
+  progressName: '1000 text message credits',
   table: {
     orderNum: 'Order number',
     subTime: 'Subscription time',
@@ -27,6 +31,7 @@ export default {
     expiration: 'Expiration time',
   },
   orderDes: {
+    orderDetialName: 'Order number',
     usage: 'Usage',
     time: 'Suvscription time',
     merchant: 'Merchant name',
