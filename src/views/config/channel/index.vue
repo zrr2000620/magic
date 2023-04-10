@@ -34,8 +34,8 @@
               <span style="font-weight: 700">{{ item.name }}</span>
               <span style="font-size: 5px; font-weight: 400">{{ item.iconDes }}</span>
               <Switch
-                checked-children="On"
-                un-checked-children="off"
+                :checked-children="t('config.channel.on')"
+                :un-checked-children="t('config.channel.off')"
                 v-model:checked="checked.check"
               />
             </div>
@@ -68,8 +68,8 @@
               <span style="font-weight: 700">{{ item.name }}</span>
               <span style="font-size: 5px; font-weight: 400">{{ item.iconDes }}</span>
               <Switch
-                checked-children="On"
-                un-checked-children="off"
+                :checked-children="t('config.channel.on')"
+                :un-checked-children="t('config.channel.off')"
                 v-model:checked="checked.check"
               />
             </div>

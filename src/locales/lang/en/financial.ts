@@ -1,7 +1,11 @@
 export default {
   financialStatement: '  Financial statement',
   dataOverview: 'Data overview',
+  finacialFlow: 'Finacial Flow',
   income: 'All income($)  ',
+  day: 'Day',
+  week: 'Week',
+  month: 'Month',
   operate: 'operate',
   incomeName: 'Income',
   revenue: 'Subscription revenue($)',
@@ -29,5 +33,6 @@ export default {
     notes: 'Notes',
     remake: 'Remake',
     note: 'Note',
+    operate: 'operate',
   },
 };

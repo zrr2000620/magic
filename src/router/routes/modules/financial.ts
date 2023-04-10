@@ -28,7 +28,7 @@ const financial: AppRouteModule = {
       component: () => import('/@/views/financial/flow/index.vue'),
       meta: {
         // affix: true,
-        title: t('financial.dataOverview'),
+        title: t('financial.finacialFlow'),
       },
     },
   ],
