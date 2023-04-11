@@ -6,23 +6,9 @@
   import { ref } from 'vue';
   import Chart from './Chart.vue';
   import Table from './Table.vue';
+  import { useI18n } from '/@/hooks/web/useI18n';
 
-  const help = `
-  Monthly recurring income (MRR) is the monthly value of the company's recurring (subscription) income. The MRR can be divided into five parts:
-
-New MRR: filter out users who have not paid before the month of x. The total amount paid in the month of x
-
-Retained MRR
-
-Expansion MRR: Revenue in x month - revenue from non-new users in x-1 month, where revenue in x month is greater than revenue in x-1 month (0 if less than)
-
-Resurrected MRR of old users: the revenue of Contacts who are not new users and have not paid in the x-1 month
-
-Contract MRR: revenue from non-new users in x-1 month - revenue from non-new users in x-1 month (where the MRR revenue in x-1 month is less than the MRR revenue in x-1 month, and if it is greater, the statistics is 0)
-
-Churn MRR: filter the revenue amount of users who have no revenue in x-1 month and have revenue in x-1 month
-  `;
-
+  const { t } = useI18n();
   const currentKey = ref('chart');
 
   const [registerForm] = useForm({
@@ -32,7 +18,7 @@ Churn MRR: filter the revenue amount of users who have no revenue in x-1 month a
         field: '1',
         component: 'Select',
         componentProps: {
-          placeholder: 'View by month',
+          placeholder: t('analysis.texts.viewMonthPlaceholder'),
         },
         colProps: {
           flex: '300px',
@@ -43,7 +29,7 @@ Churn MRR: filter the revenue amount of users who have no revenue in x-1 month a
         field: '2',
         component: 'Select',
         componentProps: {
-          placeholder: 'From the first month',
+          placeholder: t('analysis.texts.fromMonthPlaceholder'),
         },
         colProps: {
           flex: '300px',
@@ -54,7 +40,7 @@ Churn MRR: filter the revenue amount of users who have no revenue in x-1 month a
         field: '3',
         component: 'Select',
         componentProps: {
-          placeholder: 'Until the last full month',
+          placeholder: t('analysis.texts.untilMonthPlaceholder'),
         },
         colProps: {
           flex: '300px',
@@ -72,7 +58,9 @@ Churn MRR: filter the revenue amount of users who have no revenue in x-1 month a
 <template>
   <PageWrapper content-full-height dense>
     <Card>
-      <BasicTitle :help-message="help" class="mb-5"> User MRR Analysis </BasicTitle>
+      <BasicTitle :help-message="t('analysis.texts.titleHelp')" class="mb-5">
+        {{ t('analysis.texts.userMMRTitle') }}
+      </BasicTitle>
 
       <BasicForm @register="registerForm">
         <template #formHeader>
@@ -83,7 +71,7 @@ Churn MRR: filter the revenue amount of users who have no revenue in x-1 month a
                 :class="{ 'text-blue-400': currentKey === 'chart' }"
                 @click="currentKey = 'chart'"
               >
-                Chart
+                {{ t('analysis.texts.chart') }}
               </span>
               <Divider type="vertical" />
               <span
@@ -91,7 +79,7 @@ Churn MRR: filter the revenue amount of users who have no revenue in x-1 month a
                 :class="{ 'text-blue-400': currentKey === 'sheet' }"
                 @click="currentKey = 'sheet'"
               >
-                Sheet
+                {{ t('analysis.texts.sheet') }}
               </span>
             </div>
           </Col>

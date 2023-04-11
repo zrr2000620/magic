@@ -10,7 +10,7 @@ const analysis: AppRouteModule = {
   redirect: '/analysis/user',
   meta: {
     icon: 'simple-icons:about-dot-me',
-    title: t('Analysis Center '),
+    title: t('analysis.menus.analysis'),
     orderNo: 4,
   },
   children: [
@@ -19,7 +19,7 @@ const analysis: AppRouteModule = {
       name: 'UserMMRAnalysis',
       component: () => import('/@/views/analysis/UserMRRAnalysis/index.vue'),
       meta: {
-        title: t('User MRR Analysis'),
+        title: t('analysis.menus.userMMR'),
       },
     },
     {
@@ -27,7 +27,7 @@ const analysis: AppRouteModule = {
       name: 'LifeTimeAnalysis',
       component: () => import('/@/views/analysis/LifeTimeAnalysis/index.vue'),
       meta: {
-        title: t('Life time value(LTV) Analysis'),
+        title: t('analysis.menus.lifeTime'),
       },
     },
   ],
