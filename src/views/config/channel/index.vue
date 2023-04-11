@@ -109,7 +109,13 @@
   import { Card, Row, Col, Avatar, Switch } from 'ant-design-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { reactive } from 'vue';
+  // interface Item {
+  //   checked: boolean;
+  //   imgSrc: string;
+  // }
+
   const { t } = useI18n();
+
   const checked = reactive({ check: true });
 </script>
 <style scoped lang="less">

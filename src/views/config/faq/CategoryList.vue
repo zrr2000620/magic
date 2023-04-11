@@ -54,7 +54,8 @@
   async function loadList() {
     try {
       loading.value = true;
-      await getFAQCategoryList();
+      const data = await getFAQCategoryList();
+      dataSource.value = data;
     } finally {
       loading.value = false;
     }
