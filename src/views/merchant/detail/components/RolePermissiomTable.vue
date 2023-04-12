@@ -1,23 +1,25 @@
 <script setup lang="ts">
   import { Row, Col, Divider, Alert, Checkbox, TypographyText } from 'ant-design-vue';
+  import { useI18n } from '/@/hooks/web/useI18n';
+  const { t } = useI18n();
 </script>
 
 <template>
   <Alert
-    message="Kind tips"
-    description="Do not directly change the permission settings of the merchant. If you need to change, please obtain the consent of the merchantbefore making adjustments"
+    :message="t('merchant.texts.kindTips')"
+    :description="t('merchant.texts.kindTipDesc')"
     show-icon
   />
   <Row style="margin-top: 20px">
-    <Col span="6"> Administrative</Col>
-    <Col span="6" class="text-center"> Account Owner</Col>
-    <Col span="6" class="text-center"> Team Leader</Col>
-    <Col span="6" class="text-center"> Team Me</Col>
+    <Col span="6"> {{ t('merchant.texts.administrative') }}</Col>
+    <Col span="6" class="text-center"> {{ t('merchant.texts.accountOwner') }}</Col>
+    <Col span="6" class="text-center"> {{ t('merchant.texts.teamLeader') }}</Col>
+    <Col span="6" class="text-center"> {{ t('merchant.texts.teamMember') }}</Col>
   </Row>
   <Divider />
   <Row style="margin-top: 20px">
     <Col span="6">
-      <TypographyText type="secondary">Manage Settings</TypographyText>
+      <TypographyText type="secondary">{{ t('merchant.texts.manageSetting') }}</TypographyText>
     </Col>
     <Col span="6" class="text-center">
       <Checkbox />
@@ -31,7 +33,7 @@
   </Row>
   <Row style="margin-top: 20px">
     <Col span="6">
-      <TypographyText type="secondary"> Manage Users</TypographyText>
+      <TypographyText type="secondary"> {{ t('merchant.texts.manageUser') }}</TypographyText>
     </Col>
     <Col span="6" class="text-center">
       <Checkbox />

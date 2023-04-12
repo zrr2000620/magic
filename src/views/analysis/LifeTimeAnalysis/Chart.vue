@@ -5,9 +5,6 @@
   const { setOptions } = useECharts(chartRef);
 
   setOptions({
-    title: {
-      text: 'Stacked Line',
-    },
     tooltip: {
       trigger: 'axis',
     },

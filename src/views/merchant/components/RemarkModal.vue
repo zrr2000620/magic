@@ -1,5 +1,11 @@
 <template>
-  <BasicModal v-bind="$attrs" @register="register" @ok="handleOk" title="Note" ok-text="Confirm">
+  <BasicModal
+    v-bind="$attrs"
+    @register="register"
+    @ok="handleOk"
+    :title="t('merchant.texts.remark')"
+    :ok-text="t('common.confirmText')"
+  >
     <div class="pt-3px pr-3px">
       <BasicForm @register="registerForm" />
     </div>
@@ -15,7 +21,6 @@
   const emit = defineEmits(['success']);
   const id = ref();
   const { t } = useI18n();
-  t('');
   const schemas: FormSchema[] = [
     {
       label: '',

@@ -5,15 +5,17 @@
         <Row justify="space-between">
           <Col>
             <TypographyTitle :level="5">
-              Description of the total number of merchants
+              {{ t('merchant.texts.merchantTotalDesc') }}
             </TypographyTitle>
             <TypographyText type="secondary">
-              An overview of the overall number of merchants on the platform
+              {{ t('merchant.texts.platformMerchant') }}
             </TypographyText>
           </Col>
 
           <Col>
-            <TypographyText type="secondary"> Calculated on: 2021-07-28 00:18:28 </TypographyText>
+            <TypographyText type="secondary">
+              {{ t('merchant.texts.Calculated') }} 2021-07-28 00:18:28
+            </TypographyText>
           </Col>
         </Row>
         <Space class="mt-5" :size="20">
@@ -21,12 +23,12 @@
           <Statistic title="7-28(Wed)" value="319" />
           <Space direction="vertical">
             <div>
-              <span>YoY</span>
+              <span> {{ t('merchant.texts.YoY') }}</span>
               <Icon color="rgb(248, 113, 113)" icon="material-symbols:arrow-downward-rounded" />
               <span class="text-red-400">5.38%</span>
             </div>
             <div>
-              <span>MoM</span>
+              <span> {{ t('merchant.texts.MoM') }}</span>
               <Icon color="rgb(52, 211, 153)" icon="ic:baseline-arrow-upward" />
               <span class="text-green-400">5.38%</span>
             </div>
@@ -37,14 +39,16 @@
       <CardGrid style="width: 50%; height: 250px" :hoverable="false">
         <Row justify="space-between">
           <Col>
-            <TypographyTitle :level="5"> Merchant composition structure </TypographyTitle>
+            <TypographyTitle :level="5"> {{ t('merchant.texts.merchantStruct') }} </TypographyTitle>
             <TypographyText type="secondary">
-              Type composition of platform merchants
+              {{ t('merchant.texts.platformMerchantType') }}
             </TypographyText>
           </Col>
 
           <Col>
-            <TypographyText type="secondary"> Calculated on: 2021-07-28 00:18:28 </TypographyText>
+            <TypographyText type="secondary">
+              {{ t('merchant.texts.Calculated') }}: 2021-07-28 00:18:28
+            </TypographyText>
           </Col>
         </Row>
         <Row justify="space-between">
@@ -63,12 +67,14 @@
       <CardGrid style="width: 50%; height: 500px" :hoverable="false">
         <Row justify="space-between" class="mb-5">
           <Col>
-            <TypographyTitle :level="5"> Merchant Subscription times </TypographyTitle>
+            <TypographyTitle :level="5">
+              {{ t('merchant.texts.merchantSubTimes') }}
+            </TypographyTitle>
           </Col>
 
           <Col>
             <TypographyText type="secondary">
-              Percentage of merchant payment times in the past 90 days
+              {{ t('merchant.texts.past90Days') }}
             </TypographyText>
           </Col>
         </Row>
@@ -101,11 +107,15 @@
       <CardGrid style="width: 50%; height: 500px" :hoverable="false">
         <Row justify="space-between">
           <Col>
-            <TypographyTitle :level="5"> Business industry distribution </TypographyTitle>
+            <TypographyTitle :level="5">
+              {{ t('merchant.texts.merchantIndustry') }}
+            </TypographyTitle>
           </Col>
 
           <Col>
-            <TypographyText type="secondary"> The Merchant Industry </TypographyText>
+            <TypographyText type="secondary">
+              {{ t('merchant.texts.merchantIndustryDesc') }}
+            </TypographyText>
           </Col>
         </Row>
         <div class="h-[400px]" ref="businessChartRef"> </div>
@@ -114,11 +124,15 @@
       <CardGrid style="width: 50%; height: 500px" :hoverable="false">
         <Row justify="space-between" class="mb-5">
           <Col>
-            <TypographyTitle :level="5"> Number of business locations </TypographyTitle>
+            <TypographyTitle :level="5">
+              {{ t('merchant.texts.businessLocationNum') }}
+            </TypographyTitle>
           </Col>
 
           <Col>
-            <TypographyText type="secondary"> The number of business locations </TypographyText>
+            <TypographyText type="secondary">
+              {{ t('merchant.texts.businessLocationNumDesc') }}
+            </TypographyText>
           </Col>
         </Row>
         <Row :gutter="[50, 20]">
@@ -150,11 +164,15 @@
       <CardGrid style="width: 50%; height: 500px" :hoverable="false">
         <Row justify="space-between" class="mb-5">
           <Col>
-            <TypographyTitle :level="5"> Company population distribution </TypographyTitle>
+            <TypographyTitle :level="5">
+              {{ t('merchant.texts.companyDistribution') }}
+            </TypographyTitle>
           </Col>
 
           <Col>
-            <TypographyText type="secondary"> Business population distribution </TypographyText>
+            <TypographyText type="secondary">
+              {{ t('merchant.texts.companyDistributionDesc') }}
+            </TypographyText>
           </Col>
         </Row>
         <Row :gutter="[50, 20]">
@@ -186,12 +204,14 @@
       <CardGrid style="width: 50%; height: 500px" :hoverable="false">
         <Row justify="space-between">
           <Col>
-            <TypographyTitle :level="5"> Use distribution </TypographyTitle>
+            <TypographyTitle :level="5">
+              {{ t('merchant.texts.useDistribution') }}
+            </TypographyTitle>
           </Col>
 
           <Col>
             <TypographyText type="secondary">
-              Distribution of reasons why merchants use Magic
+              {{ t('merchant.texts.useMagicCause') }}
             </TypographyText>
           </Col>
         </Row>
@@ -201,11 +221,15 @@
       <CardGrid style="width: 50%; height: 500px" :hoverable="false">
         <Row justify="space-between">
           <Col>
-            <TypographyTitle :level="5"> Channel distribution </TypographyTitle>
+            <TypographyTitle :level="5">
+              {{ t('merchant.texts.channelDistribution') }}
+            </TypographyTitle>
           </Col>
 
           <Col>
-            <TypographyText type="secondary"> How did merchants hear about Magic? </TypographyText>
+            <TypographyText type="secondary">
+              {{ t('merchant.texts.channelDistributionDesc') }}
+            </TypographyText>
           </Col>
         </Row>
         <div class="h-[400px]" ref="channelChartRef"> </div>
@@ -231,6 +255,9 @@
   import { Icon } from '/@/components/Icon';
   import { ref, onMounted } from 'vue';
   import { useECharts } from '/@/hooks/web/useECharts';
+  import { useI18n } from 'vue-i18n';
+
+  const { t } = useI18n();
 
   const structChartRef = ref();
   const { setOptions: setStructOptions } = useECharts(structChartRef);

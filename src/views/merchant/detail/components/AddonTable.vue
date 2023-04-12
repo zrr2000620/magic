@@ -15,52 +15,52 @@
     rowKey: 'id',
     columns: [
       {
-        title: 'Order number',
+        title: t('merchant.texts.orderNumber'),
         dataIndex: 'question',
         width: 150,
         ellipsis: true,
       },
       {
-        title: 'Purchase time',
+        title: t('merchant.texts.purchaseTime'),
         dataIndex: 'classifyName',
         width: 150,
         ellipsis: true,
       },
       {
-        title: 'Location',
+        title: t('merchant.texts.subLocation'),
         dataIndex: 'showTimes',
         width: 200,
         ellipsis: true,
       },
       {
-        title: 'Number of purchases',
+        title: t('merchant.texts.purchaseNum'),
         dataIndex: 'createTime',
         width: 200,
         ellipsis: true,
       },
       {
-        title: 'Payment amount',
+        title: t('merchant.texts.payAmount'),
         dataIndex: 'createdBy',
         width: 200,
         ellipsis: true,
       },
       {
-        title: 'Payment status',
+        title: t('merchant.texts.payStatus'),
         dataIndex: 'tags',
         width: 200,
       },
       {
-        title: 'Expire date',
+        title: t('merchant.texts.expireDate'),
         dataIndex: 'isShow',
         width: 150,
       },
       {
-        title: 'Payment method',
+        title: t('merchant.texts.payMethod'),
         dataIndex: 'isShow',
         width: 200,
       },
       {
-        title: 'Subscribe Notes',
+        title: t('merchant.texts.subRemark'),
         dataIndex: 'isShow',
         width: 300,
         ellipsis: true,
@@ -72,7 +72,7 @@
       schemas: [
         {
           field: `range`,
-          label: 'Expire date',
+          label: t('merchant.texts.expireDate'),
           component: 'RangePicker',
           colProps: {
             span: 8,
@@ -85,7 +85,7 @@
         },
         {
           field: `range`,
-          label: 'Purchase time',
+          label: t('merchant.texts.purchaseTime'),
           component: 'RangePicker',
           colProps: {
             span: 8,
@@ -98,7 +98,7 @@
         },
         {
           field: `range`,
-          label: 'Platform',
+          label: t('merchant.texts.platform'),
           component: 'Select',
           colProps: {
             span: 8,

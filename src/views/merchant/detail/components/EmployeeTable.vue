@@ -12,28 +12,28 @@
     rowKey: 'id',
     columns: [
       {
-        title: "Employee's name",
+        title: t('merchant.texts.employerName'),
         dataIndex: 'question',
         width: 150,
         ellipsis: true,
       },
       {
-        title: 'E-mail',
+        title: t('merchant.texts.email'),
         dataIndex: 'classifyName',
         width: 200,
       },
       {
-        title: 'Phone number',
+        title: t('merchant.texts.mobile'),
         dataIndex: 'showTimes',
         width: 200,
       },
       {
-        title: 'Location',
+        title: t('merchant.texts.locations'),
         dataIndex: 'tags',
         width: 200,
       },
       {
-        title: 'Roles and Permissions',
+        title: t('merchant.texts.roleAndPerimission'),
         dataIndex: 'isShow',
         width: 200,
         ellipsis: true,
@@ -44,7 +44,7 @@
       colon: true,
       schemas: [
         {
-          field: 'keywords',
+          field: t('merchant.texts.keywords'),
           colProps: { span: '8' },
           label: '',
           component: 'Input',
