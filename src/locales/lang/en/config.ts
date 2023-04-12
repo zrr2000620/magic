@@ -39,6 +39,16 @@ export default {
       contentTwo: `2. It should be noted that if the platform closes the channel, businesses that do not have access to this channel can no longer access this channel. Merchants who\n have access to this channel can no longer use this channel`,
     },
   },
+  message: {
+    headerContent: 'You can manage message sending rules and Add-on prices',
+    save: 'Save',
+    label: 'The number of times a merchant can send messages to the same user per month:',
+    tableName: 'Add-on  price：',
+    afterLabel: 'pieces/month',
+    addOn: 'text message add-on',
+    total: 'Total($)',
+    oper: 'operation',
+  },
   trial: {
     permissions: 'Function permissions：',
     home: 'Home',

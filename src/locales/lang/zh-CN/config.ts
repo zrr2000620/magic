@@ -39,6 +39,16 @@ export default {
       contentTwo: `2.需要注意的是平台若关闭渠道，未接入此渠道的商家，不可再接入此渠道。已接入此渠道的商家不可再使用此渠道`,
     },
   },
+  message: {
+    headerContent: '可管理消息发送规则',
+    save: '保存更改',
+    label: '每月商家可向同一个用户发送消息次数：',
+    tableName: '附加消息次数价格：',
+    afterLabel: '条/月',
+    addOn: '发送条数',
+    total: '合计价格($)',
+    oper: '操作',
+  },
   trial: {
     permissions: '功能权限：',
     day: '天',
