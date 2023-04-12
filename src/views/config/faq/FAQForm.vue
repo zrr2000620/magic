@@ -61,11 +61,6 @@
         valueField: 'id',
         placeholder: t('config.faq.categoryPlaceholder'),
       },
-      rules: [
-        {
-          required: true,
-        },
-      ],
       itemProps: {
         required: true,
       },

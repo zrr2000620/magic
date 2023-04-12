@@ -1,9 +1,8 @@
 import { defHttp } from '/@/utils/http/axios';
-export const upload = (params, onUploadProgress) =>
+export const upload = (params) =>
   defHttp.uploadFile(
     {
       url: '/file/upload',
-      onUploadProgress,
     },
     params,
   );

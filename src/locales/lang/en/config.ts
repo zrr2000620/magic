@@ -134,6 +134,15 @@ export default {
     videoLabel: 'Video',
     videoPlaceholder: 'Please choose video file',
     detailLabel: 'Detail',
+    汽车: '汽车',
+    牙科: '牙科',
+    金融服务: '金融服务',
+    美发美容: '美发&美容',
+    卫生保健: '卫生保健',
+    家政服务: '家政服务',
+    专项服务: '专项服务',
+    零售: '零售',
+    其他行业: '其他行业',
   },
   protocol: {
     headerContent:

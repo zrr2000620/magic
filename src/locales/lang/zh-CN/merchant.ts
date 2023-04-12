@@ -22,7 +22,7 @@ export default {
   },
   texts: {
     statusNormal: '正常',
-    statusBanned: '封装',
+    statusBanned: '封禁',
     rangeConcatNum: '请输入顾客数量范围',
     tagRadioByAny: '满足任意一个标签',
     tagRadioByAll: '同时满足所有标签',
@@ -107,6 +107,9 @@ export default {
     modifyExpireDateCardUseNumsLabel: '当前可用次数',
     modifyExpireDateCardExpireDateLabel: '到期时间',
     modifyExpireDateCardModifyExpireDateLabel: '修改到期时间',
+    shiyong14: '14天试用',
+    basicPlan: 'Basic Plan',
+    essentialPlan: 'EssentialPlan',
 
     //stats
     merchantTotalDesc: '商家总数说明',
@@ -128,6 +131,8 @@ export default {
     useMagicCause: '商家使用Magic原因分布',
     channelDistribution: '听说渠道分布',
     channelDistributionDesc: '商家是如何听说到Magic的?',
+    enable: '启用',
+    disable: '封禁',
 
     //details
     rate: '评分',

@@ -32,15 +32,15 @@ const dashboard: AppRouteModule = {
         title: t('routes.config.trail'),
       },
     },
-    {
-      path: 'message',
-      name: 'Message',
-      component: () => import('/@/views/config/campaign/index.vue'),
-      meta: {
-        // affix: true,
-        title: t('routes.config.message'),
-      },
-    },
+    // {
+    //   path: 'message',
+    //   name: 'Message',
+    //   component: () => import('/@/views/config/campaign/index.vue'),
+    //   meta: {
+    //     // affix: true,
+    //     title: t('routes.config.message'),
+    //   },
+    // },
     {
       path: 'subscribe',
       name: 'Subscribe',
