@@ -35,11 +35,21 @@ const dashboard: AppRouteModule = {
     {
       path: 'message',
       name: 'Message',
-      component: () => import('/@/views/system/admin-list/index.vue'),
+      component: () => import('/@/views/config/message/index.vue'),
       meta: {
         // affix: true,
         title: t('routes.config.message'),
       },
+      children: [
+        {
+          path: 'message',
+          name: 'messageSetting',
+          meta: {
+            title: t('routes.config.message'),
+            hideMenu: true,
+          },
+        },
+      ],
     },
     {
       path: 'subscribe',
