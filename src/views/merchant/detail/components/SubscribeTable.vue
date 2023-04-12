@@ -15,74 +15,79 @@
     rowKey: 'id',
     columns: [
       {
-        title: 'Order number',
+        title: t('merchant.texts.orderNumber'),
         dataIndex: 'question',
         width: 150,
         ellipsis: true,
       },
       {
-        title: 'Subscription time',
+        title: t('merchant.texts.subTime'),
         dataIndex: 'classifyName',
         width: 150,
         ellipsis: true,
       },
       {
-        title: 'Location',
+        title: t('merchant.texts.subLocation'),
         dataIndex: 'showTimes',
         width: 200,
         ellipsis: true,
       },
       {
-        title: 'Subscription plan',
+        title: t('merchant.texts.subPlan'),
         dataIndex: 'createTime',
         width: 200,
         ellipsis: true,
       },
       {
-        title: 'Subscription type',
+        title: t('merchant.texts.subMethod'),
         dataIndex: 'createdBy',
         width: 200,
         ellipsis: true,
       },
       {
-        title: 'Payment amount',
+        title: t('merchant.texts.payAmount'),
         dataIndex: 'tags',
         width: 200,
       },
       {
-        title: 'Balance deduction',
+        title: t('merchant.texts.balanceDeduction'),
         dataIndex: 'isShow',
         width: 200,
         ellipsis: true,
       },
       {
-        title: 'Refund balance amount',
+        title: t('merchant.texts.refundBalance'),
         dataIndex: 'isShow',
         width: 200,
       },
       {
-        title: 'Payment status',
+        title: t('merchant.texts.payStatus'),
         dataIndex: 'isShow',
         width: 150,
       },
       {
-        title: 'Subscription status',
+        title: t('merchant.texts.subStatus'),
         dataIndex: 'isShow',
         width: 150,
       },
       {
-        title: 'Subscription way',
+        title: t('merchant.texts.subWay'),
         dataIndex: 'isShow',
         width: 200,
         ellipsis: true,
       },
       {
-        title: 'Expire date',
+        title: t('merchant.texts.expireDate'),
         dataIndex: 'isShow',
         width: 150,
       },
       {
-        title: 'Payment method Subscribe Notes',
+        title: t('merchant.texts.payMethod'),
+        dataIndex: 'isShow',
+        width: 200,
+      },
+      {
+        title: t('merchant.texts.subRemark'),
         dataIndex: 'isShow',
         width: 300,
       },
@@ -93,7 +98,7 @@
       schemas: [
         {
           field: `industry`,
-          label: 'Subscription type',
+          label: t('merchant.texts.subMethod'),
           component: 'Select',
           componentProps: {
             options: [
@@ -113,7 +118,7 @@
         },
         {
           field: `range`,
-          label: 'Subscription time',
+          label: t('merchant.texts.subTime'),
           component: 'RangePicker',
           colProps: {
             span: 8,
@@ -126,7 +131,7 @@
         },
         {
           field: `range`,
-          label: 'Subscriptionc plan',
+          label: t('merchant.texts.subPlan'),
           component: 'Select',
           colProps: {
             span: 8,
@@ -163,7 +168,7 @@
               // confirm: handlerChangeStatus.bind(null, record),
             },
             {
-              label: 'Details',
+              label: t('merchant.actions.detail'),
             },
           ]"
         >

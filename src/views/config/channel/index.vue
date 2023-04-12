@@ -8,35 +8,18 @@
         t('config.channel.channelList.InboxChannel')
       }}</div>
       <Row :gutter="20" justify="start">
-        <Col
-          :span="4"
-          v-for="(item, index) in [
-            { name: t('config.channel.iconNameList.SMS'), iconDes: t('config.channel.iconDes') },
-            { name: t('config.channel.iconNameList.Email'), iconDes: t('config.channel.iconDes') },
-            {
-              name: t('config.channel.iconNameList.FacebookMessenger'),
-              iconDes: t('config.channel.iconDes'),
-            },
-            {
-              name: t('config.channel.iconNameList.InstagramMessenger'),
-              iconDes: t('config.channel.iconDes'),
-            },
-            {
-              name: t('config.channel.iconNameList.Webchat'),
-              iconDes: t('config.channel.iconDes'),
-            },
-          ]"
-          :key="index"
-        >
+        <Col :span="4" v-for="(item, index) in messageItems" :key="index">
           <Card>
             <div class="carItem"
-              ><Avatar :size="80" />
-              <span style="font-weight: 700">{{ item.name }}</span>
-              <span style="font-size: 5px; font-weight: 400">{{ item.iconDes }}</span>
+              ><Avatar :size="80" :src="item.imgSrc" />
+              <span style="font-weight: 700">{{ item.text }}</span>
+              <span style="font-size: 5px; font-weight: 400">{{
+                t('config.channel.iconDes', { num: item.num })
+              }}</span>
               <Switch
                 :checked-children="t('config.channel.on')"
                 :un-checked-children="t('config.channel.off')"
-                v-model:checked="checked.check"
+                v-model:checked="item.checked"
               />
             </div>
           </Card>
@@ -46,31 +29,18 @@
         t('config.channel.channelList.ReviewSite')
       }}</div>
       <Row :gutter="20" justify="start" style="margin-bottom: 20px">
-        <Col
-          :span="4"
-          v-for="(item, index) in [
-            { name: t('config.channel.iconNameList.SMS'), iconDes: t('config.channel.iconDes') },
-            { name: t('config.channel.iconNameList.Email'), iconDes: t('config.channel.iconDes') },
-            {
-              name: t('config.channel.iconNameList.FacebookMessenger'),
-              iconDes: t('config.channel.iconDes'),
-            },
-            {
-              name: t('config.channel.iconNameList.InstagramMessenger'),
-              iconDes: t('config.channel.iconDes'),
-            },
-          ]"
-          :key="index"
-        >
+        <Col :span="4" v-for="(item, index) in siteItems" :key="index">
           <Card>
             <div class="carItem"
-              ><Avatar :size="80" />
-              <span style="font-weight: 700">{{ item.name }}</span>
-              <span style="font-size: 5px; font-weight: 400">{{ item.iconDes }}</span>
+              ><Avatar :size="80" :src="item.imgSrc" />
+              <span style="font-weight: 700">{{ item.text }}</span>
+              <span style="font-size: 5px; font-weight: 400">{{
+                t('config.channel.iconDes', { num: item.num })
+              }}</span>
               <Switch
                 :checked-children="t('config.channel.on')"
                 :un-checked-children="t('config.channel.off')"
-                v-model:checked="checked.check"
+                v-model:checked="item.checked"
               />
             </div>
           </Card>
@@ -108,15 +78,83 @@
   import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
   import { Card, Row, Col, Avatar, Switch } from 'ant-design-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
-  import { reactive } from 'vue';
-  // interface Item {
-  //   checked: boolean;
-  //   imgSrc: string;
-  // }
+  import { ref } from 'vue';
+  import smsSrc from '/@/assets/images/sms-channel.png';
+  import emailSrc from '/@/assets/images/email-channel.png';
+  import facebookSrc from '/@/assets/images/facebook-channel.png';
+  import instagramSrc from '/@/assets/images/instagram-channel.png';
+  import webchartSrc from '/@/assets/images/webchar-channel.png';
+  import googleBusSrc from '/@/assets/images/google-channel.svg';
+  import facebookBusSrc from '/@/assets/images/facebook-bus.svg';
+  import trustpilotSrc from '/@/assets/images/trustpilot-channel.svg';
+  import yelpSrc from '/@/assets/images/yelp-channel.svg';
+  interface Item {
+    checked: boolean;
+    imgSrc: string;
+    num: number;
+    text: string;
+  }
 
   const { t } = useI18n();
 
-  const checked = reactive({ check: true });
+  const messageItems = ref<Item[]>([
+    {
+      checked: false,
+      imgSrc: smsSrc,
+      num: 0,
+      text: t('config.channel.iconNameList.SMS'),
+    },
+    {
+      checked: false,
+      imgSrc: emailSrc,
+      num: 0,
+      text: t('config.channel.iconNameList.Email'),
+    },
+    {
+      checked: false,
+      imgSrc: facebookSrc,
+      num: 0,
+      text: t('config.channel.iconNameList.FacebookMessenger'),
+    },
+    {
+      checked: false,
+      imgSrc: instagramSrc,
+      num: 0,
+      text: t('config.channel.iconNameList.InstagramMessenger'),
+    },
+    {
+      checked: false,
+      imgSrc: webchartSrc,
+      num: 0,
+      text: t('config.channel.iconNameList.Webchat'),
+    },
+  ]);
+  const siteItems = ref<Item[]>([
+    {
+      checked: false,
+      imgSrc: googleBusSrc,
+      num: 0,
+      text: t('config.channel.iconNameList.GoogleBusiness'),
+    },
+    {
+      checked: false,
+      imgSrc: facebookBusSrc,
+      num: 0,
+      text: t('config.channel.iconNameList.FacebookBusiness'),
+    },
+    {
+      checked: false,
+      imgSrc: trustpilotSrc,
+      num: 0,
+      text: t('config.channel.iconNameList.Trustpilot'),
+    },
+    {
+      checked: false,
+      imgSrc: yelpSrc,
+      num: 0,
+      text: t('config.channel.iconNameList.Yelp'),
+    },
+  ]);
 </script>
 <style scoped lang="less">
   .carItem {

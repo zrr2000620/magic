@@ -12,8 +12,9 @@
             class="hover:bg-blue-200 hover:bg-opacity-25 transition duration-300 ease-in-out"
           >
             <template #actions>
-              <a>{{ t('config.faq.disabled') }}</a>
-              <a>{{ t('config.faq.enable') }}</a>
+              <a @click="handlerStatusChange(item)">{{
+                item.isDelete ? t('config.faq.enable') : t('config.faq.disabled')
+              }}</a>
               <a @click="() => handlerEdit(item)">{{ t('config.faq.Edit') }}</a>
             </template>
             <div class="px-2"> {{ item.classifyName }} </div>
@@ -32,7 +33,7 @@
   import { useModal } from '/@/components/Modal';
   import FAQlistModalForm from './components/FAQlistModalForm.vue';
   import { ref } from 'vue';
-  import { getFAQCategoryList } from '/@/api/config/faq';
+  import { editFAQCategory, getFAQCategoryList } from '/@/api/config/faq';
   const loading = ref(false);
   const dataSource = ref([]);
   const { t } = useI18n();
@@ -56,6 +57,19 @@
       loading.value = true;
       const data = await getFAQCategoryList();
       dataSource.value = data;
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function handlerStatusChange(record) {
+    try {
+      loading.value = true;
+      await editFAQCategory({
+        id: record.id,
+        isDelete: record.isDelete ? 0 : 1,
+      });
+      loadList();
     } finally {
       loading.value = false;
     }

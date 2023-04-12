@@ -5,11 +5,12 @@
         <Button type="primary" @click="openTagModal()">{{ t('merchant.actions.batchTag') }}</Button>
         <Button>{{ t('merchant.actions.excelExport') }}</Button>
       </template>
-      <template #bodyCell="{ column }">
-        <template v-if="column.key === 'isShow'">
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.key === 'merchantStatus'">
           <Switch
             :checked-children="t('merchant.texts.statusNormal')"
             :un-checked-children="t('merchant.texts.statusBanned')"
+            :checked="!!record.merchantStatus"
           />
         </template>
         <template v-if="column.key === 'action'">
@@ -89,6 +90,7 @@
   import { DownOutlined, CaretDownOutlined } from '@ant-design/icons-vue';
   import TableTags from '/@/components/TableTags/index.vue';
   import { useGo } from '/@/hooks/web/usePage';
+  import { getMerchantList } from '/@/api/merchant';
   const go = useGo();
   const { t } = useI18n();
   const total = ref(0);
@@ -103,111 +105,111 @@
   const [registerChangeExpireDateModal, { openModal: openChangeExpireDateModal }] = useModal();
   const [registerChangeSubscribeModal, { openModal: openChangeSubscribeModal }] = useModal();
   const [registerTable] = useTable({
-    dataSource: [{}, {}, {}],
+    api: getMerchantList,
     useSearchForm: true,
     showIndexColumn: false,
     bordered: true,
-    rowKey: 'id',
+    rowKey: 'uid',
     columns: [
       {
         title: t('merchant.texts.merchantID'),
-        dataIndex: 'question',
+        dataIndex: 'uid',
         width: 150,
         ellipsis: true,
       },
       {
         title: t('merchant.texts.merchantName'),
-        dataIndex: 'classifyName',
+        dataIndex: 'MerchantName',
         width: 200,
         ellipsis: true,
       },
       {
         title: t('merchant.texts.holder'),
-        dataIndex: 'showTimes',
+        dataIndex: 'name',
         width: 150,
         ellipsis: true,
       },
       {
         title: t('merchant.texts.mobile'),
-        dataIndex: 'createTime',
+        dataIndex: 'RegisterPhoneNumber',
         width: 200,
       },
       {
         title: t('merchant.texts.email'),
-        dataIndex: 'createdBy',
+        dataIndex: 'mail',
         width: 200,
         ellipsis: true,
       },
       {
         title: t('merchant.texts.merchantTag'),
-        dataIndex: 'tags',
+        dataIndex: '',
         width: 200,
       },
       {
         title: t('merchant.texts.industry'),
-        dataIndex: 'isShow',
+        dataIndex: 'industryName',
         width: 200,
         ellipsis: true,
       },
       {
         title: t('merchant.texts.businessLocation'),
-        dataIndex: 'isShow',
+        dataIndex: 'businessLocation',
         width: 100,
       },
       {
         title: t('merchant.texts.revenueAmount'),
-        dataIndex: 'isShow',
+        dataIndex: '',
         width: 300,
       },
       {
         title: t('merchant.texts.averageScore'),
-        dataIndex: 'isShow',
+        dataIndex: 'averageScore',
         width: 200,
       },
       {
         title: t('merchant.texts.contactNum'),
-        dataIndex: 'isShow',
+        dataIndex: 'contacts',
         width: 200,
       },
       {
         title: t('merchant.texts.subscribeContactNum'),
-        dataIndex: 'isShow',
+        dataIndex: 'subscribedContacts',
         width: 300,
       },
       {
         title: t('merchant.texts.registrationTime'),
-        dataIndex: 'isShow',
+        dataIndex: 'registrationTime',
         width: 150,
       },
       {
         title: t('merchant.texts.subscribePlan'),
-        dataIndex: 'isShow',
+        dataIndex: 'subscriptionPackage',
         width: 300,
         ellipsis: true,
       },
       {
         title: t('merchant.texts.expireDate'),
-        dataIndex: 'isShow',
+        dataIndex: 'expirationTime',
         width: 150,
       },
       {
         title: t('merchant.texts.subscribePayAmount'),
-        dataIndex: 'isShow',
+        dataIndex: '',
         width: 300,
       },
       {
         title: t('merchant.texts.messageNumAmount'),
-        dataIndex: 'isShow',
+        dataIndex: '',
         width: 300,
       },
       {
         title: t('merchant.texts.status'),
-        dataIndex: 'isShow',
+        dataIndex: 'merchantStatus',
         width: 150,
       },
       {
         title: t('merchant.texts.remark'),
-        dataIndex: 'isShow',
+        dataIndex: '',
         width: 300,
         ellipsis: true,
       },
@@ -217,7 +219,7 @@
       colon: true,
       schemas: [
         {
-          field: `question`,
+          field: `type`,
           label: t('merchant.texts.keywords'),
           component: 'FieldInput',
           colProps: {
@@ -269,7 +271,7 @@
             }),
         },
         {
-          field: `industry`,
+          field: `industryName`,
           label: t('merchant.texts.industry'),
           component: 'Select',
           componentProps: {

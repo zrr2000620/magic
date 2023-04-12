@@ -14,81 +14,91 @@
   } from './components';
   import { ref } from 'vue';
   import { useI18n } from '/@/hooks/web/useI18n';
+  import { useRootSetting } from '/@/hooks/setting/useRootSetting';
+  import { useRouter } from 'vue-router';
 
+  const { currentRoute } = useRouter();
+  const { setRootSetting } = useRootSetting();
   const { t } = useI18n();
-  t('');
   const currentKey = ref('1');
+  currentRoute.value.meta.title = t(currentRoute.value.meta.title) + ' | asdsda';
+  setRootSetting({
+    showBreadCrumb: false,
+  });
+  setRootSetting({
+    showBreadCrumb: true,
+  });
 
   const descSchemas: DescItem[] = [
     {
-      label: 'Merchant name',
+      label: t('merchant.texts.merchantName'),
       field: '',
     },
     {
-      label: 'Owner',
+      label: t('merchant.texts.holder'),
       field: '',
     },
     {
-      label: 'Phone number',
+      label: t('merchant.texts.mobile'),
       field: '',
     },
     {
-      label: 'E-mail',
+      label: t('merchant.texts.email'),
       field: '',
     },
     {
-      label: 'Registration time',
+      label: t('merchant.texts.registrationTime'),
       field: '',
     },
     {
-      label: 'Industry',
+      label: t('merchant.texts.industry'),
       field: '',
     },
     {
-      label: 'Location',
+      label: t('merchant.texts.businessLocation'),
       field: '',
     },
     {
-      label: 'Rating',
+      label: t('merchant.texts.rate'),
       field: '',
     },
     {
-      label: 'Number of contacts',
+      label: t('merchant.texts.contactNum'),
       field: '',
     },
     {
-      label: 'Number of contacts subscribed',
+      label: t('merchant.texts.subscribeContactNum'),
       field: '',
     },
     {
-      label: 'Cumulative income amount',
+      label: t('merchant.texts.revenueAmount'),
       field: '',
     },
     {
-      label: 'Review amount',
+      label: t('merchant.texts.commentNum'),
       field: '',
     },
     {
-      label: 'Total purchases of subscriptions',
+      label: t('merchant.texts.subscribePayAmount'),
       field: '',
     },
     {
-      label: 'Total add-on purchases',
+      label: t('merchant.texts.messageNumAmount'),
       field: '',
     },
     {
-      label: 'Merchant Status',
+      label: t('merchant.texts.status'),
       field: '',
     },
   ];
 
   const descSchemas2: DescItem[] = [
     {
-      label: 'Merchant tag',
+      label: t('merchant.texts.merchantTag'),
       field: '',
     },
     {
-      label: 'Remark',
+      label: t('merchant.texts.remark'),
       field: '',
     },
   ];
@@ -96,31 +106,31 @@
   const tabs = [
     {
       key: '1',
-      tab: 'Review rating',
+      tab: t('merchant.texts.reviewRating'),
     },
     {
       key: '2',
-      tab: 'Subscription record',
+      tab: t('merchant.texts.subRecord'),
     },
     {
       key: '3',
-      tab: 'Add-on purchase record',
+      tab: t('merchant.texts.addonRecord'),
     },
     {
       key: '4',
-      tab: 'Concat',
+      tab: t('merchant.texts.concat'),
     },
     {
       key: '5',
-      tab: 'Employee list',
+      tab: t('merchant.texts.employerList'),
     },
     {
       key: '6',
-      tab: 'Locations',
+      tab: t('merchant.texts.locations'),
     },
     {
       key: '7',
-      tab: 'Roles and Perimissions',
+      tab: t('merchant.texts.roleAndPerimission'),
     },
   ];
 
@@ -161,16 +171,19 @@
             <Col>
               <Row :gutter="[0, 40]">
                 <Col span="12">
-                  <Statistic title="Last payment date" value="2022-06-13" />
+                  <Statistic :title="t('merchant.texts.lastPaymentDate')" value="2022-06-13" />
                 </Col>
                 <Col span="12">
-                  <Statistic title="Total paid times" value="8" />
+                  <Statistic :title="t('merchant.texts.totalPaidTotal')" value="8" />
                 </Col>
                 <Col span="12">
-                  <Statistic title="Total consumption" value="$11,475.00" />
+                  <Statistic :title="t('merchant.texts.totalConsumption')" value="$11,475.00" />
                 </Col>
                 <Col span="12">
-                  <Statistic title="Average cost per charge" value="$11,475.00" />
+                  <Statistic
+                    :title="t('merchant.texts.averageConstPerCharge')"
+                    value="$11,475.00"
+                  />
                 </Col>
               </Row>
             </Col>
@@ -222,7 +235,7 @@
       </template>
 
       <template #extra v-if="currentKey === '7'">
-        <AButton type="primary">Save</AButton>
+        <AButton type="primary">{{ t('common.saveText') }}</AButton>
       </template>
     </Card>
   </PageWrapper>

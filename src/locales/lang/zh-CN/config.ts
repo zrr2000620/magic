@@ -20,7 +20,7 @@ export default {
       InboxChannel: '消息频道',
       ReviewSite: '评论站点',
     },
-    iconDes: '接入商家：109',
+    iconDes: '接入商家：{num}',
     iconNameList: {
       SMS: 'SMS',
       Email: 'Email',

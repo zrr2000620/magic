@@ -58,6 +58,7 @@
       },
     ],
     actionColOptions: { span: 20 },
+    colon: true,
   });
   async function handleSubmit() {
     try {
@@ -72,7 +73,7 @@
       {
         field: `${n.value}`,
         component: 'Input',
-        label: ' ',
+        label: '',
         slot: 'add',
       },
       '',

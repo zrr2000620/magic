@@ -1,14 +1,17 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue';
   import { useECharts } from '/@/hooks/web/useECharts';
+  import { useI18n } from '/@/hooks/web/useI18n';
   const chartRef = ref();
   const { setOptions } = useECharts(chartRef);
+  const { t } = useI18n();
 
   onMounted(() => {
     setOptions({
       title: {
-        text: 'Proportion of paid items',
+        text: t('merchant.texts.paidItemsProp'),
         bottom: 'bottom',
+        left: 'middle',
       },
       legend: {
         orient: 'vertical',

@@ -12,45 +12,45 @@
     rowKey: 'id',
     columns: [
       {
-        title: 'User name',
+        title: t('merchant.texts.username'),
         dataIndex: 'question',
         width: 150,
         ellipsis: true,
       },
       {
-        title: 'Phone number',
+        title: t('merchant.texts.mobile'),
         dataIndex: 'classifyName',
         width: 200,
       },
       {
-        title: 'E-mail',
+        title: t('merchant.texts.email'),
         dataIndex: 'showTimes',
         width: 200,
         ellipsis: true,
       },
       {
-        title: 'Connected platform',
+        title: t('merchant.texts.connectedPlatform'),
         dataIndex: 'createTime',
         width: 200,
       },
       {
-        title: 'subscription status',
+        title: t('merchant.texts.subStatus'),
         dataIndex: 'createdBy',
         width: 200,
         ellipsis: true,
       },
       {
-        title: 'Location',
+        title: t('merchant.texts.locations'),
         dataIndex: 'tags',
         width: 200,
       },
       {
-        title: 'User tag',
+        title: t('merchant.texts.userTag'),
         dataIndex: 'isShow',
         width: 200,
       },
       {
-        title: 'Merchant Remarks',
+        title: t('merchant.texts.merchantRemark'),
         dataIndex: 'isShow',
         width: 300,
         ellipsis: true,
