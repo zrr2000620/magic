@@ -16,7 +16,7 @@
       </div>
       <div class="tagList">
         <List item-layout="horizontal">
-          <ListItem v-for="(item, index) in [{}]" :key="index">
+          <ListItem v-for="item in tagDataSource" :key="item">
             <template #actions>
               <Button class="icon" style="color: rgb(215 215 217)" type="text"
                 ><MenuFoldOutlined /> <span>{{ t('config.tag.up') }}</span></Button
@@ -24,54 +24,59 @@
               <Button class="icon" type="text"
                 ><MenuUnfoldOutlined /><span>{{ t('config.tag.down') }}</span></Button
               >
-              <Button class="icon" type="text" @click="addTag"
+              <Button class="icon" type="text" @click="updateTag(item)"
                 ><FormOutlined /><span>{{ t('config.tag.edit') }}</span></Button
               >
             </template>
             <ListItemMeta>
               <template #title>
-                <span style="font-size: 20px">Tag group 1</span>
+                <span style="font-size: 20px">{{ item.merchantGroupName }}</span>
               </template>
               <template #description>
-                <template v-for="(tag, ini) in state.tags" :key="ini">
+                <template v-for="(tag, ind) in item.label.split(',')" :key="ind">
                   <Tooltip :title="tag" v-if="tag.length > 10">
                     <Tag> {{ `${tag.slice(0, 20)}...` }}</Tag>
                   </Tooltip>
-                  <Tag v-else :closable="index !== 0">
+                  <Tag v-else :closable="ind !== 0">
                     {{ tag }}
                   </Tag>
                 </template>
                 <Input
+                  :key="item.id"
                   size="small"
                   ref="inputRef"
-                  v-model:value="state.inputValue"
                   type="text"
                   :style="{ width: '78px' }"
-                  v-if="state.inputVisible"
-                  @keyup.enter="handleInputConfirm"
-                  @blur="handleInputConfirm"
+                  v-if="item.inputVisible"
+                  @keyup.enter="handleInputConfirm(item.id)"
+                  @blur="handleInputConfirm(item.id)"
+                  v-model:value="state.inputValue"
                 />
-                <Tag v-else @click="showInput" style="background: #fff; border-style: dashed">
+                <Tag
+                  v-else
+                  @click="showInput(item.id)"
+                  style="background: #fff; border-style: dashed"
+                >
                   {{ t('config.tag.add') }}</Tag
                 >
               </template>
-              <ListItem>
-                <template #actions>
-                  <div>222</div>
-                </template></ListItem
-              >
             </ListItemMeta>
           </ListItem>
         </List>
       </div>
     </template>
-    <TagModal @register="register" /> </PageWrapper
+    <TagModal
+      @tagDataSource="tagDataSource"
+      @register="register"
+      @success="lodaingTagList"
+    /> </PageWrapper
 ></template>
 
 <script lang="ts" setup>
   import { useI18n } from 'vue-i18n';
   import { MenuFoldOutlined, MenuUnfoldOutlined, FormOutlined } from '@ant-design/icons-vue';
   import TagModal from './components/TagModal.vue';
+  import { editTag, getTagList } from '/@/api/config/tag';
   import {
     Tag,
     Tooltip,
@@ -85,40 +90,74 @@
     InputSearch,
     Input,
   } from 'ant-design-vue';
-  import { nextTick, reactive, ref } from 'vue';
+  import { reactive, ref } from 'vue';
   import { PageWrapper } from '/@/components/Page';
   import { useModal } from '/@/components/Modal';
+  interface tagItem {
+    createTime: string;
+    id: number;
+    isDelete: number;
+    label: string;
+    merchantGroupName: string;
+    updateTime: string;
+    inputVisible: boolean;
+    inputValue: string;
+  }
+
   const { t } = useI18n();
   const rrf = ref('op1');
-  const [register, { openModal: addTag }] = useModal();
+  const [register, { openModal }] = useModal();
+  const tagDataSource = ref<[tagItem]>();
+  const loading = ref(false);
   const state = reactive({
-    tags: ['Unremovable', 'Tag 2', 'Tag 3Tag 3Tag 3Tag 3Tag 3Tag 3Tag 3'],
+    tags: [''],
     inputVisible: false,
     inputValue: '',
   });
   const inputRef = ref();
-  const showInput = () => {
-    state.inputVisible = true;
-    console.log(inputRef);
-
-    nextTick(() => {
-      inputRef.value[0].focus();
+  const showInput = (id: number) => {
+    tagDataSource.value?.filter((x) => {
+      if (x.id === id) {
+        x.inputVisible = true;
+      }
     });
   };
-  const handleInputConfirm = () => {
-    const inputValue = state.inputValue;
-    let tags = state.tags;
-    if (inputValue && tags.indexOf(inputValue) === -1) {
-      tags = [...tags, inputValue];
+  const handleInputConfirm = (id: number) => {
+    tagDataSource.value?.filter(async (x) => {
+      if (x.id === id) {
+        x.inputValue = '';
+        const inputValue = state.inputValue;
+        const tagLabel = x.label.split(',');
+        let tags = state.tags;
+        console.log(inputValue && tags.indexOf(inputValue));
+
+        if (inputValue && tags.indexOf(inputValue) === -1) {
+          tags = [...tagLabel, inputValue];
+        }
+        try {
+          await editTag({ id: id, label: tags.toString() });
+          x.inputVisible = false;
+          lodaingTagList();
+        } catch (error) {}
+      }
+    });
+  };
+  function addTag() {
+    openModal(true);
+  }
+  function updateTag(record) {
+    openModal(true, record);
+  }
+  async function lodaingTagList() {
+    try {
+      loading.value = true;
+      const data = await getTagList();
+      tagDataSource.value = data;
+    } catch (error) {
+      loading.value = false;
     }
-    console.log(tags);
-
-    Object.assign(state, {
-      tags,
-      inputVisible: false,
-      inputValue: '',
-    });
-  };
+  }
+  lodaingTagList();
 </script>
 <style lang="less" scoped>
   .header {
@@ -137,5 +176,10 @@
     display: flex;
     align-items: center;
     gap: 5px;
+  }
+
+  .tagItem {
+    display: flex;
+    gap: 15px;
   }
 </style>
