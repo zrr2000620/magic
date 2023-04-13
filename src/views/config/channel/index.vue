@@ -3,7 +3,7 @@
     <template #headerContent>
       <span>{{ t('config.channel.headerContent') }}</span>
     </template>
-    <Card>
+    <Card :loading="loading">
       <div style="font-size: 20px; font-weight: 500; margin-bottom: 15px">{{
         t('config.channel.channelList.InboxChannel')
       }}</div>
@@ -40,7 +40,8 @@
               <Switch
                 :checked-children="t('config.channel.on')"
                 :un-checked-children="t('config.channel.off')"
-                v-model:checked="item.checked"
+                :checked="item.checked"
+                @change="handlerStatusChange(item)"
               />
             </div>
           </Card>
@@ -88,6 +89,7 @@
   import facebookBusSrc from '/@/assets/images/facebook.png';
   import trustpilotSrc from '/@/assets/images/trustpilot.png';
   import yelpSrc from '/@/assets/images/yelp-channel.svg';
+  import { changeChannel, getChannelList } from '/@/api/config/channel';
   interface Item {
     checked: boolean;
     imgSrc: string;
@@ -96,6 +98,7 @@
   }
 
   const { t } = useI18n();
+  const loading = ref(false);
 
   const messageItems = ref<Item[]>([
     {
@@ -155,6 +158,30 @@
       text: t('config.channel.iconNameList.Yelp'),
     },
   ]);
+
+  async function loadChannelList() {
+    try {
+      loading.value = true;
+      await getChannelList();
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function handlerStatusChange(record) {
+    try {
+      loading.value = true;
+      await changeChannel({
+        id: record.id,
+        isEnable: record.isEnable ? 0 : 1,
+      });
+      loadChannelList();
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  loadChannelList();
 </script>
 <style scoped lang="less">
   .carItem {
