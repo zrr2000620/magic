@@ -16,52 +16,58 @@
       </div>
       <div class="tagList">
         <List item-layout="horizontal">
-          <ListItem v-for="item in tagDataSource" :key="item">
-            <template #actions>
-              <Button class="icon" style="color: rgb(215 215 217)" type="text"
-                ><MenuFoldOutlined /> <span>{{ t('config.tag.up') }}</span></Button
-              >
-              <Button class="icon" type="text"
-                ><MenuUnfoldOutlined /><span>{{ t('config.tag.down') }}</span></Button
-              >
-              <Button class="icon" type="text" @click="updateTag(item)"
-                ><FormOutlined /><span>{{ t('config.tag.edit') }}</span></Button
-              >
-            </template>
-            <ListItemMeta>
-              <template #title>
-                <span style="font-size: 20px">{{ item.merchantGroupName }}</span>
-              </template>
-              <template #description>
-                <template v-for="(tag, ind) in item.label.split(',')" :key="ind">
-                  <Tooltip :title="tag" v-if="tag.length > 10">
-                    <Tag> {{ `${tag.slice(0, 20)}...` }}</Tag>
-                  </Tooltip>
-                  <Tag v-else :closable="ind !== 0">
-                    {{ tag }}
-                  </Tag>
-                </template>
-                <Input
-                  :key="item.id"
-                  size="small"
-                  ref="inputRef"
+          <TransitionGroup name="flip-list">
+            <ListItem v-for="(item, index) in tagDataSource" :key="item.id">
+              <template #actions>
+                <Button @click="handlerUp(index)" class="icon" type="text" :disabled="index === 0"
+                  ><MenuFoldOutlined /> <span>{{ t('config.tag.up') }}</span></Button
+                >
+                <Button
+                  @click="handlerDown(index)"
+                  :disabled="index === tagDataSource.length - 1"
+                  class="icon"
                   type="text"
-                  :style="{ width: '78px' }"
-                  v-if="item.inputVisible"
-                  @keyup.enter="handleInputConfirm(item.id)"
-                  @blur="handleInputConfirm(item.id)"
-                  v-model:value="state.inputValue"
-                />
-                <Tag
-                  v-else
-                  @click="showInput(item.id)"
-                  style="background: #fff; border-style: dashed"
+                  ><MenuUnfoldOutlined /><span>{{ t('config.tag.down') }}</span></Button
                 >
-                  {{ t('config.tag.add') }}</Tag
+                <Button class="icon" type="text" @click="updateTag(item)"
+                  ><FormOutlined /><span>{{ t('config.tag.edit') }}</span></Button
                 >
               </template>
-            </ListItemMeta>
-          </ListItem>
+              <ListItemMeta>
+                <template #title>
+                  <span style="font-size: 20px">{{ item.merchantGroupName }}</span>
+                </template>
+                <template #description>
+                  <template v-for="(tag, ind) in item.label.split(',')" :key="ind">
+                    <Tooltip :title="tag" v-if="tag.length > 10">
+                      <Tag> {{ `${tag.slice(0, 20)}...` }}</Tag>
+                    </Tooltip>
+                    <Tag v-else :closable="ind !== 0">
+                      {{ tag }}
+                    </Tag>
+                  </template>
+                  <Input
+                    :key="item.id"
+                    size="small"
+                    ref="inputRef"
+                    type="text"
+                    :style="{ width: '78px' }"
+                    v-if="item.inputVisible"
+                    @keyup.enter="handleInputConfirm(item.id)"
+                    @blur="handleInputConfirm(item.id)"
+                    v-model:value="state.inputValue"
+                  />
+                  <Tag
+                    v-else
+                    @click="showInput(item.id)"
+                    style="background: #fff; border-style: dashed"
+                  >
+                    {{ t('config.tag.add') }}</Tag
+                  >
+                </template>
+              </ListItemMeta>
+            </ListItem>
+          </TransitionGroup>
         </List>
       </div>
     </template>
@@ -107,7 +113,7 @@
   const { t } = useI18n();
   const rrf = ref('op1');
   const [register, { openModal }] = useModal();
-  const tagDataSource = ref<[tagItem]>();
+  const tagDataSource = ref<tagItem[]>([]);
   const loading = ref(false);
   const state = reactive({
     tags: [''],
@@ -148,12 +154,26 @@
   function updateTag(record) {
     openModal(true, record);
   }
+  function handlerUp(index) {
+    tagDataSource.value[index] = tagDataSource.value.splice(
+      index - 1,
+      1,
+      tagDataSource.value[index],
+    )[0];
+  }
+  function handlerDown(index) {
+    tagDataSource.value[index] = tagDataSource.value.splice(
+      index + 1,
+      1,
+      tagDataSource.value[index],
+    )[0];
+  }
   async function lodaingTagList() {
     try {
       loading.value = true;
       const data = await getTagList();
       tagDataSource.value = data;
-    } catch (error) {
+    } finally {
       loading.value = false;
     }
   }
@@ -181,5 +201,9 @@
   .tagItem {
     display: flex;
     gap: 15px;
+  }
+
+  .flip-list-move {
+    transition: transform 1s;
   }
 </style>
