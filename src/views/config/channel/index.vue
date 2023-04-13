@@ -7,12 +7,12 @@
       <div style="font-size: 20px; font-weight: 500; margin-bottom: 15px">{{
         t('config.channel.channelList.InboxChannel')
       }}</div>
-      <Row :gutter="20" justify="start">
-        <Col :span="4" v-for="(item, index) in messageItems" :key="index">
+      <Row :gutter="[20, 20]" justify="start">
+        <Col v-for="(item, index) in messageItems" :key="index">
           <Card>
             <div class="carItem"
               ><Avatar :size="80" :src="item.imgSrc" />
-              <span style="font-weight: 700">{{ item.text }}</span>
+              <TypographyTitle :level="5" ellipsis>{{ item.text }}</TypographyTitle>
               <span style="font-size: 5px; font-weight: 400">{{
                 t('config.channel.iconDes', { num: item.num })
               }}</span>
@@ -28,12 +28,12 @@
       <div style="font-size: 20px; font-weight: 500; margin-bottom: 15px">{{
         t('config.channel.channelList.ReviewSite')
       }}</div>
-      <Row :gutter="20" justify="start" style="margin-bottom: 20px">
-        <Col :span="4" v-for="(item, index) in siteItems" :key="index">
+      <Row :gutter="[20, 20]" justify="start" style="margin-bottom: 20px">
+        <Col v-for="(item, index) in siteItems" :key="index">
           <Card>
             <div class="carItem"
               ><Avatar :size="80" :src="item.imgSrc" />
-              <span style="font-weight: 700">{{ item.text }}</span>
+              <TypographyTitle :level="5" ellipsis>{{ item.text }}</TypographyTitle>
               <span style="font-size: 5px; font-weight: 400">{{
                 t('config.channel.iconDes', { num: item.num })
               }}</span>
@@ -76,7 +76,7 @@
 <script lang="ts" setup>
   import { PageWrapper } from '/@/components/Page';
   import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
-  import { Card, Row, Col, Avatar, Switch } from 'ant-design-vue';
+  import { Card, Row, Col, Avatar, Switch, TypographyTitle } from 'ant-design-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { ref } from 'vue';
   import smsSrc from '/@/assets/images/sms-channel.png';
@@ -162,6 +162,8 @@
     align-items: center;
     flex-direction: column;
     gap: 10px;
+    width: 208px;
+    height: 180px;
   }
 
   .card {

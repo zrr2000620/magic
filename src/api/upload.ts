@@ -3,7 +3,7 @@ export const upload = (params, onUploadProgress) =>
   defHttp
     .uploadFile(
       {
-        url: '/file/upload',
+        url: '/magic-admin/file/upload',
         onUploadProgress,
       },
       params,
