@@ -1,0 +1,2 @@
+POST http://localhost:5173/magic-admin/file/upload
+token: 98b7595bfdc8468a9be6a6e13773631e

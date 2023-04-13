@@ -149,7 +149,7 @@ export class VAxios {
       method: 'POST',
       data: formData,
       headers: {
-        'Content-type': ContentTypeEnum.FORM_DATA,
+        'Content-Type': ContentTypeEnum.FORM_DATA,
         // @ts-ignore
         ignoreCancelToken: true,
       },

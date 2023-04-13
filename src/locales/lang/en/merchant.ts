@@ -107,6 +107,9 @@ export default {
     useMagicCause: 'Distribution of reasons why merchants use Magic',
     channelDistribution: 'Channel distribution',
     channelDistributionDesc: 'How did merchants hear about Magic?',
+    shiyong14: '14天试用',
+    basicPlan: 'Basic Plan',
+    essentialPlan: 'EssentialPlan',
 
     //details
     rate: 'Rating',

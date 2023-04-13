@@ -91,8 +91,10 @@
   import TableTags from '/@/components/TableTags/index.vue';
   import { useGo } from '/@/hooks/web/usePage';
   import { getMerchantList } from '/@/api/merchant';
+  import { searchDateTimeRangeCover, searchFieldInputCover } from '/@/utils/table';
   const go = useGo();
   const { t } = useI18n();
+  const type = ref();
   const total = ref(0);
   const selectedRowKeys = ref<number[]>([]);
   const chooseTotalText = computed(() =>
@@ -219,7 +221,7 @@
       colon: true,
       schemas: [
         {
-          field: `type`,
+          field: `keywords`,
           label: t('merchant.texts.keywords'),
           component: 'FieldInput',
           colProps: {
@@ -229,25 +231,28 @@
             options: [
               {
                 label: t('merchant.texts.merchantID'),
-                value: '1',
+                value: 'userId',
               },
               {
                 label: t('merchant.texts.merchantName'),
-                value: '1',
+                value: 'merchantName',
               },
               {
                 label: t('merchant.texts.holder'),
-                value: '1',
+                value: 'name',
               },
               {
                 label: t('merchant.texts.mobile'),
-                value: '1',
+                value: 'phone',
               },
               {
                 label: t('merchant.texts.email'),
-                value: '1',
+                value: 'mail',
               },
             ],
+            onTypeChange: (e) => {
+              type.value = e;
+            },
           },
         },
         {
@@ -277,12 +282,40 @@
           componentProps: {
             options: [
               {
-                label: t('config.faq.enableOption'),
-                value: 1,
+                label: t('config.faq.汽车'),
+                value: '汽车',
               },
               {
-                label: t('config.faq.disableOption'),
-                value: 0,
+                label: t('config.faq.牙科'),
+                value: '牙科',
+              },
+              {
+                label: t('config.faq.金融服务'),
+                value: '金融服务',
+              },
+              {
+                label: t('config.faq.美发美容'),
+                value: '美发&美容',
+              },
+              {
+                label: t('config.faq.卫生保健'),
+                value: '卫生保健',
+              },
+              {
+                label: t('config.faq.家政服务'),
+                value: '家政服务',
+              },
+              {
+                label: t('config.faq.专项服务'),
+                value: '专项服务',
+              },
+              {
+                label: t('config.faq.零售'),
+                value: '零售',
+              },
+              {
+                label: t('config.faq.其他行业'),
+                value: '其他行业',
               },
             ],
           },
@@ -338,9 +371,25 @@
         {
           field: `question`,
           label: t('merchant.texts.subscribePlan'),
-          component: 'Input',
+          component: 'Select',
           colProps: {
             span: 8,
+          },
+          componentProps: {
+            options: [
+              {
+                label: t('merchant.texts.shiyong14'),
+                value: 1,
+              },
+              {
+                label: t('merchant.texts.basicPlan'),
+                value: 2,
+              },
+              {
+                label: t('merchant.texts.essentialPlan'),
+                value: 3,
+              },
+            ],
           },
         },
         {
@@ -382,6 +431,18 @@
           colProps: {
             span: 8,
           },
+          componentProps: {
+            options: [
+              {
+                label: t('merchant.texts.statusNormal'),
+                value: 1,
+              },
+              {
+                label: t('merchant.texts.statusBanned'),
+                value: 0,
+              },
+            ],
+          },
         },
       ],
       showAdvancedButton: false,
@@ -401,6 +462,8 @@
       },
     },
     title: chooseTotalText,
+    beforeFetch: (params) =>
+      searchDateTimeRangeCover(searchFieldInputCover(params, type.value, 'keywords'), 'range'),
   });
 </script>
 <style scoped></style>
