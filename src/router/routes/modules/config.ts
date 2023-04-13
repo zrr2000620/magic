@@ -67,7 +67,7 @@ const dashboard: AppRouteModule = {
           meta: {
             title: t('system.role.roleFormCardTitle'),
             hideMenu: true,
-            currentActiveMenu: '/subscribe/edit',
+            currentActiveMenu: '/config/subscribe',
           },
         },
       ],
