@@ -85,8 +85,8 @@
   import instagramSrc from '/@/assets/images/instagram-channel.png';
   import webchartSrc from '/@/assets/images/webchar-channel.png';
   import googleBusSrc from '/@/assets/images/google-channel.svg';
-  import facebookBusSrc from '/@/assets/images/facebook-bus.svg';
-  import trustpilotSrc from '/@/assets/images/trustpilot-channel.svg';
+  import facebookBusSrc from '/@/assets/images/facebook.png';
+  import trustpilotSrc from '/@/assets/images/trustpilot.png';
   import yelpSrc from '/@/assets/images/yelp-channel.svg';
   interface Item {
     checked: boolean;

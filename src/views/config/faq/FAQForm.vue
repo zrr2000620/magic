@@ -190,12 +190,13 @@
   async function handlerSave() {
     const infoForm = await infoValid();
     const contentForm = await contentValid();
+    const { video, ...restContentForm } = contentForm;
     const formValues = {
       ...infoForm,
-      ...contentForm,
+      ...restContentForm,
       id: faqId.value,
       isShow: infoForm.isShow ? 1 : 0,
-      videoUrl: contentForm.video?.[0],
+      videoUrl: video?.[0],
     };
     if (faqId.value) {
       await editFAQ(formValues);

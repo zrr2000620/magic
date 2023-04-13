@@ -108,6 +108,13 @@ const dashboard: AppRouteModule = {
         title: t('routes.config.addFAQ'),
         hideMenu: true,
         currentActiveMenu: '/config/faq/list',
+        ignoreKeepAlive: true,
+      },
+      beforeEnter: (to, _, next) => {
+        if (to.params.id) {
+          to.meta.title = t('routes.config.editFAQ');
+        }
+        next();
       },
     },
     {

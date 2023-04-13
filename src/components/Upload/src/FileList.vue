@@ -80,6 +80,7 @@
 
     .left {
       text-align: left;
+      word-break: break-word;
     }
 
     .right {
