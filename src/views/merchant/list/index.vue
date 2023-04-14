@@ -64,7 +64,7 @@
       </template>
     </BasicTable>
 
-    <TagsModal @register="registerTagModal" />
+    <TagsModal @register="registerTagModal" @confirm="(e) => (tagValue = e)" />
     <RemarkModal @register="registerRemarkModal" />
     <AddonsMessageModal @register="registerAddonsMessageModal" />
     <ChangeExpireDateModal @register="registerChangeExpireDateModal" />
@@ -96,10 +96,12 @@
   const { t } = useI18n();
   const type = ref();
   const total = ref(0);
+  const tagValue = ref<{ type?: number; tags?: string[] }>({});
   const selectedRowKeys = ref<number[]>([]);
   const chooseTotalText = computed(() =>
     t('merchant.texts.chooseTotal', { total: total.value, num: selectedRowKeys.value.length }),
   );
+  const tagsText = computed(() => tagValue.value.tags?.join(',') ?? '');
 
   const [registerTagModal, { openModal: openTagModal, setModalProps: setTagModal }] = useModal();
   const [registerRemarkModal, { openModal: openRemarkModal }] = useModal();
@@ -273,6 +275,7 @@
                 openTagModal();
               },
               placeholder: t('merchant.texts.tagFilterPlaceholder'),
+              value: tagsText.value,
             }),
         },
         {

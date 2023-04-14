@@ -2,6 +2,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { SearchOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
+  import { ref, unref } from 'vue';
   import {
     Input,
     List,
@@ -12,11 +13,27 @@
     RadioGroup,
   } from 'ant-design-vue';
 
-  const [register] = useModalInner(() => {});
+  const emit = defineEmits(['confirm']);
+  const [register, { closeModal }] = useModalInner(() => {});
   const { t } = useI18n();
+  const value = ref({
+    type: 1,
+    tags: [],
+  });
+
+  function handlerConfirm() {
+    emit('confirm', unref(value));
+    closeModal();
+  }
 </script>
 <template>
-  <BasicModal v-bind="$attrs" @register="register" :ok-text="t('common.confirmText')" :width="560">
+  <BasicModal
+    v-bind="$attrs"
+    @register="register"
+    :ok-text="t('common.confirmText')"
+    :width="560"
+    @ok="handlerConfirm"
+  >
     <div class="pt-3px pr-3px">
       <Input class="mb-5">
         <template #prefix>
@@ -24,10 +41,10 @@
         </template>
       </Input>
 
-      <RadioGroup>
-        <Radio> {{ t('merchant.texts.tagRadioByAny') }} </Radio>
-        <Radio> {{ t('merchant.texts.tagRadioByAll') }} </Radio>
-        <Radio> {{ t('merchant.texts.tagRadioBynotTag') }} </Radio>
+      <RadioGroup v-model:value="value.type">
+        <Radio :value="1"> {{ t('merchant.texts.tagRadioByAny') }} </Radio>
+        <Radio :value="2"> {{ t('merchant.texts.tagRadioByAll') }} </Radio>
+        <Radio :value="3"> {{ t('merchant.texts.tagRadioBynotTag') }} </Radio>
       </RadioGroup>
 
       <List>
