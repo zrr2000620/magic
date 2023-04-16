@@ -2,13 +2,13 @@ import { defHttp } from '/@/utils/http/axios';
 
 export const getChannelList = () =>
   defHttp.get({
-    url: '/magic-admin/channel/channels',
+    url: '/channel/channels',
   });
 
 export const changeChannel = (data) =>
   defHttp.post(
     {
-      url: '/magic-admin/channel/isEnable',
+      url: '/channel/isEnable',
       data,
     },
     {
